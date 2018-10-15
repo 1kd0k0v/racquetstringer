@@ -277,7 +277,7 @@ public class SamplingLoop extends Thread {
         return this.isPaused1;
     }
 
-    void finish() {
+    public void finish() {
         isRunning = false;
         interrupt();
     }
