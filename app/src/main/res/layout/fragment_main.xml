@@ -11,10 +11,14 @@
         android:id="@+id/stringTypeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/stringDiameterLayout"
-        app:layout_constraintTop_toTopOf="@+id/stringDiameterLayout">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stringDiameterLayout">
 
 
         <TextView
@@ -25,7 +29,9 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/strings_type_2_lines"
+            android:text="@string/strings_type"
+            android:textStyle="bold"
+            android:textColor="@color/light_green_circle"
             android:textSize="@dimen/main_screen_small_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,12 +69,8 @@
         android:id="@+id/stringDiameterLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/stringTypeLayout"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/headSizeLayout"
         app:layout_constraintTop_toBottomOf="@+id/playPauseButton">
@@ -82,8 +84,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:text="@string/strings_diameter"
+            android:textStyle="bold"
+            android:textColor="@color/light_green_circle"
             android:textSize="@dimen/main_screen_small_text"
-            android:text="@string/strings_diameter_2_lines"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -116,22 +120,49 @@
             app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
     </android.support.constraint.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/displayTensionTextView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/displayTensionConstraintLayout"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/tension_result_background"
         android:elevation="4dp"
-        android:gravity="center"
-        android:text="@string/zero"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/displayTensionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/zero"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/unitsTensionTextVIew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lb"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/displayTensionTextView"
+            app:layout_constraintStart_toStartOf="@+id/displayTensionTextView"
+            app:layout_constraintTop_toBottomOf="@+id/displayTensionTextView" />
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/headSizeLayout"
@@ -151,8 +182,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:text="@string/head_size"
+            android:textStyle="bold"
+            android:textColor="@color/light_green_circle"
             android:textSize="@dimen/main_screen_small_text"
-            android:text="@string/head_size_2_lines"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -187,18 +220,18 @@
 
     <Button
         android:id="@+id/playPauseButton"
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/light_green_circle"
+        android:background="@drawable/pause_background"
         android:drawableLeft="@android:drawable/ic_media_play"
         android:minWidth="120dp"
         android:text="Button"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/displayTensionTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/displayTensionConstraintLayout" />
 
 </android.support.constraint.ConstraintLayout>

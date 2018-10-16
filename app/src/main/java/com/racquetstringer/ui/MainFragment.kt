@@ -8,7 +8,6 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import com.racquetstringer.audioanalyzer.SamplingLoop
 import com.racquetstringer.racquetstringer.R
 import com.racquetstringer.ui.dialog.HeadSizeDialogFragment
@@ -26,25 +25,32 @@ class MainFragment : Fragment() {
 
     lateinit var samplingLoop: SamplingLoop
 
+    private var currentHz: Double = 0.0
+
     fun getSamplingLoopInstance(): SamplingLoop {
         return SamplingLoop(com.racquetstringer.audioanalyzer.SamplingLoop.AnalyzerCallback {
             android.util.Log.d("Amplitude", "Amp: $it");
             activity?.runOnUiThread {
                 if (it > 300 && it < 800) {
-                    // TODO [musashi] use selected racquet
-                    val firstRacquet = com.racquetstringer.businesslogic.Racquet()
-
-                    val displayValue = if (com.racquetstringer.utils.SharedPrefsUtils.areImperialMeasureUnits(context!!)) {
-                        NumberFormatUtils.format(com.racquetstringer.utils.UnitConvertionUtils.kiloToPound(firstRacquet.getStringsTension(it))) + "lb"
-                    } else {
-                        NumberFormatUtils.format(firstRacquet.getStringsTension(it)) + "kg"
-                    }
-
-                    displayTensionTextView.text = displayValue
+                    currentHz = it
+                    displayTension(it)
                 }
             }
 
         }, resources)
+    }
+
+    private fun displayTension(hz: Double) {
+        val racquet = com.racquetstringer.businesslogic.Racquet()
+        var displayValue = ""
+        if (com.racquetstringer.utils.SharedPrefsUtils.areImperialMeasureUnits(context!!)) {
+            displayValue = NumberFormatUtils.format(com.racquetstringer.utils.UnitConvertionUtils.kiloToPound(racquet.getStringsTension(hz)))
+            unitsTensionTextVIew.text = "lb"
+        } else {
+            displayValue = NumberFormatUtils.format(racquet.getStringsTension(hz))
+            unitsTensionTextVIew.text = "kg"
+        }
+        displayTensionTextView.text = displayValue
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,8 +71,10 @@ class MainFragment : Fragment() {
 
         playPauseButton.setOnClickListener {
             if (samplingLoop.isAlive) {
+                playPauseButton.setBackgroundResource(R.drawable.play_background)
                 stopSampling()
             } else {
+                playPauseButton.setBackgroundResource(R.drawable.pause_background)
                 startSampling()
             }
         }
@@ -83,6 +91,20 @@ class MainFragment : Fragment() {
         refreshHeadSizeView()
 
         stringDiameterValue.text = SharedPrefsUtils.getStringsDiameter(activity!!).toString() + getString(R.string.mm)
+
+        displayTensionConstraintLayout.setOnClickListener {
+            if (SharedPrefsUtils.areImperialMeasureUnits(context!!)) {
+                SharedPrefsUtils.setImperialMeasureUnits(context!!, false)
+            } else {
+                SharedPrefsUtils.setImperialMeasureUnits(context!!, true)
+            }
+            refreshViews()
+        }
+    }
+
+    fun refreshViews() {
+        displayTension(currentHz)
+        refreshHeadSizeView()
     }
 
     fun refreshHeadSizeView() {

@@ -24,7 +24,7 @@ class StringDiameterDialogFragment : DialogFragment() {
 
         val unitsTextView = root?.findViewById<TextView>(R.id.unitsTextView)
         val stringsDiameterInputFieldDialog = root?.findViewById<EditText>(R.id.stringsDiameterInputFieldDialog)
-        stringsDiameterInputFieldDialog?.setText(NumberFormatUtils.format(SharedPrefsUtils.getStringsDiameter(activity!!)))
+        stringsDiameterInputFieldDialog?.setText(SharedPrefsUtils.getStringsDiameter(activity!!).toString())
         stringsDiameterInputFieldDialog?.setSelection(stringsDiameterInputFieldDialog.text.length);
         unitsTextView?.text = getString(R.string.mm)
 
