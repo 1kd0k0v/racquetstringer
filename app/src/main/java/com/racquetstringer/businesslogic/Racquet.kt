@@ -17,13 +17,13 @@ class Racquet {
     // Racquet characteristics
 
     // Area of the racquet's head
-    private var S: Double = DEFAULT_S
+    private var S: Double = DefaultRacquetValues.DEFAULT_S
 
     // Density of the string
-    private var rho: Double = DEFAULT_RHO
+    private var rho: Double = DefaultRacquetValues.DEFAULT_RHO
 
     // Diameter of the string
-    private var d: Double = DEFAULT_D
+    private var d: Double = DefaultRacquetValues.DEFAULT_D
 
     // Frequency of string vibration
     private var v: Double = 0.0
@@ -48,12 +48,6 @@ class Racquet {
             const val df = 1.27
             const val Sf = 630.0
         }
-    }
-
-    companion object {
-        const val DEFAULT_S = 98.0
-        const val DEFAULT_RHO = 1.26
-        const val DEFAULT_D = 1.27
     }
 
     init {

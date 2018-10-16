@@ -1,34 +1,55 @@
 package com.racquetstringer.ui
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.racquetstringer.audioanalyzer.SamplingLoop
-import com.racquetstringer.businesslogic.Racquet
 import com.racquetstringer.racquetstringer.R
+import com.racquetstringer.utils.NumberFormatUtils
 import com.racquetstringer.utils.SharedPrefsUtils
 import com.racquetstringer.utils.UnitConvertionUtils
 import kotlinx.android.synthetic.main.fragment_main.*
-import java.math.BigDecimal
-import java.math.RoundingMode
-import java.text.DecimalFormat
 
 class MainFragment : Fragment() {
 
     val RECORD_AUDIO_CODE = 0
+    val HEAD_SIZE_DIALOG_TAG = "HEAD_SIZE_DIALOG_TAG"
 
-    var samplingLoop: SamplingLoop? = null
+    lateinit var samplingLoop: SamplingLoop
+
+    fun getSamplingLoopInstance(): SamplingLoop {
+        return SamplingLoop(com.racquetstringer.audioanalyzer.SamplingLoop.AnalyzerCallback {
+            android.util.Log.d("Amplitude", "Amp: $it");
+            activity?.runOnUiThread {
+                if (it > 300 && it < 800) {
+                    // TODO [musashi] use selected racquet
+                    val firstRacquet = com.racquetstringer.businesslogic.Racquet()
+
+                    val displayValue = if (com.racquetstringer.utils.SharedPrefsUtils.areImperialMeasureUnits(context!!)) {
+                        NumberFormatUtils.format(com.racquetstringer.utils.UnitConvertionUtils.kiloToPound(firstRacquet.getStringsTension(it))) + "lb"
+                    } else {
+                        NumberFormatUtils.format(firstRacquet.getStringsTension(it)) + "kg"
+                    }
+
+                    displayTensionTextView.text = displayValue
+                }
+            }
+
+        }, resources)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        samplingLoop = getSamplingLoopInstance()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.RECORD_AUDIO)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -37,36 +58,47 @@ class MainFragment : Fragment() {
             // TODO [musashi] add this to onResume
             startSampling()
         }
+
+        playPauseButton.setOnClickListener {
+            if (samplingLoop.isAlive) {
+                stopSampling()
+            } else {
+                startSampling()
+            }
+        }
+
+        headSizeLayout.setOnClickListener {
+            HeadSizeChangeDialogFragment().show(fragmentManager, HEAD_SIZE_DIALOG_TAG)
+        }
+
+        val headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
+        if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
+            headSizeValue.text = NumberFormatUtils.format(headSize) + "in"
+        } else {
+            headSizeValue.text = NumberFormatUtils.format(UnitConvertionUtils.inToCm(headSize.toDouble())) + "cm"
+        }
+
+
     }
 
     // TODO [musashi] create spinner like UI to show user that mic is working
     private fun startSampling() {
-        samplingLoop = SamplingLoop(SamplingLoop.AnalyzerCallback {
-            Log.d("Amplitude", "Amp: $it");
-            activity?.runOnUiThread {
-                if (it > 300 && it < 800) {
-                    // TODO [musashi] use selected racquet
-                    val firstRacquet = Racquet()
+        samplingLoop = getSamplingLoopInstance()
+        samplingLoop.start()
 
-                    val decimalFormat = DecimalFormat("#.00")
-                    decimalFormat.roundingMode = RoundingMode.CEILING
+        playPauseButton.setText(R.string.pause)
+        playPauseButton.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_pause, 0, 0, 0)
+    }
 
-                    val displayValue = if (SharedPrefsUtils.areImperialMeasureUnits(context!!)) {
-                        decimalFormat.format(UnitConvertionUtils.kiloToPound(BigDecimal(firstRacquet.getStringsTension(it)))) + "lb"
-                    } else {
-                        decimalFormat.format(firstRacquet.getStringsTension(it)) + "kg"
-                    }
-
-                    displayTensionTextView.text = displayValue
-                }
-            }
-
-        }, resources)
-        samplingLoop?.start()
+    override fun onPause() {
+        super.onPause()
+        stopSampling()
     }
 
     private fun stopSampling() {
-        samplingLoop?.finish()
+        playPauseButton.setText(R.string.play)
+        playPauseButton.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_play, 0, 0, 0)
+        samplingLoop.finish()
     }
 
 

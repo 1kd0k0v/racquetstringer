@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/your_racquet"
+        android:key="pref_key_racquet_details">
+        <Preference
+            android:key="pref_key_head_size"
+            android:title="@string/pref_title_head_size" />
+        <Preference
+            android:key="pref_key_string_diameter"
+            android:title="@string/pref_title_string_diameter" />
+        <Preference
+            android:key="pref_key_string_type"
+            android:title="@string/pref_title_string_type" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/help"
+        android:key="pref_key_help">
+        <Preference
+            android:key="pref_key_instructions"
+            android:title="@string/pref_title_instructions" />
+        <Preference
+            android:key="pref_key_video_instructions"
+            android:title="@string/pref_title_video_instructions" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/about"
+        android:key="pref_key_about">
+        <Preference
+            android:key="pref_key_feedback"
+            android:title="@string/pref_title_feedback"/>
+        <Preference
+            android:key="pref_key_privacy_policy"
+            android:title="@string/pref_title_privacy_policy"/>
+        <Preference
+            android:key="pref_key_app_version"
+            android:title="@string/app_version"/>
+    </PreferenceCategory>
+</PreferenceScreen>

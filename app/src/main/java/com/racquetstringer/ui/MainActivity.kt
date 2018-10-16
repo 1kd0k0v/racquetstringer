@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import com.racquetstringer.racquetstringer.R
+import com.racquetstringer.utils.SharedPrefsUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +19,16 @@ class MainActivity : AppCompatActivity() {
 
         tabLayout.setupWithViewPager(viewPagerMain)
         viewPagerMain.adapter = MainPagerAdapter(applicationContext, supportFragmentManager)
+
+
+//        if (SharedPrefsUtils.isFirstRun(this)) {
+//            SharedPrefsUtils.setFirstRun(this, false)
+//            setDefaultSharedPreferences()
+//        }
     }
+
+//    private fun setDefaultSharedPreferences() {
+//    }
 
     class MainPagerAdapter(val context: Context, fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 

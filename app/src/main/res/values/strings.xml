@@ -5,12 +5,30 @@
     <string name="fft_len_name">FFT LEN::0</string>
     <string name="fft_ave_num_name">N AVE::0</string>
     <string name="strings">Strings</string>
-    <string name="head_size">Head Size</string>
+    <string name="head_size_2_lines">Head\nSize</string>
     <string name="zero">0</string>
     <string name="edit">Edit</string>
-    <string name="racquet_details">The Racquet</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_racquet">Your Racquet</string>
     <string name="measure">Measure</string>
+    <string name="pause">Pause</string>
+    <string name="play">Play</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="strings_diameter_2_lines">Strings\nDiameter</string>
+    <string name="strings_type_2_lines">Strings\nType</string>
+    <string name="diameter">Diameter</string>
+    <string name="type">Type</string>
+    <string name="help">Help</string>
+    <string name="pref_title_head_size">Head Size</string>
+    <string name="pref_title_string_diameter">String Diameter</string>
+    <string name="pref_title_string_type">String Type</string>
+    <string name="about">About</string>
+    <string name="pref_title_instructions">Instructions</string>
+    <string name="pref_title_video_instructions">Video</string>
+    <string name="pref_title_feedback">Feedback</string>
+    <string name="pref_title_privacy_policy">Privacy Policy</string>
+    <string name="app_version">Version</string>
+    <string name="head_size">Head Size</string>
+    <string name="dialog_title_head_size">Enter Racquet\'s head size.</string>
+    <string name="units">Units</string>
 </resources>
