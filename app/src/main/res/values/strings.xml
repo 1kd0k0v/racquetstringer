@@ -20,8 +20,8 @@
     <string name="type">Type</string>
     <string name="help">Help</string>
     <string name="pref_title_head_size">Head Size</string>
-    <string name="pref_title_string_diameter">String Diameter</string>
-    <string name="pref_title_string_type">String Type</string>
+    <string name="pref_title_string_diameter">Strings Diameter</string>
+    <string name="pref_title_string_type">Strings Type</string>
     <string name="about">About</string>
     <string name="pref_title_instructions">Instructions</string>
     <string name="pref_title_video_instructions">Video</string>
@@ -31,4 +31,11 @@
     <string name="head_size">Head Size</string>
     <string name="dialog_title_head_size">Enter Racquet\'s head size.</string>
     <string name="units">Units</string>
+    <string name="square_inch">in\u00B2</string>
+    <string name="square_cm">cm\u00B2</string>
+    <string name="strings_diameter">Strings Diameter</string>
+    <string name="inch">in</string>
+    <string name="cm">cm</string>
+    <string name="mm">mm</string>
+    <string name="synthetic_gut">synthetic gut</string>
 </resources>

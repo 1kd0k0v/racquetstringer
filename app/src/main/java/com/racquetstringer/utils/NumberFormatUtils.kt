@@ -9,4 +9,10 @@ object NumberFormatUtils {
         decimalFormat.roundingMode = java.math.RoundingMode.CEILING
         return decimalFormat.format(number)
     }
+
+    fun round(number: Number): String {
+        val decimalFormat = java.text.DecimalFormat("#")
+        decimalFormat.roundingMode = java.math.RoundingMode.CEILING
+        return decimalFormat.format(number)
+    }
 }

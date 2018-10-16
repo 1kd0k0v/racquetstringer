@@ -12,6 +12,7 @@ object SharedPrefsUtils {
     private const val SHARED_PREFS_UTILS = "SHARED_PREFS_UTILS"
     private const val KEY_IMPERIAL_MEASURE_UNITS = "KEY_IMPERIAL_MEASURE_UNITS"
     private const val KEY_SET_FIRST_RUN = "KEY_SET_FIRST_RUN"
+    private const val KEY_STRINGS_DIAMETER = "KEY_STRINGS_DIAMETER"
     private const val KEY_HEAD_SIZE = "KEY_HEAD_SIZE"
 
     private fun getEditor(context: Context) : SharedPreferences.Editor{
@@ -44,5 +45,13 @@ object SharedPrefsUtils {
 
     fun setRacquetHeadSize(context: Context, headSize: Double) {
         getEditor(context).putFloat(KEY_HEAD_SIZE, headSize.toFloat()).apply()
+    }
+
+    fun getStringsDiameter(context: Context): Float {
+        return getSharedPreferences(context).getFloat(KEY_STRINGS_DIAMETER, DefaultRacquetValues.DEFAULT_D.toFloat())
+    }
+
+    fun setStringsDiameter(context: Context, stringsDiameter: Double) {
+        getEditor(context).putFloat(KEY_STRINGS_DIAMETER, stringsDiameter.toFloat()).apply()
     }
 }

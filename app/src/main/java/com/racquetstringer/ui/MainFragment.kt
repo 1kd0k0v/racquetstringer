@@ -8,8 +8,11 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.racquetstringer.audioanalyzer.SamplingLoop
 import com.racquetstringer.racquetstringer.R
+import com.racquetstringer.ui.dialog.HeadSizeDialogFragment
+import com.racquetstringer.ui.dialog.StringDiameterDialogFragment
 import com.racquetstringer.utils.NumberFormatUtils
 import com.racquetstringer.utils.SharedPrefsUtils
 import com.racquetstringer.utils.UnitConvertionUtils
@@ -19,6 +22,7 @@ class MainFragment : Fragment() {
 
     val RECORD_AUDIO_CODE = 0
     val HEAD_SIZE_DIALOG_TAG = "HEAD_SIZE_DIALOG_TAG"
+    val STRINGS_DIAMETER_DIALOG_TAG = "STRINGS_DIAMETER_DIALOG_TAG"
 
     lateinit var samplingLoop: SamplingLoop
 
@@ -68,17 +72,26 @@ class MainFragment : Fragment() {
         }
 
         headSizeLayout.setOnClickListener {
-            HeadSizeChangeDialogFragment().show(fragmentManager, HEAD_SIZE_DIALOG_TAG)
+            HeadSizeDialogFragment().show(fragmentManager, HEAD_SIZE_DIALOG_TAG)
         }
 
+        stringDiameterLayout.setOnClickListener {
+            val dialog = StringDiameterDialogFragment()
+            dialog.show(fragmentManager, STRINGS_DIAMETER_DIALOG_TAG)
+        }
+
+        refreshHeadSizeView()
+
+        stringDiameterValue.text = SharedPrefsUtils.getStringsDiameter(activity!!).toString() + getString(R.string.mm)
+    }
+
+    fun refreshHeadSizeView() {
         val headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
         if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
-            headSizeValue.text = NumberFormatUtils.format(headSize) + "in"
+            headSizeValue.text = NumberFormatUtils.round(headSize) + "in\u00B2"
         } else {
-            headSizeValue.text = NumberFormatUtils.format(UnitConvertionUtils.inToCm(headSize.toDouble())) + "cm"
+            headSizeValue.text = NumberFormatUtils.round(UnitConvertionUtils.inToCm(headSize.toDouble())) + "cm\u00B2"
         }
-
-
     }
 
     // TODO [musashi] create spinner like UI to show user that mic is working
