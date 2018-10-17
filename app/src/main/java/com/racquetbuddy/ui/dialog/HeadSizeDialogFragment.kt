@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.TextView
 import com.racquetbuddy.racquetstringer.R
+import com.racquetbuddy.ui.MainFragment
+import com.racquetbuddy.ui.OnRefreshViewsListener
 import com.racquetbuddy.utils.SharedPrefsUtils
 import com.racquetbuddy.utils.UnitConvertionUtils
 import kotlin.math.roundToInt
@@ -46,6 +48,9 @@ class HeadSizeDialogFragment : DialogFragment() {
                         SharedPrefsUtils.setRacquetHeadSize(activity!!, UnitConvertionUtils.cmToIn(headSizeInput?.text.toString().toDouble()).toDouble().roundToInt().toDouble())
                     }
 
+                    if (targetFragment is OnRefreshViewsListener) {
+                        (targetFragment as OnRefreshViewsListener).refreshViews()
+                    }
                 }
                 .setNegativeButton(R.string.cancel
                 ) { _, _ ->

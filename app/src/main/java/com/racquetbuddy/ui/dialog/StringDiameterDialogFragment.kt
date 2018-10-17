@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.TextView
 import com.racquetbuddy.racquetstringer.R
+import com.racquetbuddy.ui.OnRefreshViewsListener
 import com.racquetbuddy.utils.SharedPrefsUtils
 
 /**
@@ -33,6 +34,9 @@ class StringDiameterDialogFragment : DialogFragment() {
                 .setPositiveButton(R.string.save
                 ) { dialog, id ->
                     SharedPrefsUtils.setStringsDiameter(activity!!, stringsDiameterInputFieldDialog?.text.toString().toDouble())
+                    if (targetFragment is OnRefreshViewsListener) {
+                        (targetFragment as OnRefreshViewsListener).refreshViews()
+                    }
                 }
                 .setNegativeButton(R.string.cancel
                 ) { _, _ ->

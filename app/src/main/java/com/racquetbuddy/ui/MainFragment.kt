@@ -17,7 +17,7 @@ import com.racquetbuddy.utils.SharedPrefsUtils
 import com.racquetbuddy.utils.UnitConvertionUtils
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), OnRefreshViewsListener {
 
     val RECORD_AUDIO_CODE = 0
     val HEAD_SIZE_DIALOG_TAG = "HEAD_SIZE_DIALOG_TAG"
@@ -43,11 +43,12 @@ class MainFragment : Fragment() {
     private fun displayTension(hz: Double) {
         val racquet = com.racquetbuddy.businesslogic.Racquet()
         var displayValue = ""
+        val tension = racquet.getStringsTension(hz, SharedPrefsUtils.getRacquetHeadSize(activity!!).toDouble(), SharedPrefsUtils.getStringsDiameter(activity!!).toDouble())
         if (com.racquetbuddy.utils.SharedPrefsUtils.areImperialMeasureUnits(context!!)) {
-            displayValue = NumberFormatUtils.format(com.racquetbuddy.utils.UnitConvertionUtils.kiloToPound(racquet.getStringsTension(hz)))
+            displayValue = NumberFormatUtils.format(com.racquetbuddy.utils.UnitConvertionUtils.kiloToPound(tension))
             unitsTensionTextVIew.text = "lb"
         } else {
-            displayValue = NumberFormatUtils.format(racquet.getStringsTension(hz))
+            displayValue = NumberFormatUtils.format(tension)
             unitsTensionTextVIew.text = "kg"
         }
         displayTensionTextView.text = displayValue
@@ -56,6 +57,11 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         samplingLoop = getSamplingLoopInstance()
+    }
+
+    override fun refreshViews() {
+        displayTension(currentHz)
+        refreshHeadSizeView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -78,11 +84,14 @@ class MainFragment : Fragment() {
         }
 
         headSizeLayout.setOnClickListener {
-            HeadSizeDialogFragment().show(fragmentManager, HEAD_SIZE_DIALOG_TAG)
+            val dialog = HeadSizeDialogFragment()
+            dialog.setTargetFragment(this, 0)
+            dialog.show(fragmentManager, HEAD_SIZE_DIALOG_TAG)
         }
 
         stringDiameterLayout.setOnClickListener {
             val dialog = StringDiameterDialogFragment()
+            dialog.setTargetFragment(this, 0)
             dialog.show(fragmentManager, STRINGS_DIAMETER_DIALOG_TAG)
         }
 
@@ -98,11 +107,6 @@ class MainFragment : Fragment() {
             }
             refreshViews()
         }
-    }
-
-    fun refreshViews() {
-        displayTension(currentHz)
-        refreshHeadSizeView()
     }
 
     fun refreshHeadSizeView() {

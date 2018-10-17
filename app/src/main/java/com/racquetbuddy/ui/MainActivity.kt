@@ -7,9 +7,17 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
 import com.racquetbuddy.racquetstringer.R
+import com.racquetbuddy.utils.FragmentUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnRefreshViewsListener {
+    override fun refreshViews() {
+        val fragmentTag = FragmentUtils.makeFragmentName(viewPagerMain.id, 0)
+        val fragment = supportFragmentManager.findFragmentByTag(fragmentTag)
+        if (fragment is OnRefreshViewsListener) {
+            (fragment as OnRefreshViewsListener).refreshViews()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
