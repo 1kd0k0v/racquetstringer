@@ -6,4 +6,5 @@
     <color name="dark_blue_top">#0B1F4E</color>
     <color name="light_blue_bottom">#265194</color>
     <color name="light_green_circle">#2BBB67</color>
+    <color name="pause_background_color">#3F2BBB67</color>
 </resources>

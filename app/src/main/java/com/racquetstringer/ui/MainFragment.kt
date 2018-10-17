@@ -71,10 +71,8 @@ class MainFragment : Fragment() {
 
         playPauseButton.setOnClickListener {
             if (samplingLoop.isAlive) {
-                playPauseButton.setBackgroundResource(R.drawable.play_background)
                 stopSampling()
             } else {
-                playPauseButton.setBackgroundResource(R.drawable.pause_background)
                 startSampling()
             }
         }
@@ -116,24 +114,27 @@ class MainFragment : Fragment() {
         }
     }
 
-    // TODO [musashi] create spinner like UI to show user that mic is working
-    private fun startSampling() {
-        samplingLoop = getSamplingLoopInstance()
-        samplingLoop.start()
-
-        playPauseButton.setText(R.string.pause)
-        playPauseButton.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_pause, 0, 0, 0)
-    }
-
     override fun onPause() {
         super.onPause()
         stopSampling()
     }
 
+    // TODO [musashi] create spinner like UI to show user that mic is working
+    private fun startSampling() {
+        samplingLoop = getSamplingLoopInstance()
+        samplingLoop.start()
+
+        playPauseButton.setBackgroundResource(R.drawable.pause_background)
+        playPauseButton.setText(R.string.pause)
+        playPauseButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pause_white_24dp, 0, 0, 0)
+    }
+
     private fun stopSampling() {
-        playPauseButton.setText(R.string.play)
-        playPauseButton.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_play, 0, 0, 0)
         samplingLoop.finish()
+
+        playPauseButton.setBackgroundResource(R.drawable.play_background)
+        playPauseButton.setText(R.string.play)
+        playPauseButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_play_arrow_white_24dp, 0, 0, 0)
     }
 
 
