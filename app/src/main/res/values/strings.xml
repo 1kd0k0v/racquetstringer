@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RacquetBuddy</string>
+    <string name="app_name">TensionMaster</string>
     <string name="action_settings">Settings</string>
     <string name="sample_rates_name">SAMPLE/S::0</string>
     <string name="fft_len_name">FFT LEN::0</string>
@@ -39,4 +39,10 @@
     <string name="mm">mm</string>
     <string name="synthetic_gut">synthetic gut</string>
     <string name="strings_type">Strings Type</string>
+    <string name="pref_units">Units</string>
+    <string name="imperial">Imperial</string>
+    <string name="metric">Metric</string>
+    <string name="ok">OK</string>
+    <string name="choose_units_of_measurement">Select Units</string>
+    <string name="strings_diameter_dialog_title">Enter strings diameter.</string>
 </resources>

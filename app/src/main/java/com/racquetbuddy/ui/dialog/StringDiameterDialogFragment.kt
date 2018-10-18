@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.TextView
 import com.racquetbuddy.racquetstringer.R
@@ -28,10 +29,9 @@ class StringDiameterDialogFragment : DialogFragment() {
         stringsDiameterInputFieldDialog?.setSelection(stringsDiameterInputFieldDialog.text.length);
         unitsTextView?.text = getString(R.string.mm)
 
-
         return AlertDialog.Builder(activity!!)
-                .setView(root).setMessage(R.string.dialog_title_head_size)
-                .setPositiveButton(R.string.save
+                .setView(root).setMessage(R.string.strings_diameter_dialog_title)
+                .setPositiveButton(R.string.ok
                 ) { dialog, id ->
                     SharedPrefsUtils.setStringsDiameter(activity!!, stringsDiameterInputFieldDialog?.text.toString().toDouble())
                     if (targetFragment is OnRefreshViewsListener) {
@@ -42,5 +42,11 @@ class StringDiameterDialogFragment : DialogFragment() {
                 ) { _, _ ->
                     dismiss()
                 }.create()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 }

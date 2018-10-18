@@ -12,6 +12,9 @@
         <Preference
             android:key="pref_key_string_type"
             android:title="@string/pref_title_string_type" />
+        <Preference
+            android:key="pref_key_units"
+            android:title="@string/pref_units" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/help"

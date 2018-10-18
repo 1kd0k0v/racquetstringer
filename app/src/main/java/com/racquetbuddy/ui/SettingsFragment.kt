@@ -6,6 +6,7 @@ import android.view.View
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.dialog.HeadSizeDialogFragment
 import com.racquetbuddy.ui.dialog.StringDiameterDialogFragment
+import com.racquetbuddy.ui.dialog.UnitsDialogFragment
 import com.racquetbuddy.utils.SharedPrefsUtils
 
 class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
@@ -15,6 +16,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         }
         initHeadSize()
         initStringsDiameter()
+        initUnits()
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -26,27 +28,49 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
 
         initHeadSize()
         initStringsDiameter()
+        initUnits()
     }
 
     private fun initHeadSize() {
         val keyHeadSize = findPreference("pref_key_head_size")
-        keyHeadSize.summary = SharedPrefsUtils.getRacquetHeadSize(context!!).toString()
-        keyHeadSize.setOnPreferenceClickListener {
-            val dialog = HeadSizeDialogFragment()
-            dialog.setTargetFragment(this, 0)
-            dialog.show(fragmentManager, "HEAD_SIZE")
-            return@setOnPreferenceClickListener true
+        if (keyHeadSize != null) {
+            keyHeadSize.summary = SharedPrefsUtils.getRacquetHeadSize(context!!).toString()
+            keyHeadSize.setOnPreferenceClickListener {
+                val dialog = HeadSizeDialogFragment()
+                dialog.setTargetFragment(this, 0)
+                dialog.show(fragmentManager, "HEAD_SIZE")
+                return@setOnPreferenceClickListener true
+            }
         }
     }
 
     private fun initStringsDiameter() {
         val stringsDiameter = findPreference("pref_key_string_diameter")
-        stringsDiameter.summary = SharedPrefsUtils.getStringsDiameter(context!!).toString()
-        stringsDiameter.setOnPreferenceClickListener {
-            val dialog = StringDiameterDialogFragment()
-            dialog.setTargetFragment(this, 0)
-            dialog.show(fragmentManager, "STRING_DIAMETER")
-            return@setOnPreferenceClickListener true
+        if (stringsDiameter != null) {
+            stringsDiameter.summary = SharedPrefsUtils.getStringsDiameter(context!!).toString()
+            stringsDiameter.setOnPreferenceClickListener {
+                val dialog = StringDiameterDialogFragment()
+                dialog.setTargetFragment(this, 0)
+                dialog.show(fragmentManager, "STRING_DIAMETER")
+                return@setOnPreferenceClickListener true
+            }
+        }
+    }
+
+    private fun initUnits() {
+        val units = findPreference("pref_key_units")
+        if (units != null) {
+            if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
+                units.summary = getString(R.string.imperial)
+            } else {
+                units.summary = getString(R.string.metric)
+            }
+            units.setOnPreferenceClickListener {
+                val dialog = UnitsDialogFragment()
+                dialog.setTargetFragment(this, 0)
+                dialog.show(fragmentManager, "UNITS")
+                return@setOnPreferenceClickListener true
+            }
         }
     }
 

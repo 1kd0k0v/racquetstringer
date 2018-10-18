@@ -36,7 +36,7 @@ class StringTypeDialogFragment : DialogFragment() {
 
         return AlertDialog.Builder(activity!!)
                 .setView(root).setMessage(R.string.dialog_title_head_size)
-                .setPositiveButton(R.string.save
+                .setPositiveButton(R.string.ok
                 ) { dialog, id ->
                     SharedPrefsUtils.setRacquetHeadSize(activity!!, headSizeInput?.text.toString().toDouble())
                 }

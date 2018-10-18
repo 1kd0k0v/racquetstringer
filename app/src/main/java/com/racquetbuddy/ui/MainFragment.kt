@@ -28,14 +28,30 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private var currentHz: Double = 0.0
 
     fun getSamplingLoopInstance(): SamplingLoop {
-        return SamplingLoop(com.racquetbuddy.audioanalyzer.SamplingLoop.AnalyzerCallback {
-            android.util.Log.d("Amplitude", "Amp: $it");
-            activity?.runOnUiThread {
-                if (it > 300 && it < 800) {
-                    currentHz = it
-                    displayTension(it)
+
+        val ampBuffer = arrayListOf<Double>()
+
+        return SamplingLoop(com.racquetbuddy.audioanalyzer.SamplingLoop.AnalyzerCallback { amplitude ->
+            android.util.Log.d("Amplitude", "Amp: $amplitude");
+
+            if (amplitude > 300 && amplitude < 800) {
+                val found = ampBuffer.find { it > amplitude - 2 && it < amplitude + 2 }
+                if (found != null) {
+                    activity?.runOnUiThread {
+                        val avgAmplitude = (found + amplitude) / 2
+                        displayTension(avgAmplitude)
+                        currentHz = avgAmplitude
+                    }
+                    ampBuffer.clear()
                 }
+
+                if (ampBuffer.size == 1000) {
+                    ampBuffer.clear()
+                }
+
+                ampBuffer.add(amplitude)
             }
+
 
         }, resources)
     }
@@ -98,15 +114,6 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         refreshHeadSizeView()
 
         stringDiameterValue.text = SharedPrefsUtils.getStringsDiameter(activity!!).toString() + getString(R.string.mm)
-
-        displayTensionConstraintLayout.setOnClickListener {
-            if (SharedPrefsUtils.areImperialMeasureUnits(context!!)) {
-                SharedPrefsUtils.setImperialMeasureUnits(context!!, false)
-            } else {
-                SharedPrefsUtils.setImperialMeasureUnits(context!!, true)
-            }
-            refreshViews()
-        }
     }
 
     fun refreshHeadSizeView() {

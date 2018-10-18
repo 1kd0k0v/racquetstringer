@@ -156,7 +156,6 @@
             android:id="@+id/unitsTensionTextVIew"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="lb"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/displayTensionTextView"
