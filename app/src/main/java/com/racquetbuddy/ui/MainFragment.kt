@@ -2,6 +2,7 @@ package com.racquetbuddy.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -16,6 +17,12 @@ import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
 import com.racquetbuddy.utils.UnitConvertionUtils
 import kotlinx.android.synthetic.main.fragment_main.*
+import android.widget.TextView
+import android.text.Spannable
+import android.text.style.ForegroundColorSpan
+import android.text.SpannableString
+
+
 
 class MainFragment : Fragment(), OnRefreshViewsListener {
 
@@ -27,7 +34,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
     private var currentHz: Double = 0.0
 
-    fun getSamplingLoopInstance(): SamplingLoop {
+    private fun getSamplingLoopInstance(): SamplingLoop {
 
         val ampBuffer = arrayListOf<Double>()
 
@@ -51,8 +58,6 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
                 ampBuffer.add(amplitude)
             }
-
-
         }, resources)
     }
 
@@ -68,6 +73,12 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             unitsTensionTextVIew.text = "kg"
         }
         displayTensionTextView.text = displayValue
+
+        val spannable = SpannableString(displayTensionTextView.text)
+
+        spannable.setSpan(ForegroundColorSpan(Color.RED), displayTensionTextView.length() - 1, (displayTensionTextView).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        displayTensionTextView.setText(spannable, TextView.BufferType.SPANNABLE)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,7 +127,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         stringDiameterValue.text = SharedPrefsUtils.getStringsDiameter(activity!!).toString() + getString(R.string.mm)
     }
 
-    fun refreshHeadSizeView() {
+    private fun refreshHeadSizeView() {
         val headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
         if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
             headSizeValue.text = NumberFormatUtils.round(headSize) + "in\u00B2"

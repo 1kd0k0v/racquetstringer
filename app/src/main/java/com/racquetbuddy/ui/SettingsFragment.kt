@@ -3,6 +3,7 @@ package com.racquetbuddy.ui
 import android.os.Bundle
 import android.support.v7.preference.PreferenceFragmentCompat
 import android.view.View
+import com.racquetbuddy.racquetstringer.BuildConfig
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.dialog.HeadSizeDialogFragment
 import com.racquetbuddy.ui.dialog.StringDiameterDialogFragment
@@ -29,6 +30,11 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         initHeadSize()
         initStringsDiameter()
         initUnits()
+
+        val appVersion = findPreference("pref_key_app_version")
+        if (appVersion != null) {
+            appVersion.summary = BuildConfig.VERSION_NAME
+        }
     }
 
     private fun initHeadSize() {
