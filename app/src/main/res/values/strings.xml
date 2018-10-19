@@ -8,7 +8,7 @@
     <string name="head_size_2_lines">Head\nSize</string>
     <string name="zero">0</string>
     <string name="edit">Edit</string>
-    <string name="your_racquet">Your Racquet</string>
+    <string name="racquet">Racquet</string>
     <string name="measure">Measure</string>
     <string name="pause">Pause</string>
     <string name="play">Play</string>
@@ -46,4 +46,5 @@
     <string name="choose_units_of_measurement">Select Units</string>
     <string name="strings_diameter_dialog_title">Enter strings diameter.</string>
     <string name="own_calibration">Own Calibration</string>
+    <string name="calibration">Calibration</string>
 </resources>
