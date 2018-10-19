@@ -102,14 +102,6 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             startSampling()
         }
 
-        playPauseButton.setOnClickListener {
-            if (samplingLoop.isAlive) {
-                stopSampling()
-            } else {
-                startSampling()
-            }
-        }
-
         headSizeLayout.setOnClickListener {
             val dialog = HeadSizeDialogFragment()
             dialog.setTargetFragment(this, 0)
@@ -145,18 +137,10 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private fun startSampling() {
         samplingLoop = getSamplingLoopInstance()
         samplingLoop.start()
-
-        playPauseButton.setBackgroundResource(R.drawable.pause_background)
-        playPauseButton.setText(R.string.pause)
-        playPauseButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pause_white_24dp, 0, 0, 0)
     }
 
     private fun stopSampling() {
         samplingLoop.finish()
-
-        playPauseButton.setBackgroundResource(R.drawable.play_background)
-        playPauseButton.setText(R.string.play)
-        playPauseButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_play_arrow_white_24dp, 0, 0, 0)
     }
 
 

@@ -4,6 +4,9 @@
         android:title="@string/your_racquet"
         android:key="pref_key_racquet_details">
         <Preference
+            android:key="pref_key_own_calibration"
+            android:title="@string/own_calibration"/>
+        <Preference
             android:key="pref_key_head_size"
             android:title="@string/pref_title_head_size" />
         <Preference

@@ -45,4 +45,5 @@
     <string name="ok">OK</string>
     <string name="choose_units_of_measurement">Select Units</string>
     <string name="strings_diameter_dialog_title">Enter strings diameter.</string>
+    <string name="own_calibration">Own Calibration</string>
 </resources>

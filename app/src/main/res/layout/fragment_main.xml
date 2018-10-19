@@ -17,6 +17,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stringDiameterLayout">
 
@@ -30,9 +31,9 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/strings_type"
-            android:textStyle="bold"
             android:textColor="@color/light_green_circle"
             android:textSize="@dimen/main_screen_small_text"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,10 +71,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/stringTypeLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/headSizeLayout"
-        app:layout_constraintTop_toBottomOf="@+id/playPauseButton">
+        app:layout_constraintTop_toBottomOf="@+id/displayTensionConstraintLayout">
 
 
         <TextView
@@ -85,9 +87,9 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/strings_diameter"
-            android:textStyle="bold"
             android:textColor="@color/light_green_circle"
             android:textSize="@dimen/main_screen_small_text"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -182,9 +184,9 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/head_size"
-            android:textStyle="bold"
             android:textColor="@color/light_green_circle"
             android:textSize="@dimen/main_screen_small_text"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -216,21 +218,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
     </android.support.constraint.ConstraintLayout>
-
-    <Button
-        android:id="@+id/playPauseButton"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/pause_background"
-        android:drawableStart="@drawable/ic_pause_white_24dp"
-        android:minWidth="120dp"
-        android:text="Button"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/displayTensionConstraintLayout" />
 
 </android.support.constraint.ConstraintLayout>
