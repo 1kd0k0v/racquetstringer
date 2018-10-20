@@ -47,4 +47,5 @@
     <string name="strings_diameter_dialog_title">Enter strings diameter.</string>
     <string name="own_calibration">Own Calibration</string>
     <string name="calibration">Calibration</string>
+    <string name="listening">Listening</string>
 </resources>

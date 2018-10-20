@@ -42,7 +42,7 @@ class HeadSizeDialogFragment : DialogFragment() {
         return AlertDialog.Builder(activity!!)
             .setView(root).setMessage(R.string.dialog_title_head_size)
                 .setPositiveButton(R.string.ok
-                ) { dialog, id ->
+                ) { _, _ ->
                     if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
                         SharedPrefsUtils.setRacquetHeadSize(activity!!, headSizeInput?.text.toString().toDouble())
                     } else {

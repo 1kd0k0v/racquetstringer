@@ -21,7 +21,7 @@ import android.widget.TextView
 import android.text.Spannable
 import android.text.style.ForegroundColorSpan
 import android.text.SpannableString
-
+import com.racquetbuddy.businesslogic.Racquet
 
 
 class MainFragment : Fragment(), OnRefreshViewsListener {
@@ -62,23 +62,24 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun displayTension(hz: Double) {
-        val racquet = com.racquetbuddy.businesslogic.Racquet()
-        var displayValue = ""
-        val tension = racquet.getStringsTension(hz, SharedPrefsUtils.getRacquetHeadSize(activity!!).toDouble(), SharedPrefsUtils.getStringsDiameter(activity!!).toDouble())
-        if (com.racquetbuddy.utils.SharedPrefsUtils.areImperialMeasureUnits(context!!)) {
-            displayValue = NumberFormatUtils.format(com.racquetbuddy.utils.UnitConvertionUtils.kiloToPound(tension))
-            unitsTensionTextVIew.text = "lb"
-        } else {
-            displayValue = NumberFormatUtils.format(tension)
-            unitsTensionTextVIew.text = "kg"
+        if (activity != null) {
+            var displayValue = ""
+            val tension = Racquet.getStringsTension(hz, SharedPrefsUtils.getRacquetHeadSize(activity!!).toDouble(), SharedPrefsUtils.getStringsDiameter(activity!!).toDouble())
+            if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
+                displayValue = NumberFormatUtils.format(com.racquetbuddy.utils.UnitConvertionUtils.kiloToPound(tension))
+                unitsTensionTextVIew.text = "lb"
+            } else {
+                displayValue = NumberFormatUtils.format(tension)
+                unitsTensionTextVIew.text = "kg"
+            }
+            displayTensionTextView.text = displayValue
+
+            val spannable = SpannableString(displayTensionTextView.text)
+
+            spannable.setSpan(ForegroundColorSpan(Color.RED), displayTensionTextView.length() - 1, (displayTensionTextView).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+            displayTensionTextView.setText(spannable, TextView.BufferType.SPANNABLE)
         }
-        displayTensionTextView.text = displayValue
-
-        val spannable = SpannableString(displayTensionTextView.text)
-
-        spannable.setSpan(ForegroundColorSpan(Color.RED), displayTensionTextView.length() - 1, (displayTensionTextView).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-        displayTensionTextView.setText(spannable, TextView.BufferType.SPANNABLE)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,6 +90,11 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     override fun refreshViews() {
         displayTension(currentHz)
         refreshHeadSizeView()
+        refreshStringDiameterView()
+    }
+
+    private fun refreshStringDiameterView() {
+        stringDiameterValue.text = SharedPrefsUtils.getStringsDiameter(activity!!).toString() + getString(R.string.mm)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -115,16 +121,17 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         }
 
         refreshHeadSizeView()
-
-        stringDiameterValue.text = SharedPrefsUtils.getStringsDiameter(activity!!).toString() + getString(R.string.mm)
+        refreshStringDiameterView()
     }
 
     private fun refreshHeadSizeView() {
-        val headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
-        if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
-            headSizeValue.text = NumberFormatUtils.round(headSize) + "in\u00B2"
-        } else {
-            headSizeValue.text = NumberFormatUtils.round(UnitConvertionUtils.inToCm(headSize.toDouble())) + "cm\u00B2"
+        if (activity != null) {
+            val headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
+            if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
+                headSizeValue.text = NumberFormatUtils.round(headSize) + "in\u00B2"
+            } else {
+                headSizeValue.text = NumberFormatUtils.round(UnitConvertionUtils.inToCm(headSize.toDouble())) + "cm\u00B2"
+            }
         }
     }
 
@@ -133,14 +140,21 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         stopSampling()
     }
 
+    override fun onResume() {
+        super.onResume()
+        startSampling()
+    }
+
     // TODO [musashi] create spinner like UI to show user that mic is working
     private fun startSampling() {
         samplingLoop = getSamplingLoopInstance()
         samplingLoop.start()
+        listeningTextView.visibility = View.VISIBLE
     }
 
     private fun stopSampling() {
         samplingLoop.finish()
+        listeningTextView.visibility = View.INVISIBLE
     }
 
 

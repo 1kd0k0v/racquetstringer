@@ -8,13 +8,12 @@ import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.dialog.HeadSizeDialogFragment
 import com.racquetbuddy.ui.dialog.StringDiameterDialogFragment
 import com.racquetbuddy.ui.dialog.UnitsDialogFragment
+import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
+import com.racquetbuddy.utils.UnitConvertionUtils
 
 class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     override fun refreshViews() {
-        if (activity != null) {
-            (activity as OnRefreshViewsListener).refreshViews()
-        }
         initHeadSize()
         initStringsDiameter()
         initUnits()
@@ -40,7 +39,14 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     private fun initHeadSize() {
         val keyHeadSize = findPreference("pref_key_head_size")
         if (keyHeadSize != null) {
-            keyHeadSize.summary = SharedPrefsUtils.getRacquetHeadSize(context!!).toString()
+
+            val size = SharedPrefsUtils.getRacquetHeadSize(activity!!)
+            if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
+                keyHeadSize.summary = NumberFormatUtils.round(size) + "in\u00B2"
+            } else {
+                keyHeadSize.summary = NumberFormatUtils.round(UnitConvertionUtils.inToCm(size.toDouble())) + "cm\u00B2"
+            }
+
             keyHeadSize.setOnPreferenceClickListener {
                 val dialog = HeadSizeDialogFragment()
                 dialog.setTargetFragment(this, 0)
@@ -53,7 +59,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     private fun initStringsDiameter() {
         val stringsDiameter = findPreference("pref_key_string_diameter")
         if (stringsDiameter != null) {
-            stringsDiameter.summary = SharedPrefsUtils.getStringsDiameter(context!!).toString()
+            stringsDiameter.summary = SharedPrefsUtils.getStringsDiameter(activity!!).toString() + getString(R.string.mm)
             stringsDiameter.setOnPreferenceClickListener {
                 val dialog = StringDiameterDialogFragment()
                 dialog.setTargetFragment(this, 0)

@@ -70,12 +70,12 @@
         android:id="@+id/stringDiameterLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/stringTypeLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/headSizeLayout"
-        app:layout_constraintTop_toBottomOf="@+id/displayTensionConstraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/listeningTextView">
 
 
         <TextView
@@ -218,5 +218,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
     </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/listeningTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/listening"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/displayTensionConstraintLayout" />
 
 </android.support.constraint.ConstraintLayout>

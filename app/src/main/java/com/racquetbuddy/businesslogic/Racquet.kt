@@ -13,7 +13,7 @@ import com.racquetbuddy.utils.SharedPrefsUtils
  * C0 = Cf * rho * d * d * S
  * Tx = C0 * Vx * Vx
  */
-class Racquet {
+object Racquet {
 
     // Racquet characteristics
 

@@ -32,7 +32,7 @@ class StringDiameterDialogFragment : DialogFragment() {
         return AlertDialog.Builder(activity!!)
                 .setView(root).setMessage(R.string.strings_diameter_dialog_title)
                 .setPositiveButton(R.string.ok
-                ) { dialog, id ->
+                ) { _, _ ->
                     SharedPrefsUtils.setStringsDiameter(activity!!, stringsDiameterInputFieldDialog?.text.toString().toDouble())
                     if (targetFragment is OnRefreshViewsListener) {
                         (targetFragment as OnRefreshViewsListener).refreshViews()
