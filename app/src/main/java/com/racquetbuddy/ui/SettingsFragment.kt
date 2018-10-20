@@ -1,5 +1,6 @@
 package com.racquetbuddy.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.preference.PreferenceFragmentCompat
 import android.view.View
@@ -34,6 +35,23 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         if (appVersion != null) {
             appVersion.summary = BuildConfig.VERSION_NAME
         }
+
+        val shareApp = findPreference("key_")
+        if (shareApp != null) {
+            shareApp.setOnPreferenceClickListener {
+                shareTheApp()
+                return@setOnPreferenceClickListener true
+            }
+        }
+    }
+
+    private fun shareTheApp() {
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(Intent.EXTRA_TEXT,
+                "Hey check out my app at: https://play.google.com/store/apps/details?id=" + activity!!.packageName)
+        sendIntent.type = "text/plain"
+        startActivity(sendIntent)
     }
 
     private fun initHeadSize() {

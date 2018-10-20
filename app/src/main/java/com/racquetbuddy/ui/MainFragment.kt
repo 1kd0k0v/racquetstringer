@@ -21,6 +21,7 @@ import android.widget.TextView
 import android.text.Spannable
 import android.text.style.ForegroundColorSpan
 import android.text.SpannableString
+import android.util.Log
 import com.racquetbuddy.businesslogic.Racquet
 
 
@@ -38,8 +39,8 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
         val ampBuffer = arrayListOf<Double>()
 
-        return SamplingLoop(com.racquetbuddy.audioanalyzer.SamplingLoop.AnalyzerCallback { amplitude ->
-            android.util.Log.d("Amplitude", "Amp: $amplitude");
+        return SamplingLoop(SamplingLoop.AnalyzerCallback { amplitude ->
+            Log.d("Amplitude", "Amp: $amplitude");
 
             if (amplitude > 300 && amplitude < 800) {
                 val found = ampBuffer.find { it > amplitude - 2 && it < amplitude + 2 }
@@ -145,18 +146,16 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         startSampling()
     }
 
-    // TODO [musashi] create spinner like UI to show user that mic is working
     private fun startSampling() {
         samplingLoop = getSamplingLoopInstance()
         samplingLoop.start()
-        listeningTextView.visibility = View.VISIBLE
+        displayTensionConstraintLayout.startRippleAnimation()
     }
 
     private fun stopSampling() {
         samplingLoop.finish()
-        listeningTextView.visibility = View.INVISIBLE
+        displayTensionConstraintLayout.stopRippleAnimation()
     }
-
 
     // TODO [musashi] add dialogs to inform user why mic is needed
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

@@ -14,8 +14,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,12 +68,12 @@
         android:id="@+id/stringDiameterLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toTopOf="@+id/stringTypeLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/headSizeLayout"
-        app:layout_constraintTop_toBottomOf="@+id/listeningTextView">
+        app:layout_constraintTop_toBottomOf="@+id/displayTensionConstraintLayout">
 
 
         <TextView
@@ -121,49 +119,59 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
     </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
+    <com.skyfishjy.library.RippleBackground
         android:id="@+id/displayTensionConstraintLayout"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/tension_result_background"
-        android:elevation="4dp"
-        android:textColor="@android:color/white"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        app:rb_color="@color/light_green_circle"
+        app:rb_radius="32dp"
+        app:rb_rippleAmount="4"
+        app:rb_duration="3000"
+        app:rb_scale="6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/displayTensionTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:text="@string/zero"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/tension_result_background"
+            android:elevation="4dp"
+            android:textColor="@android:color/white">
 
-        <TextView
-            android:id="@+id/unitsTensionTextVIew"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@+id/displayTensionTextView"
-            app:layout_constraintStart_toStartOf="@+id/displayTensionTextView"
-            app:layout_constraintTop_toBottomOf="@+id/displayTensionTextView" />
-    </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/displayTensionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@string/zero"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/unitsTensionTextVIew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@+id/displayTensionTextView"
+                app:layout_constraintStart_toStartOf="@+id/displayTensionTextView"
+                app:layout_constraintTop_toBottomOf="@+id/displayTensionTextView" />
+        </android.support.constraint.ConstraintLayout>
+
+    </com.skyfishjy.library.RippleBackground>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/headSizeLayout"
@@ -218,16 +226,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
     </android.support.constraint.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/listeningTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/listening"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/displayTensionConstraintLayout" />
 
 </android.support.constraint.ConstraintLayout>
