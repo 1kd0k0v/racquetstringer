@@ -8,6 +8,7 @@ import com.racquetbuddy.racquetstringer.BuildConfig
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.dialog.HeadSizeDialogFragment
 import com.racquetbuddy.ui.dialog.StringDiameterDialogFragment
+import com.racquetbuddy.ui.dialog.StringTypeDialogFragment
 import com.racquetbuddy.ui.dialog.UnitsDialogFragment
 import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
@@ -18,6 +19,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         initHeadSize()
         initStringsDiameter()
         initUnits()
+        initStringType()
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -30,6 +32,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         initHeadSize()
         initStringsDiameter()
         initUnits()
+        initStringType()
 
         val appVersion = findPreference("pref_key_app_version")
         if (appVersion != null) {
@@ -42,6 +45,20 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
                 shareTheApp()
                 return@setOnPreferenceClickListener true
             }
+        }
+    }
+
+    private fun initStringType() {
+        val stringType = findPreference("pref_key_string_type")
+        if (stringType != null) {
+            val types = activity!!.resources.getStringArray(R.array.string_types)
+            stringType.summary = types[SharedPrefsUtils.getStringType(activity!!)]
+        }
+        stringType.setOnPreferenceClickListener {
+            val dialog = StringTypeDialogFragment()
+            dialog.setTargetFragment(this, 0)
+            dialog.show(fragmentManager, "STRING_TYPE")
+            return@setOnPreferenceClickListener true
         }
     }
 
