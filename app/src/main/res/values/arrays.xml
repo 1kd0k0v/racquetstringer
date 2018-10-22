@@ -106,6 +106,9 @@
         <item>1002</item>
     </string-array>
     <string name="audio_source_id_default" translatable="false">6</string>
+    <string name="natural_gut">Natural Gut</string>
+    <string name="polyester">Polyester</string>
+    <string name="kevlar">Kevlar</string>
     <string-array name="sample_rates" translatable="false">
         <item>@string/sample_rates_name</item>
         <item>8000::8000</item>
@@ -139,6 +142,12 @@
     <string-array name="units">
         <item>@string/inch</item>
         <item>@string/cm</item>
+    </string-array>
+    <string-array name="string_types">
+        <item>@string/natural_gut</item>
+        <item>@string/polyester</item>
+        <item>@string/synthetic_gut</item>
+        <item>@string/kevlar</item>
     </string-array>
 
 </resources>

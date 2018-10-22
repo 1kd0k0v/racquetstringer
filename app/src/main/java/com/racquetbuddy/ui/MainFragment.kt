@@ -24,6 +24,7 @@ import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
 import android.util.Log
 import com.racquetbuddy.businesslogic.Racquet
+import com.racquetbuddy.ui.dialog.StringTypeDialogFragment
 
 
 class MainFragment : Fragment(), OnRefreshViewsListener {
@@ -31,6 +32,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     val RECORD_AUDIO_CODE = 0
     val HEAD_SIZE_DIALOG_TAG = "HEAD_SIZE_DIALOG_TAG"
     val STRINGS_DIAMETER_DIALOG_TAG = "STRINGS_DIAMETER_DIALOG_TAG"
+    val STRING_TYPE_DIALOG_TAG = "STRING_TYPE_DIALOG_TAG"
 
     lateinit var samplingLoop: SamplingLoop
 
@@ -103,6 +105,12 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         displayTension(currentHz)
         refreshHeadSizeView()
         refreshStringDiameterView()
+        refreshStringType()
+    }
+
+    private fun refreshStringType() {
+        val types = resources.getStringArray(R.array.string_types)
+        stringTypeValue.text = types[SharedPrefsUtils.getStringType(activity!!)]
     }
 
     private fun refreshStringDiameterView() {
@@ -131,8 +139,15 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             dialog.show(fragmentManager, STRINGS_DIAMETER_DIALOG_TAG)
         }
 
+        stringTypeLayout.setOnClickListener {
+            val dialog = StringTypeDialogFragment()
+            dialog.setTargetFragment(this, 0)
+            dialog.show(fragmentManager, STRING_TYPE_DIALOG_TAG)
+        }
+
         refreshHeadSizeView()
         refreshStringDiameterView()
+        refreshStringType()
     }
 
     private fun refreshHeadSizeView() {

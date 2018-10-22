@@ -30,7 +30,7 @@ class StringDiameterDialogFragment : DialogFragment() {
         unitsTextView?.text = getString(R.string.mm)
 
         return AlertDialog.Builder(activity!!)
-                .setView(root).setMessage(R.string.strings_diameter_dialog_title)
+                .setView(root).setMessage(R.string.string_diameter_dialog_title)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->
                     SharedPrefsUtils.setStringsDiameter(activity!!, stringsDiameterInputFieldDialog?.text.toString().toDouble())

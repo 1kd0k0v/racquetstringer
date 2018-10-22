@@ -3,6 +3,7 @@ package com.racquetbuddy.utils
 import android.content.Context
 import android.content.SharedPreferences
 import com.racquetbuddy.businesslogic.DefaultRacquetValues
+import com.racquetbuddy.racquetstringer.R
 
 /**
  * Created by musashiwarrior on 14-Oct-18.
@@ -15,6 +16,7 @@ object SharedPrefsUtils {
     private const val KEY_SET_FIRST_RUN = "KEY_SET_FIRST_RUN"
     private const val KEY_STRINGS_DIAMETER = "KEY_STRINGS_DIAMETER"
     private const val KEY_HEAD_SIZE = "KEY_HEAD_SIZE"
+    private const val KEY_STRING_TYPE = "KEY_STRING_TYPE"
 
     private fun getEditor(context: Context) : SharedPreferences.Editor{
         return getSharedPreferences(context).edit()
@@ -62,5 +64,13 @@ object SharedPrefsUtils {
 
     fun setStringsDiameter(context: Context, stringsDiameter: Double) {
         getEditor(context).putFloat(KEY_STRINGS_DIAMETER, stringsDiameter.toFloat()).apply()
+    }
+
+    fun setStringType(context: Context, type: Int) {
+        getEditor(context).putInt(KEY_STRING_TYPE, type).apply()
+    }
+
+    fun getStringType(context: Context): Int {
+        return getSharedPreferences(context).getInt(KEY_STRING_TYPE, 0)
     }
 }
