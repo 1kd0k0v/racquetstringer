@@ -21,6 +21,7 @@ import android.widget.TextView
 import android.text.Spannable
 import android.text.style.ForegroundColorSpan
 import android.text.SpannableString
+import android.text.style.RelativeSizeSpan
 import android.util.Log
 import com.racquetbuddy.businesslogic.Racquet
 
@@ -42,7 +43,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         return SamplingLoop(SamplingLoop.AnalyzerCallback { amplitude ->
             Log.d("Amplitude", "Amp: $amplitude");
 
-            if (amplitude > 300 && amplitude < 800) {
+            if (amplitude > 400 && amplitude < 700) {
                 val found = ampBuffer.find { it > amplitude - 2 && it < amplitude + 2 }
                 if (found != null) {
                     activity?.runOnUiThread {
@@ -77,7 +78,11 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
             val spannable = SpannableString(displayTensionTextView.text)
 
-            spannable.setSpan(ForegroundColorSpan(Color.RED), displayTensionTextView.length() - 1, (displayTensionTextView).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            val start = displayTensionTextView.length() - 1
+            val end = (displayTensionTextView).length()
+
+            spannable.setSpan(ForegroundColorSpan(Color.RED), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannable.setSpan(RelativeSizeSpan(0.5f), start, end, 0)
 
             displayTensionTextView.setText(spannable, TextView.BufferType.SPANNABLE)
         }
@@ -105,7 +110,6 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), RECORD_AUDIO_CODE)
         } else {
-            // TODO [musashi] add this to onResume
             startSampling()
         }
 
@@ -149,12 +153,10 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private fun startSampling() {
         samplingLoop = getSamplingLoopInstance()
         samplingLoop.start()
-        displayTensionConstraintLayout.startRippleAnimation()
     }
 
     private fun stopSampling() {
         samplingLoop.finish()
-        displayTensionConstraintLayout.stopRippleAnimation()
     }
 
     // TODO [musashi] add dialogs to inform user why mic is needed
