@@ -26,7 +26,7 @@ class StringTypeDialogFragment : DialogFragment() {
         val unitsTextView = root?.findViewById<TextView>(R.id.unitsTextView)
         val headSizeInput = root?.findViewById<EditText>(R.id.stringsDiameterInputFieldDialog)
 
-        if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
+        if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
             headSizeInput?.setText(NumberFormatUtils.format(SharedPrefsUtils.getRacquetHeadSize(activity!!)))
             unitsTextView?.text = getString(R.string.square_inch)
         } else {

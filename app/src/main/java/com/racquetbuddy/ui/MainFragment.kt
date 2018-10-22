@@ -66,8 +66,14 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private fun displayTension(hz: Double) {
         if (activity != null) {
             var displayValue = ""
-            val tension = Racquet.getStringsTension(hz, SharedPrefsUtils.getRacquetHeadSize(activity!!).toDouble(), SharedPrefsUtils.getStringsDiameter(activity!!).toDouble())
-            if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
+
+            var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!).toDouble()
+            if(!SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
+                headSize = UnitConvertionUtils.cmToIn(headSize).toDouble()
+            }
+
+            val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!).toDouble())
+            if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
                 displayValue = NumberFormatUtils.format(com.racquetbuddy.utils.UnitConvertionUtils.kiloToPound(tension))
                 unitsTensionTextVIew.text = "lb"
             } else {
@@ -132,10 +138,10 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private fun refreshHeadSizeView() {
         if (activity != null) {
             val headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
-            if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
+            if (SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
                 headSizeValue.text = NumberFormatUtils.round(headSize) + "in\u00B2"
             } else {
-                headSizeValue.text = NumberFormatUtils.round(UnitConvertionUtils.inToCm(headSize.toDouble())) + "cm\u00B2"
+                headSizeValue.text = NumberFormatUtils.round(headSize) + "cm\u00B2"
             }
         }
     }

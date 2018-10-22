@@ -5,15 +5,10 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
-import android.widget.EditText
 import android.widget.RadioGroup
-import android.widget.TextView
 import com.racquetbuddy.racquetstringer.R
-import com.racquetbuddy.ui.MainFragment
 import com.racquetbuddy.ui.OnRefreshViewsListener
 import com.racquetbuddy.utils.SharedPrefsUtils
-import com.racquetbuddy.utils.UnitConvertionUtils
-import kotlin.math.roundToInt
 
 /**
  * Created by musashiwarrior on 15-Oct-18.
@@ -35,7 +30,7 @@ class UnitsDialogFragment : DialogFragment() {
             }
         }
 
-        if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
+        if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
             unitsRadioGroup?.check(R.id.imperialRadioButton)
         } else {
             unitsRadioGroup?.check(R.id.metricRadioButton)
@@ -45,7 +40,7 @@ class UnitsDialogFragment : DialogFragment() {
             .setView(root).setMessage(R.string.choose_units_of_measurement)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->
-                    SharedPrefsUtils.setImperialMeasureUnits(activity!!, isImperialSelected)
+                    SharedPrefsUtils.setTensionImperialUnits(activity!!, isImperialSelected)
 
                     if (targetFragment is OnRefreshViewsListener) {
                         (targetFragment as OnRefreshViewsListener).refreshViews()

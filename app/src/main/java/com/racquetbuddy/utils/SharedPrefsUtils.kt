@@ -10,7 +10,8 @@ import com.racquetbuddy.businesslogic.DefaultRacquetValues
 object SharedPrefsUtils {
 
     private const val SHARED_PREFS_UTILS = "SHARED_PREFS_UTILS"
-    private const val KEY_IMPERIAL_MEASURE_UNITS = "KEY_IMPERIAL_MEASURE_UNITS"
+    private const val KEY_TENSION_UNITS = "KEY_TENSION_UNITS"
+    private const val KEY_RACQUET_UNITS = "KEY_RACQUET_UNITS"
     private const val KEY_SET_FIRST_RUN = "KEY_SET_FIRST_RUN"
     private const val KEY_STRINGS_DIAMETER = "KEY_STRINGS_DIAMETER"
     private const val KEY_HEAD_SIZE = "KEY_HEAD_SIZE"
@@ -23,12 +24,12 @@ object SharedPrefsUtils {
         return context.getSharedPreferences(SHARED_PREFS_UTILS, 0)
     }
 
-    fun areImperialMeasureUnits(context: Context): Boolean {
-        return getSharedPreferences(context).getBoolean(KEY_IMPERIAL_MEASURE_UNITS, false)
+    fun isTensoinImperialUnits(context: Context): Boolean {
+        return getSharedPreferences(context).getBoolean(KEY_TENSION_UNITS, false)
     }
 
-    fun setImperialMeasureUnits(context: Context, isImperial: Boolean) {
-        getEditor(context).putBoolean(KEY_IMPERIAL_MEASURE_UNITS, isImperial).apply()
+    fun setTensionImperialUnits(context: Context, isImperial: Boolean) {
+        getEditor(context).putBoolean(KEY_TENSION_UNITS, isImperial).apply()
     }
 
     fun isFirstRun(context: Context): Boolean {
@@ -45,6 +46,14 @@ object SharedPrefsUtils {
 
     fun setRacquetHeadSize(context: Context, headSize: Double) {
         getEditor(context).putFloat(KEY_HEAD_SIZE, headSize.toFloat()).apply()
+    }
+
+    fun isHeadImperialUnits(context: Context): Boolean {
+        return getSharedPreferences(context).getBoolean(KEY_RACQUET_UNITS, false)
+    }
+
+    fun setHeadImperialUnits(context: Context, isImperial: Boolean) {
+        getEditor(context).putBoolean(KEY_RACQUET_UNITS, isImperial).apply()
     }
 
     fun getStringsDiameter(context: Context): Float {

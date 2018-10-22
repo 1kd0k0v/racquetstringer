@@ -48,4 +48,5 @@
     <string name="own_calibration">Own Calibration</string>
     <string name="calibration">Calibration</string>
     <string name="listening">Listening</string>
+    <string name="pref_tension_units">Tension Units</string>
 </resources>

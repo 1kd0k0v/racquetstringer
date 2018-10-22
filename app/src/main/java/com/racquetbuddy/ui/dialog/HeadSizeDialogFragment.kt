@@ -7,13 +7,10 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.EditText
-import android.widget.TextView
+import android.widget.Spinner
 import com.racquetbuddy.racquetstringer.R
-import com.racquetbuddy.ui.MainFragment
 import com.racquetbuddy.ui.OnRefreshViewsListener
 import com.racquetbuddy.utils.SharedPrefsUtils
-import com.racquetbuddy.utils.UnitConvertionUtils
-import kotlin.math.roundToInt
 
 /**
  * Created by musashiwarrior on 15-Oct-18.
@@ -26,28 +23,25 @@ class HeadSizeDialogFragment : DialogFragment() {
 
         val root = inflater.inflate(R.layout.input_head_size_layout, null)
 
-        val unitsTextView = root?.findViewById<TextView>(R.id.unitsTextView)
+        val unitsSpinner = root?.findViewById<Spinner>(R.id.headUnitsSpinner) as Spinner
         val headSizeInput = root?.findViewById<EditText>(R.id.stringsDiameterInputFieldDialog)
 
-        if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
-            headSizeInput?.setText(SharedPrefsUtils.getRacquetHeadSize(activity!!).toString())
-            headSizeInput?.setSelection(headSizeInput.text.length);
-            unitsTextView?.text = getString(R.string.square_inch)
+        headSizeInput?.setText(SharedPrefsUtils.getRacquetHeadSize(activity!!).toString())
+        headSizeInput?.setSelection(headSizeInput.text.length);
+
+        if (SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
+            unitsSpinner.setSelection(0)
         } else {
-            headSizeInput?.setText(UnitConvertionUtils.inToCm(SharedPrefsUtils.getRacquetHeadSize(activity!!).toDouble()).toString())
-            headSizeInput?.setSelection(headSizeInput.text.length);
-            unitsTextView?.text = getString(R.string.square_cm)
+            unitsSpinner.setSelection(1)
         }
 
         return AlertDialog.Builder(activity!!)
             .setView(root).setMessage(R.string.dialog_title_head_size)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->
-                    if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
-                        SharedPrefsUtils.setRacquetHeadSize(activity!!, headSizeInput?.text.toString().toDouble())
-                    } else {
-                        SharedPrefsUtils.setRacquetHeadSize(activity!!, UnitConvertionUtils.cmToIn(headSizeInput?.text.toString().toDouble()).toDouble().roundToInt().toDouble())
-                    }
+                    val isImperial = unitsSpinner.selectedItemId == 0L
+                    SharedPrefsUtils.setHeadImperialUnits(activity!!, isImperial)
+                    SharedPrefsUtils.setRacquetHeadSize(activity!!, headSizeInput?.text.toString().toDouble())
 
                     if (targetFragment is OnRefreshViewsListener) {
                         (targetFragment as OnRefreshViewsListener).refreshViews()

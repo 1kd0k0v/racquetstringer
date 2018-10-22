@@ -7,29 +7,27 @@
 
     <EditText
         android:id="@+id/stringsDiameterInputFieldDialog"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/head_size"
         android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/unitsTextView"
+        app:layout_constraintEnd_toStartOf="@+id/headUnitsSpinner"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/unitsTextView"
+    <Spinner
+        android:id="@+id/headUnitsSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/units"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:entries="@array/units"
         app:layout_constraintBottom_toBottomOf="@+id/stringsDiameterInputFieldDialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/stringsDiameterInputFieldDialog"
-        app:layout_constraintTop_toTopOf="@+id/stringsDiameterInputFieldDialog" />
+        app:layout_constraintStart_toEndOf="@+id/stringsDiameterInputFieldDialog" />
 </android.support.constraint.ConstraintLayout>

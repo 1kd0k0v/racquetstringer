@@ -59,10 +59,10 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         if (keyHeadSize != null) {
 
             val size = SharedPrefsUtils.getRacquetHeadSize(activity!!)
-            if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
+            if (SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
                 keyHeadSize.summary = NumberFormatUtils.round(size) + "in\u00B2"
             } else {
-                keyHeadSize.summary = NumberFormatUtils.round(UnitConvertionUtils.inToCm(size.toDouble())) + "cm\u00B2"
+                keyHeadSize.summary = NumberFormatUtils.round(size) + "cm\u00B2"
             }
 
             keyHeadSize.setOnPreferenceClickListener {
@@ -90,7 +90,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     private fun initUnits() {
         val units = findPreference("pref_key_units")
         if (units != null) {
-            if (SharedPrefsUtils.areImperialMeasureUnits(activity!!)) {
+            if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
                 units.summary = getString(R.string.imperial)
             } else {
                 units.summary = getString(R.string.metric)
