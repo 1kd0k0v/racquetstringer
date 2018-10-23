@@ -12,7 +12,6 @@ import com.racquetbuddy.ui.dialog.StringTypeDialogFragment
 import com.racquetbuddy.ui.dialog.UnitsDialogFragment
 import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
-import com.racquetbuddy.utils.UnitConvertionUtils
 
 class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     override fun refreshViews() {
@@ -77,9 +76,13 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
 
             val size = SharedPrefsUtils.getRacquetHeadSize(activity!!)
             if (SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
-                keyHeadSize.summary = NumberFormatUtils.round(size) + "in\u00B2"
+                keyHeadSize.summary = getString(R.string.value_space_unit,
+                        NumberFormatUtils.round(size),
+                        getString(R.string.square_inch))
             } else {
-                keyHeadSize.summary = NumberFormatUtils.round(size) + "cm\u00B2"
+                keyHeadSize.summary = getString(R.string.value_space_unit,
+                        NumberFormatUtils.round(size),
+                        getString(R.string.square_cm))
             }
 
             keyHeadSize.setOnPreferenceClickListener {
@@ -94,7 +97,9 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     private fun initStringsDiameter() {
         val stringsDiameter = findPreference("pref_key_string_diameter")
         if (stringsDiameter != null) {
-            stringsDiameter.summary = SharedPrefsUtils.getStringsDiameter(activity!!).toString() + getString(R.string.mm)
+            stringsDiameter.summary = getString(R.string.value_space_unit,
+                    SharedPrefsUtils.getStringsDiameter(activity!!).toString(),
+                    getString(R.string.mm))
             stringsDiameter.setOnPreferenceClickListener {
                 val dialog = StringDiameterDialogFragment()
                 dialog.setTargetFragment(this, 0)
@@ -108,9 +113,9 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         val units = findPreference("pref_key_units")
         if (units != null) {
             if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
-                units.summary = getString(R.string.imperial)
+                units.summary = getString(R.string.tension_lb)
             } else {
-                units.summary = getString(R.string.metric)
+                units.summary = getString(R.string.tension_kg)
             }
             units.setOnPreferenceClickListener {
                 val dialog = UnitsDialogFragment()

@@ -114,7 +114,9 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshStringDiameterView() {
-        stringDiameterValue.text = SharedPrefsUtils.getStringsDiameter(activity!!).toString() + getString(R.string.mm)
+        stringDiameterValue.text = getString(R.string.value_space_unit,
+                SharedPrefsUtils.getStringsDiameter(activity!!).toString(),
+                getString(R.string.mm))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -154,9 +156,13 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         if (activity != null) {
             val headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
             if (SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
-                headSizeValue.text = NumberFormatUtils.round(headSize) + "in\u00B2"
+                headSizeValue.text = getString(R.string.value_space_unit,
+                        NumberFormatUtils.round(headSize),
+                        getString(R.string.square_inch))
             } else {
-                headSizeValue.text = NumberFormatUtils.round(headSize) + "cm\u00B2"
+                headSizeValue.text = getString(R.string.value_space_unit,
+                        NumberFormatUtils.round(headSize),
+                        getString(R.string.square_cm))
             }
         }
     }

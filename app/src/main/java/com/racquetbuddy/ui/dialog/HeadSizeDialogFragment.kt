@@ -23,8 +23,8 @@ class HeadSizeDialogFragment : DialogFragment() {
 
         val root = inflater.inflate(R.layout.input_head_size_layout, null)
 
-        val unitsSpinner = root?.findViewById<Spinner>(R.id.headUnitsSpinner) as Spinner
-        val headSizeInput = root?.findViewById<EditText>(R.id.stringsDiameterInputFieldDialog)
+        val unitsSpinner = root.findViewById<Spinner>(R.id.headUnitsSpinner) as Spinner
+        val headSizeInput = root.findViewById<EditText>(R.id.stringsDiameterInputFieldDialog)
 
         headSizeInput?.setText(SharedPrefsUtils.getRacquetHeadSize(activity!!).toString())
         headSizeInput?.setSelection(headSizeInput.text.length);
