@@ -34,7 +34,9 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     val STRINGS_DIAMETER_DIALOG_TAG = "STRINGS_DIAMETER_DIALOG_TAG"
     val STRING_TYPE_DIALOG_TAG = "STRING_TYPE_DIALOG_TAG"
 
-    lateinit var samplingLoop: SamplingLoop
+//    lateinit var samplingLoop: SamplingLoop
+
+    val samplingThreads = ArrayList<Thread>()
 
     private var currentHz: Double = 0.0
 
@@ -63,6 +65,28 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 ampBuffer.add(amplitude)
             }
         }, resources)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopSampling()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        startSampling()
+    }
+
+    private fun startSampling() {
+        val samplingLoop = getSamplingLoopInstance()
+        samplingThreads.add(samplingLoop)
+        samplingLoop.start()
+    }
+
+    private fun stopSampling() {
+        for (thread in samplingThreads) {
+            (thread as SamplingLoop).finish()
+        }
     }
 
     private fun displayTension(hz: Double) {
@@ -98,7 +122,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        samplingLoop = getSamplingLoopInstance()
+//        samplingLoop = getSamplingLoopInstance()
     }
 
     override fun refreshViews() {
@@ -165,25 +189,6 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                         getString(R.string.square_cm))
             }
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        stopSampling()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        startSampling()
-    }
-
-    private fun startSampling() {
-        samplingLoop = getSamplingLoopInstance()
-        samplingLoop.start()
-    }
-
-    private fun stopSampling() {
-        samplingLoop.finish()
     }
 
     // TODO [musashi] add dialogs to inform user why mic is needed
