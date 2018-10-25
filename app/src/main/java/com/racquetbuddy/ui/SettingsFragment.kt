@@ -38,12 +38,14 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
             appVersion.summary = BuildConfig.VERSION_NAME
         }
 
-        val shareApp = findPreference("key_")
-        if (shareApp != null) {
-            shareApp.setOnPreferenceClickListener {
-                shareTheApp()
-                return@setOnPreferenceClickListener true
-            }
+        findPreference("pref_key_share")?.setOnPreferenceClickListener {
+            shareTheApp()
+            return@setOnPreferenceClickListener true
+        }
+
+        findPreference("pref_key_own_calibration")?.setOnPreferenceClickListener {
+            startActivity(Intent(context, CalibrationActivity::class.java))
+            return@setOnPreferenceClickListener true
         }
     }
 
@@ -52,12 +54,12 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         if (stringType != null) {
             val types = activity!!.resources.getStringArray(R.array.string_types)
             stringType.summary = types[SharedPrefsUtils.getStringType(activity!!)]
-        }
-        stringType.setOnPreferenceClickListener {
-            val dialog = StringTypeDialogFragment()
-            dialog.setTargetFragment(this, 0)
-            dialog.show(fragmentManager, "STRING_TYPE")
-            return@setOnPreferenceClickListener true
+            stringType.setOnPreferenceClickListener {
+                val dialog = StringTypeDialogFragment()
+                dialog.setTargetFragment(this, 0)
+                dialog.show(fragmentManager, "STRING_TYPE")
+                return@setOnPreferenceClickListener true
+            }
         }
     }
 

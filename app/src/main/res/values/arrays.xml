@@ -149,5 +149,8 @@
         <item>@string/synthetic_gut</item>
         <item>@string/kevlar</item>
     </string-array>
-
+    <string-array name="tension_units">
+        <item>@string/tension_lb</item>
+        <item>@string/tension_kg</item>
+    </string-array>
 </resources>

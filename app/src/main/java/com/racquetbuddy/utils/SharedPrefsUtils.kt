@@ -17,6 +17,8 @@ object SharedPrefsUtils {
     private const val KEY_STRINGS_DIAMETER = "KEY_STRINGS_DIAMETER"
     private const val KEY_HEAD_SIZE = "KEY_HEAD_SIZE"
     private const val KEY_STRING_TYPE = "KEY_STRING_TYPE"
+    private const val KEY_CALIBRATED = "KEY_CALIBRATED"
+    private const val KEY_TENSION_ADJUSMENT_KG = "KEY_TENSION_ADJUSMENT_KG"
 
     private fun getEditor(context: Context) : SharedPreferences.Editor{
         return getSharedPreferences(context).edit()
@@ -72,5 +74,22 @@ object SharedPrefsUtils {
 
     fun getStringType(context: Context): Int {
         return getSharedPreferences(context).getInt(KEY_STRING_TYPE, 0)
+    }
+
+
+    fun setCalibrated(context: Context, isCalibrated: Boolean) {
+        getEditor(context).putBoolean(KEY_CALIBRATED, isCalibrated).apply()
+    }
+
+    fun isCalibrated(context: Context): Boolean {
+        return getSharedPreferences(context).getBoolean(KEY_CALIBRATED, false)
+    }
+
+    fun setTensionAdjustmentKg(context: Context, adjustment: Float) {
+        getEditor(context).putFloat(KEY_TENSION_ADJUSMENT_KG, adjustment).apply()
+    }
+
+    fun getTensionAdjustmentKg(context: Context): Float {
+        return getSharedPreferences(context).getFloat(KEY_TENSION_ADJUSMENT_KG, 0f)
     }
 }

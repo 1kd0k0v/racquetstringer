@@ -37,6 +37,9 @@
         android:title="@string/about"
         android:key="pref_key_about">
         <Preference
+            android:key="pref_key_share"
+            android:title="@string/pref_share"/>
+        <Preference
             android:key="pref_key_feedback"
             android:title="@string/pref_title_feedback"/>
         <Preference

@@ -13,13 +13,20 @@
         <activity
             android:name="com.racquetbuddy.ui.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.racquetbuddy.ui.CalibrationActivity"
+            android:label="@string/own_calibration"
+            android:parentActivityName="com.racquetbuddy.ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.racquetbuddy.ui.MainActivity" />
         </activity>
     </application>
 

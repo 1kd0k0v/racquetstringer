@@ -72,6 +72,7 @@ object Racquet {
     }
 
     /**
+     * @return Tensions in KG
      * @param v the vibration in Hz of the racquet
      */
     fun getStringsTension(v: Double, S: Double, d: Double): Double {

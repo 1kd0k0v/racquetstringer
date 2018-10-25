@@ -53,4 +53,16 @@
     <string name="tension_lb">lb</string>
     <string name="tension_kg">kg</string>
     <string name="value_space_unit">%1$s %2$s</string>
+    <string name="calibrated">Calibrated</string>
+    <string name="not_calibrated">Not Calibrated</string>
+    <string name="calibrate">Calibrate</string>
+    <string name="pref_share">Share</string>
+    <string name="default_value">Default</string>
+    <string name="restore_default">Restore Default</string>
+    <string name="adjust">Adjust</string>
+    <string name="reset">Reset</string>
+    <string name="default_measurement">Default Measurement</string>
+    <string name="string_tension">String Tension</string>
+    <string name="dialog_adjust_title">Enter the tension of your just stringed racquet.</string>
+    <string name="calibration_default_text">The default measurement is %1$s %2$s. Please enter your just stringed racquet tension.</string>
 </resources>

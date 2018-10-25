@@ -1,15 +1,17 @@
 package com.racquetbuddy.ui
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.racquetbuddy.audioanalyzer.SamplingLoop
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.dialog.HeadSizeDialogFragment
 import com.racquetbuddy.ui.dialog.StringDiameterDialogFragment
@@ -22,8 +24,8 @@ import android.text.Spannable
 import android.text.style.ForegroundColorSpan
 import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
-import android.util.Log
 import com.racquetbuddy.businesslogic.Racquet
+import com.racquetbuddy.businesslogic.SamplingManager
 import com.racquetbuddy.ui.dialog.StringTypeDialogFragment
 
 
@@ -34,42 +36,13 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     val STRINGS_DIAMETER_DIALOG_TAG = "STRINGS_DIAMETER_DIALOG_TAG"
     val STRING_TYPE_DIALOG_TAG = "STRING_TYPE_DIALOG_TAG"
 
-//    lateinit var samplingLoop: SamplingLoop
-
-    val samplingThreads = ArrayList<Thread>()
-
     private var currentHz: Double = 0.0
 
-    private fun getSamplingLoopInstance(): SamplingLoop {
-
-        val ampBuffer = arrayListOf<Double>()
-
-        return SamplingLoop(SamplingLoop.AnalyzerCallback { amplitude ->
-            Log.d("Amplitude", "Amp: $amplitude");
-
-            if (amplitude > 400 && amplitude < 700) {
-                val found = ampBuffer.find { it > amplitude - 2 && it < amplitude + 2 }
-                if (found != null) {
-                    activity?.runOnUiThread {
-                        val avgAmplitude = (found + amplitude) / 2
-                        displayTension(avgAmplitude)
-                        currentHz = avgAmplitude
-                    }
-                    ampBuffer.clear()
-                }
-
-                if (ampBuffer.size == 1000) {
-                    ampBuffer.clear()
-                }
-
-                ampBuffer.add(amplitude)
-            }
-        }, resources)
-    }
+    private val samplingManager = SamplingManager.instance
 
     override fun onPause() {
         super.onPause()
-        stopSampling()
+        samplingManager.stopSampling()
     }
 
     override fun onResume() {
@@ -78,15 +51,15 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun startSampling() {
-        val samplingLoop = getSamplingLoopInstance()
-        samplingThreads.add(samplingLoop)
-        samplingLoop.start()
-    }
-
-    private fun stopSampling() {
-        for (thread in samplingThreads) {
-            (thread as SamplingLoop).finish()
-        }
+        samplingManager.addMaxAmpListener(object : SamplingManager.MaxAmplitudeListener {
+            override fun getMaxAmplitude(amplitude: Double) {
+                if (activity != null) {
+                    displayTension(amplitude)
+                    currentHz = amplitude
+                }
+            }
+        })
+        samplingManager.startSampling(activity!!, resources)
     }
 
     private fun displayTension(hz: Double) {
@@ -100,11 +73,21 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
             val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!).toDouble())
             if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
-                displayValue = NumberFormatUtils.format(com.racquetbuddy.utils.UnitConvertionUtils.kiloToPound(tension))
                 unitsTensionTextVIew.text = "lb"
+
+                if (SharedPrefsUtils.isCalibrated(activity!!)) {
+                    displayValue = NumberFormatUtils.format(UnitConvertionUtils.kiloToPound(tension + SharedPrefsUtils.getTensionAdjustmentKg(activity!!)))
+                } else {
+                    displayValue = NumberFormatUtils.format(UnitConvertionUtils.kiloToPound(tension))
+                }
             } else {
-                displayValue = NumberFormatUtils.format(tension)
                 unitsTensionTextVIew.text = "kg"
+
+                if (SharedPrefsUtils.isCalibrated(activity!!)) {
+                    displayValue = NumberFormatUtils.format(tension + SharedPrefsUtils.getTensionAdjustmentKg(activity!!))
+                } else {
+                    displayValue = NumberFormatUtils.format(tension)
+                }
             }
             displayTensionTextView.text = displayValue
 
@@ -118,11 +101,6 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
             displayTensionTextView.setText(spannable, TextView.BufferType.SPANNABLE)
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        samplingLoop = getSamplingLoopInstance()
     }
 
     override fun refreshViews() {
@@ -150,7 +128,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), RECORD_AUDIO_CODE)
         } else {
-            startSampling()
+            samplingManager.startSampling(activity!!, resources)
         }
 
         headSizeLayout.setOnClickListener {
@@ -171,9 +149,25 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             dialog.show(fragmentManager, STRING_TYPE_DIALOG_TAG)
         }
 
+        calibrationTextView.setOnClickListener {
+            startActivity(Intent(context, CalibrationActivity::class.java))
+        }
+
         refreshHeadSizeView()
         refreshStringDiameterView()
         refreshStringType()
+        refreshCalibrated()
+
+    }
+
+    private fun refreshCalibrated() {
+        calibrationTextView.setTypeface(null, Typeface.BOLD)
+        calibrationTextView.paintFlags = calibrationTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        if (SharedPrefsUtils.isCalibrated(activity!!)) {
+            calibrationTextView.text = getString(R.string.calibrated)
+        } else {
+            calibrationTextView.text = getString(R.string.not_calibrated)
+        }
     }
 
     private fun refreshHeadSizeView() {
@@ -197,7 +191,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             RECORD_AUDIO_CODE -> {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    startSampling()
+                    samplingManager.startSampling(activity!!, resources)
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                 } else {

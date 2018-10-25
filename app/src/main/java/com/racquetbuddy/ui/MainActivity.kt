@@ -7,9 +7,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import com.racquetbuddy.racquetstringer.R
-import com.racquetbuddy.utils.FragmentUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -40,14 +38,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-//        if (SharedPrefsUtils.isFirstRun(this)) {
-//            SharedPrefsUtils.setFirstRun(this, false)
-//            setDefaultSharedPreferences()
-//        }
     }
-
-//    private fun setDefaultSharedPreferences() {
-//    }
 
     class MainPagerAdapter(val context: Context, fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
