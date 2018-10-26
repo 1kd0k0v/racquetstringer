@@ -34,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="82" />
+                                                <entry key="scalingPercent" value="95" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -45,8 +45,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="581785" />
-                                      <entry key="foregroundImage" value="C:\Users\musashiwarrior\Desktop\Asset 6.svg" />
+                                      <entry key="foregroundImage" value="C:\Users\musashiwarrior\Desktop\Asset 3.svg" />
                                     </map>
                                   </option>
                                 </PersistentState>

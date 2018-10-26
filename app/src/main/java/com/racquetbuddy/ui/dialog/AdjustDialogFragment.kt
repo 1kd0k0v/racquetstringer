@@ -1,6 +1,7 @@
 package com.racquetbuddy.ui.dialog
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
@@ -25,6 +26,9 @@ class AdjustDialogFragment : DialogFragment() {
 
     companion object {
         private const val TENSION = "TENSION"
+        const val ADJUSTMENT_EXTRA = "ADJUSTMENT_EXTRA"
+        const val RESULT_CODE_OK = 0
+        const val RESULT_CODE_CANCEL = 1
 
         fun newInstance(num: Float): AdjustDialogFragment {
             val f = AdjustDialogFragment()
@@ -65,14 +69,19 @@ class AdjustDialogFragment : DialogFragment() {
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->
 
+                    if (tensionInput?.text.toString().isEmpty()) return@setPositiveButton
+
                     val tension = arguments?.getFloat(TENSION)
-                    if (isImperial) {
-                        SharedPrefsUtils.setTensionAdjustmentKg(activity!!,UnitConvertionUtils.kiloToPound(tensionInput?.text.toString().toDouble()).toFloat() - tension!!)
+                    val adjustment = if (isImperial) {
+                        UnitConvertionUtils.kiloToPound(tensionInput?.text.toString().toDouble()).toFloat() - tension!!
                     } else {
-                        SharedPrefsUtils.setTensionAdjustmentKg(activity!!, tensionInput?.text.toString().toFloat() - tension!!)
+                        tensionInput?.text.toString().toFloat() - tension!!
                     }
 
-                    SharedPrefsUtils.setCalibrated(activity!!, true)
+                    val intent = Intent()
+                    intent.putExtra(ADJUSTMENT_EXTRA, adjustment)
+
+                    targetFragment!!.onActivityResult(targetRequestCode, RESULT_CODE_OK, intent)
 
                     if (targetFragment is OnRefreshViewsListener) {
                         (targetFragment as OnRefreshViewsListener).refreshViews()
@@ -80,6 +89,7 @@ class AdjustDialogFragment : DialogFragment() {
                 }
                 .setNegativeButton(R.string.cancel
                 ) { _, _ ->
+//                    targetFragment!!.onActivityResult(targetRequestCode, RESULT_CODE_CANCEL, Intent())
                     dismiss()
                 }.create()
     }

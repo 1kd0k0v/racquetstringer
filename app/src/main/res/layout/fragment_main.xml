@@ -68,12 +68,12 @@
         android:id="@+id/stringDiameterLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/stringTypeLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/headSizeLayout"
-        app:layout_constraintTop_toBottomOf="@+id/calibrationTextView">
+        app:layout_constraintTop_toBottomOf="@+id/displayTensionConstraintLayout">
 
 
         <TextView
@@ -136,6 +136,21 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/calibrationTextView"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/calibration"
+            app:layout_constraintBottom_toTopOf="@+id/displayTensionTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/displayTensionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -154,7 +169,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/unitsTensionTextVIew"
+            android:id="@+id/personalModeUnitsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
@@ -217,16 +232,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
     </android.support.constraint.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/calibrationTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/calibration"
-        style="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/displayTensionConstraintLayout" />
 
 </android.support.constraint.ConstraintLayout>

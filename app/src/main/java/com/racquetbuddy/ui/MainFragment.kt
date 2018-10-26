@@ -1,7 +1,6 @@
 package com.racquetbuddy.ui
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Paint
@@ -73,7 +72,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
             val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!).toDouble())
             if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
-                unitsTensionTextVIew.text = "lb"
+                personalModeUnitsTextView.text = "lb"
 
                 if (SharedPrefsUtils.isCalibrated(activity!!)) {
                     displayValue = NumberFormatUtils.format(UnitConvertionUtils.kiloToPound(tension + SharedPrefsUtils.getTensionAdjustmentKg(activity!!)))
@@ -81,7 +80,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                     displayValue = NumberFormatUtils.format(UnitConvertionUtils.kiloToPound(tension))
                 }
             } else {
-                unitsTensionTextVIew.text = "kg"
+                personalModeUnitsTextView.text = "kg"
 
                 if (SharedPrefsUtils.isCalibrated(activity!!)) {
                     displayValue = NumberFormatUtils.format(tension + SharedPrefsUtils.getTensionAdjustmentKg(activity!!))
@@ -149,24 +148,19 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             dialog.show(fragmentManager, STRING_TYPE_DIALOG_TAG)
         }
 
-        calibrationTextView.setOnClickListener {
-            startActivity(Intent(context, CalibrationActivity::class.java))
-        }
-
         refreshHeadSizeView()
         refreshStringDiameterView()
         refreshStringType()
         refreshCalibrated()
-
     }
 
     private fun refreshCalibrated() {
         calibrationTextView.setTypeface(null, Typeface.BOLD)
         calibrationTextView.paintFlags = calibrationTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         if (SharedPrefsUtils.isCalibrated(activity!!)) {
-            calibrationTextView.text = getString(R.string.calibrated)
+            calibrationTextView.text = getString(R.string.personal_mode)
         } else {
-            calibrationTextView.text = getString(R.string.not_calibrated)
+            calibrationTextView.text = getString(R.string.fabric_mode)
         }
     }
 

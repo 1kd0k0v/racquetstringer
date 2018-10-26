@@ -43,9 +43,18 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
             return@setOnPreferenceClickListener true
         }
 
-        findPreference("pref_key_own_calibration")?.setOnPreferenceClickListener {
-            startActivity(Intent(context, CalibrationActivity::class.java))
-            return@setOnPreferenceClickListener true
+        val calibration = findPreference("pref_key_own_calibration")
+        if (calibration != null) {
+            if (SharedPrefsUtils.isCalibrated(activity!!)) {
+                calibration.summary = getString(R.string.personal_mode)
+            } else {
+                calibration.summary = getString(R.string.fabric_mode)
+            }
+
+            calibration.setOnPreferenceClickListener {
+                startActivity(Intent(context, CalibrationActivity::class.java))
+                return@setOnPreferenceClickListener true
+            }
         }
     }
 

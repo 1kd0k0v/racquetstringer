@@ -5,7 +5,7 @@
         android:key="pref_key_racquet_details">
         <Preference
             android:key="pref_key_own_calibration"
-            android:title="@string/own_calibration"/>
+            android:title="@string/mode"/>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/racquet"

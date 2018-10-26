@@ -61,8 +61,16 @@
     <string name="restore_default">Restore Default</string>
     <string name="adjust">Adjust</string>
     <string name="reset">Reset</string>
+    <string name="fabric">Fabric</string>
+    <string name="fabric_mode">Fabric Mode</string>
+    <string name="mode">Mode</string>
+    <string name="choose_mode">Choose Mode</string>
+    <string name="personal">Personal</string>
+    <string name="personal_mode">Personal Mode</string>
     <string name="default_measurement">Default Measurement</string>
     <string name="string_tension">String Tension</string>
     <string name="dialog_adjust_title">Enter the tension of your just stringed racquet.</string>
     <string name="calibration_default_text">The default measurement is %1$s %2$s. Please enter your just stringed racquet tension.</string>
+    <string name="current_adjustment">(%1$s%2$s)</string>
+    <string name="adjustment_saved">Adjustment %1$f%2$s applied.</string>
 </resources>
