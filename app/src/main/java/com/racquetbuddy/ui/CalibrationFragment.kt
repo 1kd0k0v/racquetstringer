@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.racquetbuddy.businesslogic.Racquet
 import com.racquetbuddy.businesslogic.SamplingManager
 import com.racquetbuddy.racquetstringer.R
@@ -48,15 +46,15 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
         currentAdjustment = SharedPrefsUtils.getTensionAdjustmentKg(activity!!)
 
         samplingManager.addMaxAmpListener(object : SamplingManager.MaxAmplitudeListener {
-            override fun getMaxAmplitude(amplitude: Double) {
+            override fun getMaxAmplitude(amplitude: Float) {
 
                 if (activity != null) {
-                    var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!).toDouble()
+                    var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
                     if(!SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
-                        headSize = UnitConvertionUtils.cmToIn(headSize).toDouble()
+                        headSize = UnitConvertionUtils.cmToIn(headSize).toFloat()
                     }
 
-                    val tension = Racquet.getStringsTension(amplitude, headSize, SharedPrefsUtils.getStringsDiameter(activity!!).toDouble())
+                    val tension = Racquet.getStringsTension(amplitude, headSize, SharedPrefsUtils.getStringsDiameter(activity!!), SharedPrefsUtils.getStringDensity(activity!!))
                     val tensionInLb = UnitConvertionUtils.kiloToPound(tension).toDouble()
 
                     defaultMeasurement = tension.toFloat()
@@ -93,6 +91,8 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
             dialog.show(fragmentManager, ADJUST_DIALOG_TAG)
         }
 
+        initModeRadioGroup()
+
         initAdjustmentTextView()
 
 //        restoreDefaultButton.setOnClickListener {
@@ -102,13 +102,54 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 //        }
     }
 
+    private var isPersonalModeSelected: Boolean = true
+
+    private fun initModeRadioGroup() {
+        isPersonalModeSelected = isCalibrated()
+
+        if (isPersonalModeSelected) {
+            modeRadioGroup.check(R.id.personalRadioButton)
+            enableCalibrationLayout()
+        } else {
+            modeRadioGroup.check(R.id.fabricRadioButton)
+            disableCalibrationLayout()
+        }
+
+        modeRadioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.personalRadioButton -> {
+                    isPersonalModeSelected = true
+                    enableCalibrationLayout()
+                    SharedPrefsUtils.setTensionAdjustmentKg(activity!!, currentAdjustment)
+                    SharedPrefsUtils.setCalibrated(activity!!, true)
+                }
+
+                R.id.fabricRadioButton -> {
+                    isPersonalModeSelected = false
+                    disableCalibrationLayout()
+                    SharedPrefsUtils.setTensionAdjustmentKg(activity!!, 0f)
+                    SharedPrefsUtils.setCalibrated(activity!!, false)
+                }
+            }
+        }
+    }
+
+    private fun enableCalibrationLayout() {
+        personalModeCalibrationLayout.visibility = View.VISIBLE
+    }
+
+    private fun disableCalibrationLayout() {
+        personalModeCalibrationLayout.visibility = View.INVISIBLE
+    }
+
     private fun initAdjustmentTextView() {
         val adjustment = currentAdjustment
+        val units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) getString(R.string.tension_lb) else getString(R.string.tension_kg)
         when {
             adjustment == 0f -> currentAdjustmentTextView.text = ""
-            adjustment > 0f -> currentAdjustmentTextView.text = getString(R.string.current_adjustment,"+", NumberFormatUtils.format(adjustment))
+            adjustment > 0f -> currentAdjustmentTextView.text = getString(R.string.current_adjustment,"+", NumberFormatUtils.format(adjustment), units)
             else -> {
-                currentAdjustmentTextView.text = getString(R.string.current_adjustment,"-", NumberFormatUtils.format(adjustment))
+                currentAdjustmentTextView.text = getString(R.string.current_adjustment,"-", NumberFormatUtils.format(adjustment), units)
             }
         }
     }
@@ -125,18 +166,6 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.action_save -> {
-                SharedPrefsUtils.setTensionAdjustmentKg(activity!!, currentAdjustment)
-                Toast.makeText(activity, getString(R.string.adjustment_saved, currentAdjustment, getString(R.string.tension_kg)), Toast.LENGTH_LONG).show()
-                return true
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
-
     fun isImperial(): Boolean {
         return SharedPrefsUtils.isTensoinImperialUnits(activity!!)
     }
@@ -147,7 +176,7 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 
     override fun onResume() {
         super.onResume()
-        samplingManager.startSampling(activity!!, resources)
+        samplingManager.startSampling(activity!!, null)
     }
 
     override fun onPause() {

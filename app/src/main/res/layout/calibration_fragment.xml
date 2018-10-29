@@ -6,145 +6,200 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/defaultMeasurementLayout"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-        android:layout_centerInParent="true"
-        android:layout_margin="32dp"
-        android:background="@drawable/tension_result_background"
-        android:elevation="4dp"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/measurementWithCalibrationLayout">
 
-        <TextView
-            android:id="@+id/defaultLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/fabric_mode"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium"
-            app:layout_constraintBottom_toTopOf="@+id/fabricModeTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/fabricModeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:text="@string/zero"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/fabricModeUnitsTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@+id/fabricModeTextView"
-            app:layout_constraintStart_toStartOf="@+id/fabricModeTextView"
-            app:layout_constraintTop_toBottomOf="@+id/fabricModeTextView" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/measurementWithCalibrationLayout"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-        android:layout_centerInParent="true"
-        android:layout_margin="32dp"
-        android:background="@drawable/tension_result_background"
-        android:elevation="4dp"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/defaultMeasurementLayout"
+    <RadioGroup
+        android:id="@+id/modeRadioGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/calibrationLabel"
-            android:layout_width="wrap_content"
+        <RadioButton
+            android:id="@+id/fabricRadioButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_gravity="start"
+            android:layoutDirection="rtl"
+            android:textSize="16sp"
+            android:text="@string/fabric_mode"
+            android:textAlignment="textStart"
+            tools:layout_editor_absoluteX="137dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <RadioButton
+            android:id="@+id/personalRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layoutDirection="rtl"
+            android:textSize="16sp"
             android:text="@string/personal_mode"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium"
-            app:layout_constraintBottom_toTopOf="@+id/personalModeTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textAlignment="textStart"
+            tools:layout_editor_absoluteX="137dp"
+            tools:layout_editor_absoluteY="0dp" />
+    </RadioGroup>
 
-        <TextView
-            android:id="@+id/personalModeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:text="@string/zero"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/personalModeUnitsTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@+id/personalModeTextView"
-            app:layout_constraintStart_toStartOf="@+id/personalModeTextView"
-            app:layout_constraintTop_toBottomOf="@+id/personalModeTextView" />
-    </android.support.constraint.ConstraintLayout>
-
-
-    <Button
-        android:id="@+id/adjustButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/personalModeCalibrationLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/adjust"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/measurementWithCalibrationLayout" />
-
-    <TextView
-        android:id="@+id/currentAdjustmentTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/current_adjustment"
-        android:textAppearance="@android:style/TextAppearance.Material.Large"
-        app:layout_constraintBottom_toBottomOf="@+id/measurementWithCalibrationLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/measurementWithCalibrationLayout"
-        app:layout_constraintTop_toTopOf="@+id/measurementWithCalibrationLayout" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modeRadioGroup"
+        app:layout_constraintVertical_bias="0.0">
 
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/defaultMeasurementLayout"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/tension_result_background"
+            android:elevation="4dp"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toStartOf="@+id/measurementWithCalibrationLayout"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/instructionsTextView">
+
+            <TextView
+                android:id="@+id/defaultLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/fabric"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                app:layout_constraintBottom_toTopOf="@+id/fabricModeTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/fabricModeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@string/zero"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/fabricModeUnitsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@+id/fabricModeTextView"
+                app:layout_constraintStart_toStartOf="@+id/fabricModeTextView"
+                app:layout_constraintTop_toBottomOf="@+id/fabricModeTextView" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/measurementWithCalibrationLayout"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/tension_result_background"
+            android:elevation="4dp"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/defaultMeasurementLayout"
+            app:layout_constraintTop_toTopOf="@+id/defaultMeasurementLayout">
+
+            <TextView
+                android:id="@+id/calibrationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/personal"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                app:layout_constraintBottom_toTopOf="@+id/personalModeTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/personalModeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@string/zero"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/personalModeUnitsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@+id/personalModeTextView"
+                app:layout_constraintStart_toStartOf="@+id/personalModeTextView"
+                app:layout_constraintTop_toBottomOf="@+id/personalModeTextView" />
+        </android.support.constraint.ConstraintLayout>
+
+
+        <Button
+            android:id="@+id/adjustButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/adjust"
+            app:layout_constraintEnd_toEndOf="@+id/measurementWithCalibrationLayout"
+            app:layout_constraintStart_toStartOf="@+id/measurementWithCalibrationLayout"
+            app:layout_constraintTop_toBottomOf="@+id/measurementWithCalibrationLayout" />
+
+        <TextView
+            android:id="@+id/currentAdjustmentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textSize="14sp"
+            android:text="@string/current_adjustment"
+            app:layout_constraintBottom_toTopOf="@+id/measurementWithCalibrationLayout"
+            app:layout_constraintEnd_toEndOf="@+id/measurementWithCalibrationLayout"
+            app:layout_constraintStart_toStartOf="@+id/measurementWithCalibrationLayout" />
+
+        <TextView
+            android:id="@+id/instructionsTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/instructions_calibration"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

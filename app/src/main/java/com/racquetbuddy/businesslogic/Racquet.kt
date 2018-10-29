@@ -1,6 +1,7 @@
 package com.racquetbuddy.businesslogic
 
 import android.content.Context
+import com.racquetbuddy.businesslogic.DefaultRacquetValues.NEEDED_TO_CALC_CF
 import com.racquetbuddy.utils.SharedPrefsUtils
 
 /**
@@ -59,7 +60,7 @@ object Racquet {
      * @param v the vibration in Hz of the racquet
      */
     fun getStringsTension(v: Double): Double {
-        C0 = 4.8e-7 * DefaultRacquetValues.DEFAULT_D * DefaultRacquetValues.DEFAULT_D * DefaultRacquetValues.DEFAULT_S
+        C0 = DefaultRacquetValues.DEFAULT_CF * DefaultRacquetValues.DEFAULT_D * DefaultRacquetValues.DEFAULT_D * DefaultRacquetValues.DEFAULT_S
         return C0 * v * v
     }
 
@@ -67,7 +68,7 @@ object Racquet {
      * @param v the vibration in Hz of the racquet
      */
     fun getStringsTension(v: Double, S: Double): Double {
-        C0 = 4.8e-7 * DefaultRacquetValues.DEFAULT_D * DefaultRacquetValues.DEFAULT_D * S
+        C0 = DefaultRacquetValues.DEFAULT_CF * DefaultRacquetValues.DEFAULT_D * DefaultRacquetValues.DEFAULT_D * S
         return C0 * v * v
     }
 
@@ -75,8 +76,19 @@ object Racquet {
      * @return Tensions in KG
      * @param v the vibration in Hz of the racquet
      */
-    fun getStringsTension(v: Double, S: Double, d: Double): Double {
-        C0 = 4.8e-7 * d * d * S
+    fun getStringsTension(v: Float, S: Float, d: Float): Double {
+        C0 = DefaultRacquetValues.DEFAULT_CF * d * d * S
+        return C0 * v * v
+    }
+
+    /**
+     * @return Tensions in KG
+     * @param v the vibration in Hz of the racquet
+     * @param rho the density of the string
+     */
+    fun getStringsTension(v: Float, S: Float, d: Float, rho: Float): Double {
+        val cf = NEEDED_TO_CALC_CF * rho
+        C0 = cf * d * d * S
         return C0 * v * v
     }
 }

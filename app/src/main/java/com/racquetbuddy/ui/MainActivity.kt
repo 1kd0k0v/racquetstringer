@@ -1,7 +1,10 @@
 package com.racquetbuddy.ui
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
@@ -21,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         tabLayout.setupWithViewPager(viewPagerMain)
         adapter = MainPagerAdapter(applicationContext, supportFragmentManager)
         viewPagerMain.adapter = adapter
+        viewPagerMain.offscreenPageLimit = 2
         viewPagerMain.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {}
 
@@ -38,6 +42,24 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+
+        if (savedInstanceState != null) {
+            viewPagerMain.currentItem = savedInstanceState.getInt("currentItem", 0);
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        if (resultCode == Activity.RESULT_OK) {
+            val haveToReturnToSettings = data?.getIntExtra(CalibrationActivity.RETURN_TO_SETTINGS, 0) == CalibrationActivity.RETURN_TO_SETTINGS_RESULT
+
+            if (haveToReturnToSettings) {
+                viewPagerMain.currentItem = 1
+                ((adapter as FragmentStatePagerAdapter).getItem(1) as OnRefreshViewsListener).refreshViews()
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     class MainPagerAdapter(val context: Context, fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
@@ -75,5 +97,10 @@ class MainActivity : AppCompatActivity() {
         override fun getPageTitle(position: Int): CharSequence? {
             return tabTitles[position]
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+        outState?.putInt("currentItem", viewPagerMain.currentItem);
+        super.onSaveInstanceState(outState, outPersistentState)
     }
 }

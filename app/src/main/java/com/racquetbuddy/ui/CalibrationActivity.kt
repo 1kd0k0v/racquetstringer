@@ -1,13 +1,22 @@
 package com.racquetbuddy.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.view.View
 import com.racquetbuddy.racquetstringer.R
 import kotlinx.android.synthetic.main.calibration_activity.*
 
 
 class CalibrationActivity : AppCompatActivity() {
+
+    companion object {
+        val RETURN_TO_SETTINGS = "RETURN_TO_SETTINGS"
+        val RETURN_TO_SETTINGS_RESULT = 1
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,6 +24,9 @@ class CalibrationActivity : AppCompatActivity() {
 
         setSupportActionBar(my_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        my_toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -23,10 +35,14 @@ class CalibrationActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.calibration, menu)
-        return true
+    override fun onBackPressed() {
+        addExtraToBackToSettings()
+        super.onBackPressed()
     }
 
+    fun addExtraToBackToSettings() {
+        val bundle = Intent()
+        bundle.putExtra(RETURN_TO_SETTINGS, RETURN_TO_SETTINGS_RESULT)
+        setResult(Activity.RESULT_OK, bundle)
+    }
 }

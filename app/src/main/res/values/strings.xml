@@ -45,7 +45,6 @@
     <string name="ok">OK</string>
     <string name="choose_units_of_measurement">Select Units</string>
     <string name="string_diameter_dialog_title">Enter string diameter.</string>
-    <string name="own_calibration">Own Calibration</string>
     <string name="calibration">Calibration</string>
     <string name="listening">Listening</string>
     <string name="pref_tension_units">Tension Units</string>
@@ -71,6 +70,7 @@
     <string name="string_tension">String Tension</string>
     <string name="dialog_adjust_title">Enter the tension of your just stringed racquet.</string>
     <string name="calibration_default_text">The default measurement is %1$s %2$s. Please enter your just stringed racquet tension.</string>
-    <string name="current_adjustment">(%1$s%2$s)</string>
+    <string name="current_adjustment">(%1$s%2$s%3$s)</string>
     <string name="adjustment_saved">Adjustment %1$f%2$s applied.</string>
+    <string name="instructions_calibration">How does it work?\n1. String your racqet by trusted stringer.\n2. Select \"Personal Mode\".\n3. Measure the tension.\n4. Adjust if needed.</string>
 </resources>

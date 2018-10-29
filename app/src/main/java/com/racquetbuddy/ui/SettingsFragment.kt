@@ -14,11 +14,15 @@ import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
 
 class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
+
+    private val CHOOSE_MODE_CODE = 0
+
     override fun refreshViews() {
         initHeadSize()
         initStringsDiameter()
         initUnits()
         initStringType()
+        initMode()
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -32,6 +36,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         initStringsDiameter()
         initUnits()
         initStringType()
+        initMode()
 
         val appVersion = findPreference("pref_key_app_version")
         if (appVersion != null) {
@@ -42,7 +47,9 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
             shareTheApp()
             return@setOnPreferenceClickListener true
         }
+    }
 
+    private fun initMode() {
         val calibration = findPreference("pref_key_own_calibration")
         if (calibration != null) {
             if (SharedPrefsUtils.isCalibrated(activity!!)) {
@@ -52,10 +59,11 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
             }
 
             calibration.setOnPreferenceClickListener {
-                startActivity(Intent(context, CalibrationActivity::class.java))
+                startActivityForResult(Intent(context, CalibrationActivity::class.java), CHOOSE_MODE_CODE)
                 return@setOnPreferenceClickListener true
             }
         }
+
     }
 
     private fun initStringType() {

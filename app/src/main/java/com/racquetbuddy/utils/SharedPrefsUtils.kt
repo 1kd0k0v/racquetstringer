@@ -19,6 +19,7 @@ object SharedPrefsUtils {
     private const val KEY_STRING_TYPE = "KEY_STRING_TYPE"
     private const val KEY_CALIBRATED = "KEY_CALIBRATED"
     private const val KEY_TENSION_ADJUSMENT_KG = "KEY_TENSION_ADJUSMENT_KG"
+    private const val KEY_STRING_DENSITY = "KEY_STRING_DENSITY"
 
     private fun getEditor(context: Context) : SharedPreferences.Editor{
         return getSharedPreferences(context).edit()
@@ -91,5 +92,13 @@ object SharedPrefsUtils {
 
     fun getTensionAdjustmentKg(context: Context): Float {
         return getSharedPreferences(context).getFloat(KEY_TENSION_ADJUSMENT_KG, 0f)
+    }
+
+    fun setStringDensity(context: Context, density: Float) {
+        getEditor(context).putFloat(KEY_STRING_DENSITY, density).apply()
+    }
+
+    fun getStringDensity(context: Context): Float {
+        return getSharedPreferences(context).getFloat(KEY_STRING_DENSITY, DefaultRacquetValues.DEFAULT_RHO.toFloat())
     }
 }

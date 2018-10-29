@@ -30,12 +30,12 @@ import com.racquetbuddy.ui.dialog.StringTypeDialogFragment
 
 class MainFragment : Fragment(), OnRefreshViewsListener {
 
-    val RECORD_AUDIO_CODE = 0
-    val HEAD_SIZE_DIALOG_TAG = "HEAD_SIZE_DIALOG_TAG"
-    val STRINGS_DIAMETER_DIALOG_TAG = "STRINGS_DIAMETER_DIALOG_TAG"
-    val STRING_TYPE_DIALOG_TAG = "STRING_TYPE_DIALOG_TAG"
+    private val RECORD_AUDIO_CODE = 0
+    private val HEAD_SIZE_DIALOG_TAG = "HEAD_SIZE_DIALOG_TAG"
+    private val STRINGS_DIAMETER_DIALOG_TAG = "STRINGS_DIAMETER_DIALOG_TAG"
+    private val STRING_TYPE_DIALOG_TAG = "STRING_TYPE_DIALOG_TAG"
 
-    private var currentHz: Double = 0.0
+    private var currentHz: Float = 0f
 
     private val samplingManager = SamplingManager.instance
 
@@ -51,41 +51,41 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
     private fun startSampling() {
         samplingManager.addMaxAmpListener(object : SamplingManager.MaxAmplitudeListener {
-            override fun getMaxAmplitude(amplitude: Double) {
+            override fun getMaxAmplitude(amplitude: Float) {
                 if (activity != null) {
                     displayTension(amplitude)
                     currentHz = amplitude
                 }
             }
         })
-        samplingManager.startSampling(activity!!, resources)
+        samplingManager.startSampling(activity!!, visualizerFrameLayout)
     }
 
-    private fun displayTension(hz: Double) {
+    private fun displayTension(hz: Float) {
         if (activity != null) {
-            var displayValue = ""
+            val displayValue: String
 
-            var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!).toDouble()
+            var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
             if(!SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
-                headSize = UnitConvertionUtils.cmToIn(headSize).toDouble()
+                headSize = UnitConvertionUtils.cmToIn(headSize).toFloat()
             }
 
-            val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!).toDouble())
+            val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!), SharedPrefsUtils.getStringDensity(activity!!))
             if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
                 personalModeUnitsTextView.text = "lb"
 
-                if (SharedPrefsUtils.isCalibrated(activity!!)) {
-                    displayValue = NumberFormatUtils.format(UnitConvertionUtils.kiloToPound(tension + SharedPrefsUtils.getTensionAdjustmentKg(activity!!)))
+                displayValue = if (SharedPrefsUtils.isCalibrated(activity!!)) {
+                    NumberFormatUtils.format(UnitConvertionUtils.kiloToPound(tension + SharedPrefsUtils.getTensionAdjustmentKg(activity!!)))
                 } else {
-                    displayValue = NumberFormatUtils.format(UnitConvertionUtils.kiloToPound(tension))
+                    NumberFormatUtils.format(UnitConvertionUtils.kiloToPound(tension))
                 }
             } else {
                 personalModeUnitsTextView.text = "kg"
 
-                if (SharedPrefsUtils.isCalibrated(activity!!)) {
-                    displayValue = NumberFormatUtils.format(tension + SharedPrefsUtils.getTensionAdjustmentKg(activity!!))
+                displayValue = if (SharedPrefsUtils.isCalibrated(activity!!)) {
+                    NumberFormatUtils.format(tension + SharedPrefsUtils.getTensionAdjustmentKg(activity!!))
                 } else {
-                    displayValue = NumberFormatUtils.format(tension)
+                    NumberFormatUtils.format(tension)
                 }
             }
             displayTensionTextView.text = displayValue
@@ -127,7 +127,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), RECORD_AUDIO_CODE)
         } else {
-            samplingManager.startSampling(activity!!, resources)
+            samplingManager.startSampling(activity!!, visualizerFrameLayout)
         }
 
         headSizeLayout.setOnClickListener {
@@ -185,7 +185,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             RECORD_AUDIO_CODE -> {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    samplingManager.startSampling(activity!!, resources)
+                    samplingManager.startSampling(activity!!, visualizerFrameLayout)
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                 } else {
@@ -212,8 +212,5 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     companion object {
         @JvmStatic
         fun newInstance() = MainFragment()
-
-        const val RACQUET_ID = "RACQUET_ID"
     }
-
 }

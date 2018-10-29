@@ -18,7 +18,7 @@ object UnitConvertionUtils {
         return BigDecimal(inch) / BigDecimal(0.15500031)
     }
 
-    fun cmToIn(cm: Double): Number {
-        return BigDecimal(cm) * BigDecimal(0.15500031)
+    fun cmToIn(cm: Float): Number {
+        return BigDecimal(cm.toDouble()) * BigDecimal(0.15500031)
     }
 }

@@ -24,6 +24,9 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
 /**
  * Read a snapshot of audio data at a regular interval, and compute the FFT
  * @author suhler@google.com
@@ -159,19 +162,18 @@ public class SamplingLoop extends Thread {
             return;
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            // Check Auto-Gain-Control status.
-            if (AutomaticGainControl.isAvailable()) {
-                AutomaticGainControl agc = AutomaticGainControl.create(
-                        record.getAudioSessionId());
-                if (agc.getEnabled())
-                    Log.i(TAG, "SamplingLoop::Run(): AGC: enabled.");
-                else
-                    Log.i(TAG, "SamplingLoop::Run(): AGC: disabled.");
-            } else {
-                Log.i(TAG, "SamplingLoop::Run(): AGC: not available.");
-            }
+        // Check Auto-Gain-Control status.
+        if (AutomaticGainControl.isAvailable()) {
+            AutomaticGainControl agc = AutomaticGainControl.create(
+                    record.getAudioSessionId());
+            if (agc.getEnabled())
+                Log.i(TAG, "SamplingLoop::Run(): AGC: enabled.");
+            else
+                Log.i(TAG, "SamplingLoop::Run(): AGC: disabled.");
+        } else {
+            Log.i(TAG, "SamplingLoop::Run(): AGC: not available.");
         }
+
 
         Log.i(TAG, "SamplingLoop::Run(): Starting recorder... \n" +
                 "  source          : " + analyzerParam.audioSourceId + "\n" +
@@ -191,6 +193,7 @@ public class SamplingLoop extends Thread {
         }
 
         short[] audioSamples = new short[readChunkSize];
+        byte[] byteAudioSamples = new byte[readChunkSize];
         int numOfReadShort;
 
         stft = new STFT(analyzerParam);
@@ -237,13 +240,15 @@ public class SamplingLoop extends Thread {
             if (stft.nElemSpectrumAmp() >= analyzerParam.nFFTAverage) {
                 // Update spectrum or spectrogram
                 final double[] spectrumDB = stft.getSpectrumAmpDB();
-                System.arraycopy(spectrumDB, 0, spectrumDBcopy, 0, spectrumDB.length);
+//                System.arraycopy(spectrumDB, 0, spectrumDBcopy, 0, spectrumDB.length);
 //                activity.analyzerViews.update(spectrumDBcopy);
 //          fpsCounter.inc();
+                record.read(byteAudioSamples, 0, readChunkSize);
+                callback.getSoundSpectrogram(byteAudioSamples);
 
                 stft.calculatePeak();
-//                activity.maxAmpFreq = stft.maxAmpFreq;
                 callback.getAmpFreq(stft.maxAmpFreq);
+
 //                activity.maxAmpDB = stft.maxAmpDB;
 
                 // get RMS
@@ -259,6 +264,7 @@ public class SamplingLoop extends Thread {
 
     public interface AnalyzerCallback {
         void getAmpFreq(double frequency);
+        void getSoundSpectrogram(byte [] values);
     }
 
     void setAWeighting(boolean isAWeighting) {
