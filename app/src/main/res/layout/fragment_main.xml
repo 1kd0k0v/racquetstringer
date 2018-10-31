@@ -233,11 +233,15 @@
             app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
     </android.support.constraint.ConstraintLayout>
 
-    <FrameLayout
+    <com.gauravk.audiovisualizer.visualizer.WaveVisualizer
         android:id="@+id/visualizerFrameLayout"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginTop="8dp"
+        app:avType="outline"
+        app:avGravity="top"
+        app:avColor="@color/light_green_circle"
+        app:avWidth="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/displayTensionConstraintLayout" />

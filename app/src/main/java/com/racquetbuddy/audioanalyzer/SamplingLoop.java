@@ -40,6 +40,7 @@ import android.util.Log;
 
 public class SamplingLoop extends Thread {
 
+    public static final int MAX_AMP_DB_THRESHOLD = -50;
     private final int AUDIO_SOURCE_ID = MediaRecorder.AudioSource.VOICE_RECOGNITION;
 
     CalibrationLoad calibLoad = new CalibrationLoad();  // data for calibration of spectrum
@@ -191,6 +192,7 @@ public class SamplingLoop extends Thread {
 
         short[] audioSamples = new short[readChunkSize];
         byte[] byteAudioSamples = new byte[readChunkSize];
+        byte[] emptyAudioSamples = new byte[readChunkSize];
         int numOfReadShort;
 
         stft = new STFT(analyzerParam);
@@ -236,15 +238,23 @@ public class SamplingLoop extends Thread {
             // If there is new spectrum data, do plot
             if (stft.nElemSpectrumAmp() >= analyzerParam.nFFTAverage) {
                 // Update spectrum or spectrogram
-                final double[] spectrumDB = stft.getSpectrumAmpDB();
+//                final double[] spectrumDB = stft.getSpectrumAmpDB();
 //                System.arraycopy(spectrumDB, 0, spectrumDBcopy, 0, spectrumDB.length);
 //                activity.analyzerViews.update(spectrumDBcopy);
 //          fpsCounter.inc();
-                record.read(byteAudioSamples, 0, readChunkSize);
-                callback.getSoundSpectrogram(byteAudioSamples);
 
                 stft.calculatePeak();
-                callback.getAmpFreq(stft.maxAmpFreq);
+
+                if (stft.maxAmpDB > MAX_AMP_DB_THRESHOLD) {
+                    Log.d("MAXAMPDB", " MAXAMPDB: " + stft.maxAmpDB);
+
+                    record.read(byteAudioSamples, 0, readChunkSize);
+                    callback.getSoundSpectrogram(byteAudioSamples);
+
+                    callback.getAmpFreq(stft.maxAmpFreq);
+                } else {
+                    callback.getSoundSpectrogram(emptyAudioSamples);
+                }
 
 //                activity.maxAmpDB = stft.maxAmpDB;
 

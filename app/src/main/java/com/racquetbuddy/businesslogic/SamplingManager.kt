@@ -2,12 +2,9 @@ package com.racquetbuddy.businesslogic
 
 import android.app.Activity
 import android.util.Log
-import android.view.ViewGroup
-import android.widget.FrameLayout
 import com.gauravk.audiovisualizer.visualizer.WaveVisualizer
 import com.racquetbuddy.audioanalyzer.SamplingLoop
 import com.racquetbuddy.audioanalyzer.SamplingLoop.AnalyzerCallback
-import com.racquetbuddy.racquetstringer.R
 
 /**
  * Created by musashiwarrior on 24-Oct-18.
@@ -24,26 +21,9 @@ class SamplingManager private constructor(){
         val instance: SamplingManager by lazy {Holder.INSTANCE}
     }
 
-    private fun getSamplingLoopInstance(activity: Activity?, visualizerFrameLayout: FrameLayout?): SamplingLoop {
+    private fun getSamplingLoopInstance(activity: Activity?, visualizerFrameLayout: WaveVisualizer?): SamplingLoop {
 
         val freqBuffer = arrayListOf<Double>()
-
-        val visualizer = WaveVisualizer(activity)
-        if (visualizerFrameLayout != null) {
-            visualizer.layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT)
-
-            activity?.runOnUiThread(object : Thread() {
-                override fun run() {
-                    visualizer.setStrokeWidth(1f)
-                    visualizer.setColor(activity.resources.getColor(R.color.light_green_circle))
-                    visualizerFrameLayout.removeAllViewsInLayout()
-                    visualizerFrameLayout.addView(visualizer)
-                    visualizerFrameLayout.invalidate()
-                }
-            })
-        }
 
         return SamplingLoop(
             object: AnalyzerCallback {
@@ -73,7 +53,7 @@ class SamplingManager private constructor(){
                 override fun getSoundSpectrogram(values: ByteArray?) {
                     if (values == null || visualizerFrameLayout == null) return
                     activity?.runOnUiThread {
-                        visualizer.setRawAudioBytes(values)
+                        visualizerFrameLayout.setRawAudioBytes(values)
                     }
                 }
 
@@ -81,7 +61,7 @@ class SamplingManager private constructor(){
             }, activity?.resources)
     }
 
-    fun startSampling(activity: Activity, visualizerFrameLayout: FrameLayout?) {
+    fun startSampling(activity: Activity, visualizerFrameLayout: WaveVisualizer?) {
         val samplingLoop = getSamplingLoopInstance(activity, visualizerFrameLayout)
         samplingThreads.add(samplingLoop)
         samplingLoop.start()
