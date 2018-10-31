@@ -98,6 +98,6 @@ object SharedPrefsUtils {
     }
 
     fun getStringDensity(context: Context): Float {
-        return getSharedPreferences(context).getFloat(KEY_STRING_DENSITY, DefaultRacquetValues.DEFAULT_RHO.toFloat())
+        return getSharedPreferences(context).getFloat(KEY_STRING_DENSITY, DefaultRacquetValues.DEFAULT_RHO)
     }
 }

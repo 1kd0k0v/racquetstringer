@@ -143,15 +143,6 @@
         <item>@string/inch</item>
         <item>@string/cm</item>
     </string-array>
-    <string-array name="string_types">
-        <item>@string/polyester</item>
-        <item>@string/natural_gut</item>
-        <item>@string/synthetic_gut</item>
-        <item>@string/kevlar</item>
-    </string-array>
-    <string-array name="string_densities">
-        <item>1.35</item>
-    </string-array>
     <string-array name="tension_units">
         <item>@string/tension_lb</item>
         <item>@string/tension_kg</item>

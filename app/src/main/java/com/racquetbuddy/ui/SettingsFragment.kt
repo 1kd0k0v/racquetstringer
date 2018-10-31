@@ -12,6 +12,7 @@ import com.racquetbuddy.ui.dialog.StringTypeDialogFragment
 import com.racquetbuddy.ui.dialog.UnitsDialogFragment
 import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
+import com.racquetbuddy.utils.StringTypeUtils
 
 class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
 
@@ -69,8 +70,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     private fun initStringType() {
         val stringType = findPreference("pref_key_string_type")
         if (stringType != null) {
-            val types = activity!!.resources.getStringArray(R.array.string_types)
-            stringType.summary = types[SharedPrefsUtils.getStringType(activity!!)]
+            stringType.summary = StringTypeUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].name
             stringType.setOnPreferenceClickListener {
                 val dialog = StringTypeDialogFragment()
                 dialog.setTargetFragment(this, 0)

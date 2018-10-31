@@ -56,8 +56,6 @@ class SamplingManager private constructor(){
                         visualizerFrameLayout.setRawAudioBytes(values)
                     }
                 }
-
-
             }, activity?.resources)
     }
 

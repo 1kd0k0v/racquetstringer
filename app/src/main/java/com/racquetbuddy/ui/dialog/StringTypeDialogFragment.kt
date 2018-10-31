@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
+import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.OnRefreshViewsListener
 import com.racquetbuddy.utils.SharedPrefsUtils
-import android.widget.LinearLayout
-
+import com.racquetbuddy.utils.StringTypeUtils
 
 
 /**
@@ -26,28 +26,32 @@ class StringTypeDialogFragment : DialogFragment() {
         val root = inflater.inflate(R.layout.input_string_type_layout, null)
 
         var selected = SharedPrefsUtils.getStringType(activity!!)
+        var density = SharedPrefsUtils.getStringDensity(activity!!)
 
         val radioGroup = root?.findViewById<RadioGroup>(R.id.stringTypeRadioGroup)
         radioGroup?.orientation = LinearLayout.VERTICAL
 
-        val array = activity!!.resources.getStringArray(R.array.string_types)
+        val array = StringTypeUtils.stringTypesArrayList
 
         for ((i, type) in array.withIndex()) {
             val btn = RadioButton(activity)
             btn.id = i
-            btn.text = type
+            btn.text = type.name
             radioGroup?.addView(btn)
         }
 
         radioGroup?.check(selected)
 
-        radioGroup?.setOnCheckedChangeListener { _, id -> selected = id }
+        radioGroup?.setOnCheckedChangeListener { _, id ->
+            selected = id
+            density = StringTypeUtils.getDensity(id)}
 
         return AlertDialog.Builder(activity!!)
                 .setView(root).setMessage(R.string.dialog_title_string_type)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->
                     SharedPrefsUtils.setStringType(activity!!, selected)
+                    SharedPrefsUtils.setStringDensity(activity!!, density)
 
                     if (targetFragment is OnRefreshViewsListener) {
                         (targetFragment as OnRefreshViewsListener).refreshViews()

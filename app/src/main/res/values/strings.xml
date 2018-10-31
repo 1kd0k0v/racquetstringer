@@ -48,7 +48,7 @@
     <string name="calibration">Calibration</string>
     <string name="listening">Listening</string>
     <string name="pref_tension_units">Tension Units</string>
-    <string name="dialog_title_string_type">Enter string type.</string>
+    <string name="dialog_title_string_type">Choose string type or model.</string>
     <string name="tension_lb">lb</string>
     <string name="tension_kg">kg</string>
     <string name="value_space_unit">%1$s %2$s</string>

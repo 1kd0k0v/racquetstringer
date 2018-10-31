@@ -23,6 +23,7 @@ import com.racquetbuddy.ui.dialog.StringDiameterDialogFragment
 import com.racquetbuddy.ui.dialog.StringTypeDialogFragment
 import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
+import com.racquetbuddy.utils.StringTypeUtils
 import com.racquetbuddy.utils.UnitUtils
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -107,8 +108,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshStringType() {
-        val types = resources.getStringArray(R.array.string_types)
-        stringTypeValue.text = types[SharedPrefsUtils.getStringType(activity!!)]
+        stringTypeValue.text = StringTypeUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].name
     }
 
     private fun refreshStringDiameterView() {
