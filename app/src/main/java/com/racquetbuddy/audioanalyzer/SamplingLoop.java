@@ -20,12 +20,9 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.media.audiofx.AutomaticGainControl;
-import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 
 /**
  * Read a snapshot of audio data at a regular interval, and compute the FFT

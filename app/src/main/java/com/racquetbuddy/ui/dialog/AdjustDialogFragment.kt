@@ -12,16 +12,14 @@ import android.widget.TextView
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.OnRefreshViewsListener
 import com.racquetbuddy.utils.NumberFormatUtils
-import com.racquetbuddy.utils.SharedPrefsUtils
-import com.racquetbuddy.utils.UnitConvertionUtils
-import java.math.BigDecimal
+import com.racquetbuddy.utils.UnitUtils
 
 /**
  * Created by musashiwarrior on 15-Oct-18.
  */
 class AdjustDialogFragment : DialogFragment() {
 
-    private var tension: Float = 0f
+    private var defaultMeasurment: Float = 0f
     private var isImperial: Boolean = false
 
     companion object {
@@ -30,13 +28,13 @@ class AdjustDialogFragment : DialogFragment() {
         const val RESULT_CODE_OK = 0
         const val RESULT_CODE_CANCEL = 1
 
-        fun newInstance(num: Float): AdjustDialogFragment {
-            val f = AdjustDialogFragment()
-            // Supply num input as an argument.
+        fun newInstance(defaultMeasurement: Float): AdjustDialogFragment {
+            val fragment = AdjustDialogFragment()
+            // Supply defaultMeasurement input as an argument.
             val args = Bundle()
-            args.putFloat(TENSION, num)
-            f.arguments = args
-            return f
+            args.putFloat(TENSION, defaultMeasurement)
+            fragment.arguments = args
+            return fragment
         }
     }
 
@@ -50,17 +48,11 @@ class AdjustDialogFragment : DialogFragment() {
         val tensionInput = root.findViewById<EditText>(R.id.tensionInputFieldDialog)
         val defaultMeasurementText = root.findViewById<TextView>(R.id.defaultMeasurementText)
 
-        tension = arguments?.getFloat(TENSION)!!
+        defaultMeasurment = arguments?.getFloat(TENSION)!!
 
-        isImperial = SharedPrefsUtils.isTensoinImperialUnits(activity!!)
+        unitsTextView.text = UnitUtils.getUnits(activity!!)
 
-        if (isImperial) {
-            unitsTextView.text = getString(R.string.tension_lb)
-            defaultMeasurementText.text = getString(R.string.calibration_default_text, NumberFormatUtils.format(UnitConvertionUtils.kiloToPound(tension.toDouble())), getString(R.string.tension_lb))
-        } else {
-            unitsTextView.text = getString(R.string.tension_kg)
-            defaultMeasurementText.text = getString(R.string.calibration_default_text, NumberFormatUtils.format(tension), getString(R.string.tension_kg))
-        }
+        defaultMeasurementText.text = getString(R.string.calibration_default_text, NumberFormatUtils.format(defaultMeasurment), UnitUtils.getUnits(activity!!))
 
 //        tensionInput?.setSelection(tensionInput.text.length);
 
@@ -72,11 +64,7 @@ class AdjustDialogFragment : DialogFragment() {
                     if (tensionInput?.text.toString().isEmpty()) return@setPositiveButton
 
                     val tension = arguments?.getFloat(TENSION)
-                    val adjustment = if (isImperial) {
-                        UnitConvertionUtils.kiloToPound(tensionInput?.text.toString().toDouble()).toFloat() - tension!!
-                    } else {
-                        tensionInput?.text.toString().toFloat() - tension!!
-                    }
+                    val adjustment = tensionInput?.text.toString().toFloat() - tension!!
 
                     val intent = Intent()
                     intent.putExtra(ADJUSTMENT_EXTRA, adjustment)

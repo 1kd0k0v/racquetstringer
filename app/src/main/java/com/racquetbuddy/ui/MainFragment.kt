@@ -3,29 +3,28 @@ package com.racquetbuddy.ui
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import com.racquetbuddy.businesslogic.Racquet
+import com.racquetbuddy.businesslogic.SamplingManager
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.dialog.HeadSizeDialogFragment
 import com.racquetbuddy.ui.dialog.StringDiameterDialogFragment
+import com.racquetbuddy.ui.dialog.StringTypeDialogFragment
 import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
-import com.racquetbuddy.utils.UnitConvertionUtils
+import com.racquetbuddy.utils.UnitUtils
 import kotlinx.android.synthetic.main.fragment_main.*
-import android.widget.TextView
-import android.text.Spannable
-import android.text.style.ForegroundColorSpan
-import android.text.SpannableString
-import android.text.style.RelativeSizeSpan
-import com.racquetbuddy.businesslogic.Racquet
-import com.racquetbuddy.businesslogic.SamplingManager
-import com.racquetbuddy.ui.dialog.StringTypeDialogFragment
 
 
 class MainFragment : Fragment(), OnRefreshViewsListener {
@@ -63,32 +62,30 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
     private fun displayTension(hz: Float) {
         if (activity != null) {
-            val displayValue: String
 
             var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
             if(!SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
-                headSize = UnitConvertionUtils.cmToIn(headSize).toFloat()
+                headSize = UnitUtils.cmToIn(headSize).toFloat()
             }
 
-            val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!), SharedPrefsUtils.getStringDensity(activity!!))
-            if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
-                personalModeUnitsTextView.text = "lb"
+            personalModeUnitsTextView.text = UnitUtils.getUnits(activity!!)
 
-                displayValue = if (SharedPrefsUtils.isCalibrated(activity!!)) {
-                    NumberFormatUtils.format(UnitConvertionUtils.kiloToPound(tension + SharedPrefsUtils.getTensionAdjustmentKg(activity!!)))
+            val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!), SharedPrefsUtils.getStringDensity(activity!!))
+
+            displayTensionTextView.text = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
+
+                if (SharedPrefsUtils.isCalibrated(activity!!)) {
+                    NumberFormatUtils.format(UnitUtils.kiloToPound(tension).toFloat() + SharedPrefsUtils.getTensionAdjustment(activity!!))
                 } else {
-                    NumberFormatUtils.format(UnitConvertionUtils.kiloToPound(tension))
+                    NumberFormatUtils.format(UnitUtils.kiloToPound(tension))
                 }
             } else {
-                personalModeUnitsTextView.text = "kg"
-
-                displayValue = if (SharedPrefsUtils.isCalibrated(activity!!)) {
-                    NumberFormatUtils.format(tension + SharedPrefsUtils.getTensionAdjustmentKg(activity!!))
+                if (SharedPrefsUtils.isCalibrated(activity!!)) {
+                    NumberFormatUtils.format(tension + SharedPrefsUtils.getTensionAdjustment(activity!!))
                 } else {
                     NumberFormatUtils.format(tension)
                 }
             }
-            displayTensionTextView.text = displayValue
 
             val spannable = SpannableString(displayTensionTextView.text)
 
@@ -156,7 +153,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
     private fun refreshCalibrated() {
         calibrationTextView.setTypeface(null, Typeface.BOLD)
-        calibrationTextView.paintFlags = calibrationTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+//        calibrationTextView.paintFlags = calibrationTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         if (SharedPrefsUtils.isCalibrated(activity!!)) {
             calibrationTextView.text = getString(R.string.personal_mode)
         } else {

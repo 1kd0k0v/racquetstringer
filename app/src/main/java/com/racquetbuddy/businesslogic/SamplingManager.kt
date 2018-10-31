@@ -4,9 +4,6 @@ import android.app.Activity
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.gauravk.audiovisualizer.visualizer.BarVisualizer
-import com.gauravk.audiovisualizer.visualizer.BlastVisualizer
-import com.gauravk.audiovisualizer.visualizer.BlobVisualizer
 import com.gauravk.audiovisualizer.visualizer.WaveVisualizer
 import com.racquetbuddy.audioanalyzer.SamplingLoop
 import com.racquetbuddy.audioanalyzer.SamplingLoop.AnalyzerCallback
@@ -27,7 +24,7 @@ class SamplingManager private constructor(){
         val instance: SamplingManager by lazy {Holder.INSTANCE}
     }
 
-    private fun getSamplingLoopInstance(activity: Activity, visualizerFrameLayout: FrameLayout?): SamplingLoop {
+    private fun getSamplingLoopInstance(activity: Activity?, visualizerFrameLayout: FrameLayout?): SamplingLoop {
 
         val freqBuffer = arrayListOf<Double>()
 
@@ -37,10 +34,10 @@ class SamplingManager private constructor(){
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT)
 
-            visualizer.setStrokeWidth(1f)
-            visualizer.setColor(activity.resources.getColor(R.color.light_green_circle))
-            activity.runOnUiThread(object : Thread() {
+            activity?.runOnUiThread(object : Thread() {
                 override fun run() {
+                    visualizer.setStrokeWidth(1f)
+                    visualizer.setColor(activity.resources.getColor(R.color.light_green_circle))
                     visualizerFrameLayout.removeAllViewsInLayout()
                     visualizerFrameLayout.addView(visualizer)
                     visualizerFrameLayout.invalidate()
@@ -56,7 +53,7 @@ class SamplingManager private constructor(){
                     if (frequency > 400 && frequency < 700) {
                         val found = freqBuffer.find { it > frequency - 2 && it < frequency + 2 }
                         if (found != null) {
-                            activity.runOnUiThread {
+                            activity?.runOnUiThread {
                                 val avgAmplitude = (found + frequency) / 2
                                 for (listener in ampListeners) {
                                     listener.getMaxAmplitude(avgAmplitude.toFloat())
@@ -75,11 +72,13 @@ class SamplingManager private constructor(){
 
                 override fun getSoundSpectrogram(values: ByteArray?) {
                     if (values == null || visualizerFrameLayout == null) return
-                    visualizer.setRawAudioBytes(values)
+                    activity?.runOnUiThread {
+                        visualizer.setRawAudioBytes(values)
+                    }
                 }
 
 
-            }, activity.resources)
+            }, activity?.resources)
     }
 
     fun startSampling(activity: Activity, visualizerFrameLayout: FrameLayout?) {

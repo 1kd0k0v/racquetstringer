@@ -3,7 +3,6 @@ package com.racquetbuddy.utils
 import android.content.Context
 import android.content.SharedPreferences
 import com.racquetbuddy.businesslogic.DefaultRacquetValues
-import com.racquetbuddy.racquetstringer.R
 
 /**
  * Created by musashiwarrior on 14-Oct-18.
@@ -18,7 +17,7 @@ object SharedPrefsUtils {
     private const val KEY_HEAD_SIZE = "KEY_HEAD_SIZE"
     private const val KEY_STRING_TYPE = "KEY_STRING_TYPE"
     private const val KEY_CALIBRATED = "KEY_CALIBRATED"
-    private const val KEY_TENSION_ADJUSMENT_KG = "KEY_TENSION_ADJUSMENT_KG"
+    private const val KEY_TENSION_ADJUSMENT = "KEY_TENSION_ADJUSMENT"
     private const val KEY_STRING_DENSITY = "KEY_STRING_DENSITY"
 
     private fun getEditor(context: Context) : SharedPreferences.Editor{
@@ -86,12 +85,12 @@ object SharedPrefsUtils {
         return getSharedPreferences(context).getBoolean(KEY_CALIBRATED, false)
     }
 
-    fun setTensionAdjustmentKg(context: Context, adjustment: Float) {
-        getEditor(context).putFloat(KEY_TENSION_ADJUSMENT_KG, adjustment).apply()
+    fun setTensionAdjustment(context: Context, adjustment: Float) {
+        getEditor(context).putFloat(KEY_TENSION_ADJUSMENT, adjustment).apply()
     }
 
-    fun getTensionAdjustmentKg(context: Context): Float {
-        return getSharedPreferences(context).getFloat(KEY_TENSION_ADJUSMENT_KG, 0f)
+    fun getTensionAdjustment(context: Context): Float {
+        return getSharedPreferences(context).getFloat(KEY_TENSION_ADJUSMENT, 0f)
     }
 
     fun setStringDensity(context: Context, density: Float) {
