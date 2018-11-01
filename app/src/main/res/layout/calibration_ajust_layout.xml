@@ -14,7 +14,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/string_tension"
-        android:inputType="number"
+        android:inputType="numberSigned|numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tensionUnitsTextView"
         app:layout_constraintHorizontal_bias="0.5"

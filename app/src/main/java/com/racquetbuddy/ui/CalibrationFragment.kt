@@ -135,7 +135,6 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
                 R.id.fabricRadioButton -> {
                     isPersonalModeSelected = false
                     disableCalibrationLayout()
-                    SharedPrefsUtils.setTensionAdjustment(activity!!, 0f)
                     SharedPrefsUtils.setCalibrated(activity!!, false)
                 }
             }

@@ -105,6 +105,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         refreshHeadSizeView()
         refreshStringDiameterView()
         refreshStringType()
+        refreshCalibrated()
     }
 
     private fun refreshStringType() {

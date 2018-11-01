@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         if (savedInstanceState != null) {
-            viewPagerMain.currentItem = savedInstanceState.getInt("currentItem", 0);
+            viewPagerMain.currentItem = savedInstanceState.getInt("currentItem", 0)
         }
     }
 
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     class MainPagerAdapter(val context: Context, fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
-        val fragmentHashMap = HashMap<Int, Fragment>()
+        private val fragmentHashMap = HashMap<Int, Fragment>()
 
         private val tabTitles = arrayOf(context.getString(R.string.measure),
                 context.getString(R.string.action_settings))
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        outState?.putInt("currentItem", viewPagerMain.currentItem);
+        outState?.putInt("currentItem", viewPagerMain.currentItem)
         super.onSaveInstanceState(outState, outPersistentState)
     }
 }
