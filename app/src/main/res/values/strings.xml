@@ -73,4 +73,5 @@
     <string name="current_adjustment">(%1$s%2$s%3$s)</string>
     <string name="adjustment_saved">Adjustment %1$f%2$s applied.</string>
     <string name="instructions_calibration">How does it work?\n1. String your racqet by trusted stringer.\n2. Select \"Personal Mode\".\n3. Measure the tension.\n4. Adjust if needed.</string>
+    <string name="tap_the_strings">Hit the Strings</string>
 </resources>

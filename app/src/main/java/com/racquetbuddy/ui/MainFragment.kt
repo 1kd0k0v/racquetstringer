@@ -73,30 +73,31 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
             val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!), SharedPrefsUtils.getStringDensity(activity!!))
 
-            displayTensionTextView.text = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
+            if (tension != 0.0) {
+                displayTensionTextView.text = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
 
-                if (SharedPrefsUtils.isCalibrated(activity!!)) {
-                    NumberFormatUtils.format(UnitUtils.kiloToPound(tension).toFloat() + SharedPrefsUtils.getTensionAdjustment(activity!!))
+                    if (SharedPrefsUtils.isCalibrated(activity!!)) {
+                        NumberFormatUtils.format(UnitUtils.kiloToPound(tension).toFloat() + SharedPrefsUtils.getTensionAdjustment(activity!!))
+                    } else {
+                        NumberFormatUtils.format(UnitUtils.kiloToPound(tension))
+                    }
                 } else {
-                    NumberFormatUtils.format(UnitUtils.kiloToPound(tension))
+                    if (SharedPrefsUtils.isCalibrated(activity!!)) {
+                        NumberFormatUtils.format(tension + SharedPrefsUtils.getTensionAdjustment(activity!!))
+                    } else {
+                        NumberFormatUtils.format(tension)
+                    }
                 }
-            } else {
-                if (SharedPrefsUtils.isCalibrated(activity!!)) {
-                    NumberFormatUtils.format(tension + SharedPrefsUtils.getTensionAdjustment(activity!!))
-                } else {
-                    NumberFormatUtils.format(tension)
-                }
+                val spannable = SpannableString(displayTensionTextView.text)
+
+                val start = displayTensionTextView.length() - 1
+                val end = (displayTensionTextView).length()
+
+                spannable.setSpan(ForegroundColorSpan(Color.RED), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spannable.setSpan(RelativeSizeSpan(0.5f), start, end, 0)
+
+                displayTensionTextView.setText(spannable, TextView.BufferType.SPANNABLE)
             }
-
-            val spannable = SpannableString(displayTensionTextView.text)
-
-            val start = displayTensionTextView.length() - 1
-            val end = (displayTensionTextView).length()
-
-            spannable.setSpan(ForegroundColorSpan(Color.RED), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            spannable.setSpan(RelativeSizeSpan(0.5f), start, end, 0)
-
-            displayTensionTextView.setText(spannable, TextView.BufferType.SPANNABLE)
         }
     }
 
