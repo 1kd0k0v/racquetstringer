@@ -40,7 +40,7 @@ import android.util.Log;
 
 public class SamplingLoop extends Thread {
 
-    public static final int MAX_AMP_DB_THRESHOLD = -50;
+    public static final int MAX_AMP_DB_THRESHOLD = -70;
     private final int AUDIO_SOURCE_ID = MediaRecorder.AudioSource.VOICE_RECOGNITION;
 
     CalibrationLoad calibLoad = new CalibrationLoad();  // data for calibration of spectrum

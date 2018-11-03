@@ -177,6 +177,15 @@
             app:layout_constraintEnd_toEndOf="@+id/displayTensionTextView"
             app:layout_constraintStart_toStartOf="@+id/displayTensionTextView"
             app:layout_constraintTop_toBottomOf="@+id/displayTensionTextView" />
+
+        <TextView
+            android:id="@+id/personalAdjustTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintEnd_toEndOf="@+id/calibrationTextView"
+            app:layout_constraintStart_toStartOf="@+id/calibrationTextView"
+            app:layout_constraintTop_toBottomOf="@+id/calibrationTextView" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout

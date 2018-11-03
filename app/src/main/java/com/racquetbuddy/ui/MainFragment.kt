@@ -158,8 +158,31 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 //        calibrationTextView.paintFlags = calibrationTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         if (SharedPrefsUtils.isCalibrated(activity!!)) {
             calibrationTextView.text = getString(R.string.personal_mode)
+            val adjustment = SharedPrefsUtils.getTensionAdjustment(activity!!)
+            if (adjustment != 0f) {
+                var units = ""
+
+                var sign = if (adjustment > 0) {
+                    "+"
+                } else {
+                    "-"
+                }
+
+                units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
+                    getString(R.string.tension_lb)
+                } else {
+                    getString(R.string.tension_kg)
+                }
+
+                personalAdjustTextView.text = getString(R.string.current_adjustment, sign, NumberFormatUtils.format(adjustment), units)
+                personalAdjustTextView.visibility = View.VISIBLE
+            } else {
+                personalAdjustTextView.visibility = View.GONE
+
+            }
         } else {
             calibrationTextView.text = getString(R.string.fabric_mode)
+            personalAdjustTextView.visibility = View.GONE
         }
     }
 
