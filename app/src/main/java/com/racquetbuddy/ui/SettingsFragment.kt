@@ -48,6 +48,21 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
             shareTheApp()
             return@setOnPreferenceClickListener true
         }
+
+        val feedback = findPreference("pref_key_feedback")
+        feedback?.setOnPreferenceClickListener {
+            sendFeedback()
+        }
+    }
+
+    private fun sendFeedback(): Boolean {
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        emailIntent.type = "text/email"
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("ikdokov@gmail.me"))
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback")
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "")
+        startActivity(Intent.createChooser(emailIntent, "Send Feedback:"))
+        return true
     }
 
     private fun initMode() {

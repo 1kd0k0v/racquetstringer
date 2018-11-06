@@ -44,7 +44,9 @@
             android:title="@string/pref_title_feedback"/>
         <Preference
             android:key="pref_key_privacy_policy"
-            android:title="@string/pref_title_privacy_policy"/>
+            android:title="@string/pref_title_privacy_policy">
+            <intent android:action="android.intent.action.VIEW" android:data="https://robustasoft.com/tensionmaster-privacypolicy/"/>
+        </Preference>
         <Preference
             android:key="pref_key_app_version"
             android:title="@string/app_version"/>

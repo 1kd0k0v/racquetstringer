@@ -154,9 +154,9 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
         val units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) getString(R.string.tension_lb) else getString(R.string.tension_kg)
         when {
             adjustment == 0f -> currentAdjustmentTextView.text = ""
-            adjustment > 0f -> currentAdjustmentTextView.text = getString(R.string.current_adjustment,"+", NumberFormatUtils.format(adjustment), units)
+            adjustment > 0f -> currentAdjustmentTextView.text = getString(R.string.current_adjustment,"+", NumberFormatUtils.formatOneDigit(adjustment), units)
             else -> {
-                currentAdjustmentTextView.text = getString(R.string.current_adjustment,"-", NumberFormatUtils.format(adjustment), units)
+                currentAdjustmentTextView.text = getString(R.string.current_adjustment,"", NumberFormatUtils.formatOneDigit(adjustment), units)
             }
         }
     }
@@ -182,7 +182,7 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 
     override fun onResume() {
         super.onResume()
-        samplingManager.startSampling(activity!!, null)
+        samplingManager.startSampling(activity!!, visualizerFrameLayout2)
     }
 
     override fun onPause() {

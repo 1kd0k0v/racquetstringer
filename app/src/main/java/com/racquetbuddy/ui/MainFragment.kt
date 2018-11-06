@@ -165,7 +165,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 var sign = if (adjustment > 0) {
                     "+"
                 } else {
-                    "-"
+                    ""
                 }
 
                 units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
@@ -174,7 +174,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                     getString(R.string.tension_kg)
                 }
 
-                personalAdjustTextView.text = getString(R.string.current_adjustment, sign, NumberFormatUtils.format(adjustment), units)
+                personalAdjustTextView.text = getString(R.string.current_adjustment, sign, NumberFormatUtils.formatOneDigit(adjustment), units)
                 personalAdjustTextView.visibility = View.VISIBLE
             } else {
                 personalAdjustTextView.visibility = View.GONE
