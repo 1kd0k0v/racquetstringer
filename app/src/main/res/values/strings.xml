@@ -74,4 +74,13 @@
     <string name="adjustment_saved">Adjustment %1$f%2$s applied.</string>
     <string name="instructions_calibration">How does it work?\n1. String your racqet by trusted stringer.\n2. Select \"Personal Mode\".\n3. Measure the tension.\n4. Adjust if needed.</string>
     <string name="tap_the_strings">Hit the Strings</string>
+    <string name="instructions_title">Instructions</string>
+    <string name="instructions_body">
+          <li>Choose the mode, the head size, the string diameter and the string type </li>
+     \n   <li>Tap the racquet string with another racquet, hand or something else close to the phone microphone</li>
+     \n   <li>If the Personal mode is activated adjust the measurement if needed</li>
+     \n   <li>Enjoy the work of the app and
+        \n  Master Your Tension </li>
+</string>
+    _Remove the dempher from the strings
 </resources>

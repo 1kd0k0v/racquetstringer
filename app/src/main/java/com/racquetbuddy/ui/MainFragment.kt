@@ -110,11 +110,11 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshStringType() {
-        stringTypeValue.text = StringTypeUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].name
+        stringTypeValue?.text = StringTypeUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].name
     }
 
     private fun refreshStringDiameterView() {
-        stringDiameterValue.text = getString(R.string.value_space_unit,
+        stringDiameterValue?.text = getString(R.string.value_space_unit,
                 SharedPrefsUtils.getStringsDiameter(activity!!).toString(),
                 getString(R.string.mm))
     }

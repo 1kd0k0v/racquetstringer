@@ -6,10 +6,7 @@ import android.support.v7.preference.PreferenceFragmentCompat
 import android.view.View
 import com.racquetbuddy.racquetstringer.BuildConfig
 import com.racquetbuddy.racquetstringer.R
-import com.racquetbuddy.ui.dialog.HeadSizeDialogFragment
-import com.racquetbuddy.ui.dialog.StringDiameterDialogFragment
-import com.racquetbuddy.ui.dialog.StringTypeDialogFragment
-import com.racquetbuddy.ui.dialog.UnitsDialogFragment
+import com.racquetbuddy.ui.dialog.*
 import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
 import com.racquetbuddy.utils.StringTypeUtils
@@ -52,6 +49,14 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         val feedback = findPreference("pref_key_feedback")
         feedback?.setOnPreferenceClickListener {
             sendFeedback()
+        }
+
+        val instructions = findPreference("pref_key_instructions")
+        instructions?.setOnPreferenceClickListener {
+            val dialog = InstructionsDialogFragment()
+            dialog.setTargetFragment(this, 0)
+            dialog.show(fragmentManager, "INSTRUCTIONS_TYPE")
+            return@setOnPreferenceClickListener true
         }
     }
 
