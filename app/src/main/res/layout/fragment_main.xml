@@ -247,7 +247,7 @@
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginTop="8dp"
-        app:avType="outline"
+        app:avType="fill"
         app:avGravity="top"
         app:avColor="@color/light_green_circle"
         app:avWidth="2dp"

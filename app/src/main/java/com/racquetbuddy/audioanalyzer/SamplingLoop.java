@@ -40,7 +40,7 @@ import android.util.Log;
 
 public class SamplingLoop extends Thread {
 
-    public static final int MAX_AMP_DB_THRESHOLD = -50;
+    private static final int MAX_AMP_DB_THRESHOLD = -100;
     private final int AUDIO_SOURCE_ID = MediaRecorder.AudioSource.VOICE_RECOGNITION;
 
     CalibrationLoad calibLoad = new CalibrationLoad();  // data for calibration of spectrum
@@ -245,7 +245,7 @@ public class SamplingLoop extends Thread {
 
                 stft.calculatePeak();
 
-                if (stft.maxAmpDB > MAX_AMP_DB_THRESHOLD) {
+                if (stft.maxAmpFreq > 400 && stft.maxAmpFreq < 700 && stft.maxAmpDB > MAX_AMP_DB_THRESHOLD) {
                     Log.d("MAXAMPDB", " MAXAMPDB: " + stft.maxAmpDB);
 
                     record.read(byteAudioSamples, 0, readChunkSize);

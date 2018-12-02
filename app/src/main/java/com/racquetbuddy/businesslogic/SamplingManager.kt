@@ -30,24 +30,23 @@ class SamplingManager private constructor(){
                 override fun getAmpFreq(frequency: Double) {
                     Log.d("Amplitude", "Amp: $frequency");
 
-                    if (frequency > 400 && frequency < 700) {
-                        val found = freqBuffer.find { it > frequency - 2 && it < frequency + 2 }
-                        if (found != null) {
-                            activity?.runOnUiThread {
-                                val avgAmplitude = (found + frequency) / 2
-                                for (listener in ampListeners) {
-                                    listener.getMaxAmplitude(avgAmplitude.toFloat())
-                                }
+                    val found = freqBuffer.find { it > frequency - 2 && it < frequency + 2 }
+                    if (found != null) {
+                        activity?.runOnUiThread {
+                            val avgAmplitude = (found + frequency) / 2
+                            for (listener in ampListeners) {
+                                listener.getMaxAmplitude(avgAmplitude.toFloat())
                             }
-                            freqBuffer.clear()
                         }
-
-                        if (freqBuffer.size == 1000) {
-                            freqBuffer.clear()
-                        }
-
-                        freqBuffer.add(frequency)
+                        freqBuffer.clear()
                     }
+
+                    if (freqBuffer.size == 1000) {
+                        freqBuffer.clear()
+                    }
+
+                    freqBuffer.add(frequency)
+
                 }
 
                 override fun getSoundSpectrogram(values: ByteArray?) {

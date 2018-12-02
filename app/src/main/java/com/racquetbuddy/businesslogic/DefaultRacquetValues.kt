@@ -8,5 +8,5 @@ object DefaultRacquetValues {
     const val DEFAULT_RHO = 1.35f
     const val DEFAULT_D = 1.27
     const val DEFAULT_CF = 4.6e-7
-    const val NEEDED_TO_CALC_CF = 3.41e-7
+    const val NEEDED_TO_CALC_CF = 3.5e-7
 }
