@@ -6,6 +6,60 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@drawable/background_gradient</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="alertDialogTheme">@style/MyDialogTheme</item>
+
+        <!-- Radio buttons -->
+        <item name="android:radioButtonStyle">@style/DarkRadioButtonCheckbox</item>
+        <item name="checkboxStyle">@style/DarkRadioButtonCheckbox</item>
+        <item name="android:checkboxStyle">@style/DarkRadioButtonCheckbox</item>
+        <item name="android:checkBoxPreferenceStyle">@style/DarkRadioButtonCheckbox</item>
+
+        <!-- preference -->
+        <item name="android:preferenceScreenStyle">@style/PreferenceScreenStyle</item>
+        <item name="android:subtitleTextColor">@color/white</item>
+
+        <!-- drop down -->
+        <item name="spinnerDropDownItemStyle">@style/DropDown</item>
+
+        <!-- action bar -->
+        <item name="toolbarStyle">@style/ActionBar</item>
+
+    </style>
+
+    <style name="ActionBar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/background_light</item>
+    </style>
+
+    <style name="DropDown" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/background_dark</item>
+    </style>
+
+    <style name="PreferenceScreenStyle" parent="Preference.PreferenceScreen">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:subtitleTextColor">@color/white</item>
+    </style>
+
+    <style name="DarkRadioButtonCheckbox" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:buttonTint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:buttonTintMode">src_in</item>
+    </style>
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/background_dark</item>
+        <item name="android:colorAccent">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+    <style name="EditTextDark" parent="Widget.AppCompat.EditText">
+        <item name="android:colorAccent">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:backgroundTint">@color/tab_indicator</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -16,5 +70,14 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MainScreenBoxes">
+        <item name="android:background">@drawable/main_screen_boxes_background</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
 
 </resources>

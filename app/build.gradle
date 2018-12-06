@@ -8,10 +8,10 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.racquetbuddy"
-        minSdkVersion 21
+        minSdkVersion 23
 
         targetSdkVersion 28
-        versionCode 23
+        versionCode 24
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -52,7 +52,4 @@ dependencies {
     implementation 'com.fxn769:musicwave:1.0'
 
     implementation 'com.chibde:audiovisualizer:2.0.1'
-
-
-
 }

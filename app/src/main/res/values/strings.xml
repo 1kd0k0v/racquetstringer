@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TensionMaster</string>
+    <string name="app_name">TensionMeter</string>
     <string name="action_settings">Settings</string>
     <string name="sample_rates_name">SAMPLE/S::0</string>
     <string name="fft_len_name">FFT LEN::0</string>
