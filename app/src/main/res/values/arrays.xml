@@ -140,8 +140,8 @@
         <item>32::32</item>
     </string-array>
     <string-array name="units">
-        <item>@string/inch</item>
-        <item>@string/cm</item>
+        <item>@string/square_inch</item>
+        <item>@string/square_cm</item>
     </string-array>
     <string-array name="tension_units">
         <item>@string/tension_lb</item>

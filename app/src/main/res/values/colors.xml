@@ -11,6 +11,7 @@
     <color name="background_light">#3f4a6d</color>
     <color name="tab_indicator">#c17ad3</color>
     <color name="white">@android:color/white</color>
+    <color name="secondaryTextColor">#bbffffff</color>
     <color name="headStartGradient">#947fee</color>
     <color name="headEndGradient">#f74a8e</color>
 </resources>
