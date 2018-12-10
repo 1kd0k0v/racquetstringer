@@ -17,7 +17,7 @@ import com.racquetbuddy.utils.UnitUtils
 /**
  * Created by musashiwarrior on 15-Oct-18.
  */
-class AdjustDialogFragment : DialogFragment() {
+class CalibrateDialogFragment : DialogFragment() {
 
     private var defaultMeasurment: Float = 0f
     private var isImperial: Boolean = false
@@ -28,8 +28,8 @@ class AdjustDialogFragment : DialogFragment() {
         const val RESULT_CODE_OK = 0
         const val RESULT_CODE_CANCEL = 1
 
-        fun newInstance(defaultMeasurement: Float): AdjustDialogFragment {
-            val fragment = AdjustDialogFragment()
+        fun newInstance(defaultMeasurement: Float): CalibrateDialogFragment {
+            val fragment = CalibrateDialogFragment()
             // Supply defaultMeasurement input as an argument.
             val args = Bundle()
             args.putFloat(TENSION, defaultMeasurement)

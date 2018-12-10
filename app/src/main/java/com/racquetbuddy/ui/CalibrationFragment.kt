@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.racquetbuddy.businesslogic.Racquet
 import com.racquetbuddy.businesslogic.SamplingManager
 import com.racquetbuddy.racquetstringer.R
-import com.racquetbuddy.ui.dialog.AdjustDialogFragment
+import com.racquetbuddy.ui.dialog.CalibrateDialogFragment
 import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
 import com.racquetbuddy.utils.UnitUtils
@@ -86,7 +86,7 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
         })
 
         adjustButton.setOnClickListener {
-            val dialog = AdjustDialogFragment.newInstance(getTension())
+            val dialog = CalibrateDialogFragment.newInstance(getTension())
             dialog.setTargetFragment(this, 0)
             dialog.show(fragmentManager, ADJUST_DIALOG_TAG)
         }
@@ -163,8 +163,8 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == ADJUST_REQUEST_CODE) {
-            if (resultCode == AdjustDialogFragment.RESULT_CODE_OK) {
-                val adjustment = data?.getFloatExtra(AdjustDialogFragment.ADJUSTMENT_EXTRA, 0f) ?: 0f
+            if (resultCode == CalibrateDialogFragment.RESULT_CODE_OK) {
+                val adjustment = data?.getFloatExtra(CalibrateDialogFragment.ADJUSTMENT_EXTRA, 0f) ?: 0f
                 currentAdjustment = adjustment
                 SharedPrefsUtils.setTensionAdjustment(activity!!, currentAdjustment)
                 SharedPrefsUtils.setCalibrated(activity!!, true)

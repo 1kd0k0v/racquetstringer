@@ -53,7 +53,7 @@ object SharedPrefsUtils {
     }
 
     fun isHeadImperialUnits(context: Context): Boolean {
-        return getSharedPreferences(context).getBoolean(KEY_RACQUET_UNITS, false)
+        return getSharedPreferences(context).getBoolean(KEY_RACQUET_UNITS, true)
     }
 
     fun setHeadImperialUnits(context: Context, isImperial: Boolean) {

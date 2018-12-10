@@ -22,6 +22,9 @@
 
         <!-- action bar -->
         <item name="toolbarStyle">@style/ActionBar</item>
+
+        <!-- edit text -->
+        <item name="editTextStyle">@style/EditTextDark</item>
     </style>
 
     <style name="ActionBar" parent="Widget.AppCompat.Toolbar">
@@ -48,6 +51,7 @@
 
     <style name="EditTextDark" parent="Widget.AppCompat.EditText">
         <item name="android:colorAccent">@android:color/white</item>
+        <item name="android:textColorHint">@color/secondaryTextColor</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:backgroundTint">@color/tab_indicator</item>
