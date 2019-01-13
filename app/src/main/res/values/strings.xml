@@ -48,7 +48,7 @@
     <string name="calibration">Calibration</string>
     <string name="listening">Listening</string>
     <string name="pref_tension_units">Tension Units</string>
-    <string name="dialog_title_string_type">Choose string type or model.</string>
+    <string name="dialog_title_string_type">Choose string type.</string>
     <string name="tension_lb">lb</string>
     <string name="tension_kg">kg</string>
     <string name="value_space_unit">%1$s %2$s</string>
@@ -70,9 +70,13 @@
     <string name="string_tension">String Tension</string>
     <string name="dialog_adjust_title">Enter your trusted stringer racquet string tension!</string>
     <string name="calibration_default_text">Fabric mode measurement is %1$s %2$s. Please enter your trusted stringer racquet string tension.</string>
-    <string name="current_adjustment">(%1$s%2$s%3$s)</string>
+    <string name="current_adjustment">(Calibration: %1$s%2$s%3$s)</string>
     <string name="adjustment_saved">Adjustment %1$f%2$s applied.</string>
-    <string name="instructions_calibration">How does it work?\n1. String a racquet by trusted stringer.\n2. Tap the string close to the phone microphone.\n3. Calibrate the measurement with the tension you gave to your trusted stringer.</string>
+    <string name="instructions_calibration">Calibration:
+\n1. Take a racquet with known string tension, e.g. new strung racquet by a trusted stringer a couple of hours after stringing.
+\n2. Tap the string of this racquet with another racquet in front of the phone microphone.
+\n3. Enter the average string tension value you gave to your stringer.
+    </string>
     <string name="tap_the_strings">Hit the Strings</string>
     <string name="instructions_title">Instructions</string>
     <string name="instructions_body">
@@ -82,4 +86,5 @@
      \n   <li>Enjoy the work of the app and
         \n  Master Your Tension </li>
     </string>
+    <string name="no_calibration">(No Calibration)</string>
 </resources>

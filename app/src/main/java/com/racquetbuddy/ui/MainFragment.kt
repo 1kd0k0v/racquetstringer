@@ -177,12 +177,14 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 personalAdjustTextView.text = getString(R.string.current_adjustment, sign, NumberFormatUtils.formatOneDigit(adjustment), units)
                 personalAdjustTextView.visibility = View.VISIBLE
             } else {
-                personalAdjustTextView.visibility = View.GONE
+                personalAdjustTextView.visibility = View.VISIBLE
+                personalAdjustTextView.text = getString(R.string.no_calibration)
 
             }
         } else {
             calibrationTextView.text = getString(R.string.fabric_mode)
-            personalAdjustTextView.visibility = View.GONE
+            personalAdjustTextView.visibility = View.VISIBLE
+            personalAdjustTextView.text = getString(R.string.no_calibration)
         }
     }
 
