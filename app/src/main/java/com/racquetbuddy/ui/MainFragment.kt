@@ -2,14 +2,11 @@ package com.racquetbuddy.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
@@ -93,7 +90,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 val start = displayTensionTextView.length() - 1
                 val end = (displayTensionTextView).length()
 
-                spannable.setSpan(ForegroundColorSpan(Color.RED), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//                spannable.setSpan(ForegroundColorSpan(Color.RED), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 spannable.setSpan(RelativeSizeSpan(0.5f), start, end, 0)
 
                 displayTensionTextView.setText(spannable, TextView.BufferType.SPANNABLE)
