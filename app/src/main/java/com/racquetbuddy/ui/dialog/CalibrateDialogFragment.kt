@@ -52,7 +52,7 @@ class CalibrateDialogFragment : DialogFragment() {
 
         unitsTextView.text = UnitUtils.getUnits(activity!!)
 
-        defaultMeasurementText.text = getString(R.string.calibration_default_text, NumberFormatUtils.formatOneDigit(defaultMeasurment), UnitUtils.getUnits(activity!!))
+        defaultMeasurementText.text = getString(R.string.calibration_default_text, NumberFormatUtils.format(defaultMeasurment), UnitUtils.getUnits(activity!!))
 
 //        tensionInput?.setSelection(tensionInput.text.length);
 
