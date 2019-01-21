@@ -60,8 +60,9 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
                     defaultMeasurement = tension.toFloat()
 
                     if (isImperial()) {
-                        fabricModeUnitsTextView.text = getString(R.string.tension_lb)
-                        personalModeUnitsTextView.text = getString(R.string.tension_lb)
+                        val units = getString(R.string.tension_lb)
+                        fabricModeUnitsTextView.text = units
+                        personalModeUnitsTextView.text = units
                         fabricModeTextView.text = NumberFormatUtils.format(tensionInLb)
 
                         if (isCalibrated()) {
@@ -71,8 +72,9 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
                             personalModeTextView.text = NumberFormatUtils.format(tensionInLb)
                         }
                     } else {
-                        fabricModeUnitsTextView.text = getString(R.string.tension_kg)
-                        personalModeUnitsTextView.text = getString(R.string.tension_kg)
+                        val units = getString(R.string.tension_kg)
+                        fabricModeUnitsTextView.text = units
+                        personalModeUnitsTextView.text = units
                         fabricModeTextView.text = NumberFormatUtils.format(tension)
 
                         if (isCalibrated()) {
