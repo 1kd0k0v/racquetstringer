@@ -61,6 +61,8 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private fun displayTension(hz: Float) {
         if (activity != null) {
 
+            hzTextView.text = hz.toString()
+
             var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
             if(!SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
                 headSize = UnitUtils.cmToIn(headSize).toFloat()
@@ -157,15 +159,13 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             calibrationTextView.text = getString(R.string.personal_mode)
             val adjustment = SharedPrefsUtils.getTensionAdjustment(activity!!)
             if (adjustment != 0f) {
-                var units = ""
-
-                var sign = if (adjustment > 0) {
+                val sign = if (adjustment > 0) {
                     "+"
                 } else {
                     ""
                 }
 
-                units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
+                val units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
                     getString(R.string.tension_lb)
                 } else {
                     getString(R.string.tension_kg)

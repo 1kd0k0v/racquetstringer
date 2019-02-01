@@ -62,7 +62,7 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
                     if (isImperial()) {
                         val units = getString(R.string.tension_lb)
                         fabricModeUnitsTextView.text = units
-                        personalModeUnitsTextView.text = units
+                        calibrationPersonalModeUnitsTextView.text = units
                         fabricModeTextView.text = NumberFormatUtils.format(tensionInLb)
 
                         if (isCalibrated()) {
@@ -74,7 +74,7 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
                     } else {
                         val units = getString(R.string.tension_kg)
                         fabricModeUnitsTextView.text = units
-                        personalModeUnitsTextView.text = units
+                        calibrationPersonalModeUnitsTextView.text = units
                         fabricModeTextView.text = NumberFormatUtils.format(tension)
 
                         if (isCalibrated()) {
