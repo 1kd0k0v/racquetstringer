@@ -37,10 +37,14 @@ object SharedPrefsUtils {
     }
 
     fun isFirstRun(context: Context): Boolean {
-        return getSharedPreferences(context).getBoolean(KEY_SET_FIRST_RUN, true)
+        val firstRun = getSharedPreferences(context).getBoolean(KEY_SET_FIRST_RUN, true)
+        if (firstRun) {
+            setFirstRun(context, false)
+        }
+        return firstRun
     }
 
-    fun setFirstRun(context: Context, isFirstRun: Boolean) {
+    private fun setFirstRun(context: Context, isFirstRun: Boolean) {
         getEditor(context).putBoolean(KEY_SET_FIRST_RUN, isFirstRun).apply()
     }
 

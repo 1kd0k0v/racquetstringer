@@ -16,6 +16,7 @@ import com.racquetbuddy.businesslogic.Racquet
 import com.racquetbuddy.businesslogic.SamplingManager
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.dialog.HeadSizeDialogFragment
+import com.racquetbuddy.ui.dialog.InstructionsDialogFragment
 import com.racquetbuddy.ui.dialog.StringDiameterDialogFragment
 import com.racquetbuddy.ui.dialog.StringTypeDialogFragment
 import com.racquetbuddy.utils.NumberFormatUtils
@@ -31,6 +32,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private val HEAD_SIZE_DIALOG_TAG = "HEAD_SIZE_DIALOG_TAG"
     private val STRINGS_DIAMETER_DIALOG_TAG = "STRINGS_DIAMETER_DIALOG_TAG"
     private val STRING_TYPE_DIALOG_TAG = "STRING_TYPE_DIALOG_TAG"
+    private val INSTRUCTIONS_DIALOG_FRAGMENT_TAG = "INSTRUCTIONS_DIALOG_FRAGMENT_TAG"
 
     private var currentHz: Float = 0f
 
@@ -150,6 +152,17 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         refreshStringDiameterView()
         refreshStringType()
         refreshCalibrated()
+
+        // if first time
+        if (SharedPrefsUtils.isFirstRun(activity!!)) {
+            showInstructionsDialog()
+        }
+    }
+
+    private fun showInstructionsDialog() {
+        val dialog = InstructionsDialogFragment()
+        dialog.setTargetFragment(this, 0)
+        dialog.show(fragmentManager, INSTRUCTIONS_DIALOG_FRAGMENT_TAG)
     }
 
     private fun refreshCalibrated() {

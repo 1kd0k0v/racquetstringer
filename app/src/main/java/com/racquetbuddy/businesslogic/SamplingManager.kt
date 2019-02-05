@@ -46,7 +46,6 @@ class SamplingManager private constructor(){
                     }
 
                     freqBuffer.add(frequency)
-
                 }
 
                 override fun getSoundSpectrogram(values: ByteArray?) {

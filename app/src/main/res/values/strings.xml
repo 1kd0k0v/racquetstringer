@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TensionMeter</string>
+    <string name="app_name">TennisTension</string>
     <string name="action_settings">Settings</string>
     <string name="sample_rates_name">SAMPLE/S::0</string>
     <string name="fft_len_name">FFT LEN::0</string>
@@ -80,11 +80,14 @@
     <string name="tap_the_strings">Hit the Strings</string>
     <string name="instructions_title">Instructions</string>
     <string name="instructions_body">
-          <li>Choose the mode, the head size, the string diameter and the string type </li>
-     \n   <li>Tap the racquet string with another racquet, hand or something else close to the phone microphone</li>
-     \n   <li>If the Personal mode is activated adjust the measurement if needed</li>
-     \n   <li>Enjoy the work of the app and
-        \n  Master Your Tension </li>
+        <li>If you use a Vibration Dampener take it off the string while measuring.</li>\n
+        <li>TensionMeter measures the average tension between main and cross strings of the racquet.</li>\n
+        <li>Enter the head size, the string diameter and the string type.</li>\n
+        <li>If you use main and cross strings with different diameter, enter the average diameter value.</li>\n
+        <li>You can use either Fabric or Personal mode(if Personal mode is activated make a Calibration of the mode).</li>\n
+        <li>Tap the racquet string with another racquet in front of the phone microphone to measure the average string tension</li>\n
+        <li><b>CAUTION</b><br/>\nThe tension loss rate is very high immediately after the racquet is strung and during the first 30 minutes of play.
+            The total tension loss after 1 hour of play could be up to 20% depending of the string model and the way of stringing.</li>
     </string>
     <string name="no_calibration">(No Calibration)</string>
 </resources>

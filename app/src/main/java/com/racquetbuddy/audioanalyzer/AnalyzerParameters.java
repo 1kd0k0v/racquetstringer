@@ -32,7 +32,7 @@ class AnalyzerParameters {
     int hopLen = 1024;
     double overlapPercent = 50;  // = (1 - hopLen/fftLen) * 100%
     String wndFuncName;
-    int nFFTAverage = 1;
+    int nFFTAverage = 2;
     boolean isAWeighting = false;
     final int BYTE_OF_SAMPLE = 2;
     final double SAMPLE_VALUE_MAX = 32767.0;   // Maximum signal value

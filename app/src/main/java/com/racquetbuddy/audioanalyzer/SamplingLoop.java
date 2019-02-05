@@ -246,7 +246,8 @@ public class SamplingLoop extends Thread {
                 stft.calculatePeak();
 
                 if (stft.maxAmpFreq > 400 && stft.maxAmpFreq < 700 && stft.maxAmpDB > MAX_AMP_DB_THRESHOLD) {
-                    Log.d("MAXAMPDB", " MAXAMPDB: " + stft.maxAmpDB);
+//                    Log.d("MAXAMPDB", " MAXAMPDB: " + stft.maxAmpDB);
+//                    Log.d("MAXAMPFREQ", " MAXAMPFREQ: " + stft.maxAmpFreq);
 
                     record.read(byteAudioSamples, 0, readChunkSize);
                     callback.getSoundSpectrogram(byteAudioSamples);
