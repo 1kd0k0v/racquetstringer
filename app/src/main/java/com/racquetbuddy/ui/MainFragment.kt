@@ -168,6 +168,12 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private fun refreshCalibrated() {
         calibrationTextView.setTypeface(null, Typeface.BOLD)
 //        calibrationTextView.paintFlags = calibrationTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        val units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
+            getString(R.string.tension_lb)
+        } else {
+            getString(R.string.tension_kg)
+        }
+
         if (SharedPrefsUtils.isCalibrated(activity!!)) {
             calibrationTextView.text = getString(R.string.personal_mode)
             val adjustment = SharedPrefsUtils.getTensionAdjustment(activity!!)
@@ -177,23 +183,15 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 } else {
                     ""
                 }
-
-                val units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
-                    getString(R.string.tension_lb)
-                } else {
-                    getString(R.string.tension_kg)
-                }
-
                 personalAdjustTextView.text = getString(R.string.current_adjustment, sign, NumberFormatUtils.formatOneDigit(adjustment), units)
                 personalAdjustTextView.visibility = View.VISIBLE
             } else {
                 personalAdjustTextView.visibility = View.VISIBLE
-                personalAdjustTextView.text = getString(R.string.no_calibration)
-
+                personalAdjustTextView.text = getString(R.string.no_calibration, units)
             }
         } else {
             calibrationTextView.text = getString(R.string.fabric_mode)
-            personalAdjustTextView.visibility = View.VISIBLE
+            personalAdjustTextView.visibility = View.GONE
             personalAdjustTextView.text = getString(R.string.no_calibration)
         }
     }
