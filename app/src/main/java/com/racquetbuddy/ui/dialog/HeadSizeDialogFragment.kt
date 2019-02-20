@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.OnRefreshViewsListener
+import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
 
 /**
@@ -26,8 +27,8 @@ class HeadSizeDialogFragment : DialogFragment() {
         val unitsSpinner = root.findViewById<Spinner>(R.id.headUnitsSpinner) as Spinner
         val headSizeInput = root.findViewById<EditText>(R.id.stringsDiameterInputFieldDialog)
 
-        headSizeInput?.setText(SharedPrefsUtils.getRacquetHeadSize(activity!!).toString())
-        headSizeInput?.setSelection(headSizeInput.text.length);
+        headSizeInput?.setText(NumberFormatUtils.formatNoTrailingZeros(SharedPrefsUtils.getRacquetHeadSize(activity!!)))
+        headSizeInput?.setSelection(headSizeInput.text.length)
 
         if (SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
             unitsSpinner.setSelection(0)
@@ -56,6 +57,6 @@ class HeadSizeDialogFragment : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
     }
 }

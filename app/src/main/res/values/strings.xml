@@ -72,23 +72,22 @@
     <string name="calibration_default_text">Fabric mode measurement is %1$s %2$s. Please enter your trusted stringer racquet string tension.</string>
     <string name="current_adjustment">(Calibration: %1$s%2$s%3$s)</string>
     <string name="adjustment_saved">Adjustment %1$f%2$s applied.</string>
-    <string name="instructions_calibration">Calibration:
-\n1. Take a racquet with known string tension, e.g. new strung racquet by a trusted stringer a couple of hours after stringing.
-        \n2. Enter the head size, string diameter and the string type in the settings.
-\n3. Tap the string of this racquet with another racquet in front of the phone microphone.
-\n4. Enter the average string tension value you gave to your stringer.
+    <string name="instructions_calibration">Calibration:\n
+        1. Take a racquet with known string tension\n
+        2. Enter this racquet and it\'s string parameters in the settings\n
+        3. Tap the string close to the microphone\n
+        4. Push the Calibrate button and enter the preknown tension.
     </string>
     <string name="tap_the_strings">Hit the Strings</string>
     <string name="instructions_title">Instructions</string>
     <string name="instructions_body">
-        <li>If you use a Vibration Dampener take it off the string while measuring.</li>\n
-        <li>TensionMeter measures the average tension between main and cross strings of the racquet.</li>\n
-        <li>Enter the head size, the string diameter and the string type.</li>\n
-        <li>If you use main and cross strings with different diameter, enter the average diameter value.</li>\n
-        <li>You can use either Fabric or Personal mode(if Personal mode is activated make a Calibration of the mode).</li>\n
-        <li>Tap the racquet string with another racquet in front of the phone microphone to measure the average string tension</li>\n
-        <li><b>CAUTION</b><br/>\nThe tension loss rate is very high immediately after the racquet is strung and during the first 30 minutes of play.
-            The total tension loss after 1 hour of play could be up to 20% depending of the string model and the way of stringing.</li>
+        <li>TennisTension measures the average tension between main and cross strings by analyzing the sound heard from the string.</li>\n\n
+        <li>Take off the Dampener</li>\n\n
+        <li>Put the head size, the string diameter and it\'s type (if main and cross strings are with different diameter put the average value)</li>\n\n
+        <li>Use Fabric or Personal mode</li>\n\n
+        <li>By Calibration of the Personal mode you can cope with all particularities of the racquets, strings, stringers and stringing machines.</li>\n\n
+        <li>Tap the racquet string anywhere with anything close to the phone microphone</li>\n\n
+        <li>Consider the tension loss receiving the outcome of the measurement</li>
     </string>
     <string name="no_calibration">Calibration: 0.0%1$s</string>
 </resources>

@@ -183,7 +183,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 } else {
                     ""
                 }
-                personalAdjustTextView.text = getString(R.string.current_adjustment, sign, NumberFormatUtils.formatOneDigit(adjustment), units)
+                personalAdjustTextView.text = getString(R.string.current_adjustment, sign, NumberFormatUtils.format(adjustment), units)
                 personalAdjustTextView.visibility = View.VISIBLE
             } else {
                 personalAdjustTextView.visibility = View.VISIBLE

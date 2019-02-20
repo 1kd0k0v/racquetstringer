@@ -6,7 +6,12 @@ package com.racquetbuddy.utils
 object NumberFormatUtils {
     fun format(number: Number): String {
         val decimalFormat = java.text.DecimalFormat("0.00")
-        decimalFormat.roundingMode = java.math.RoundingMode.CEILING
+//        decimalFormat.roundingMode = java.math.RoundingMode.CEILING
+        return decimalFormat.format(number)
+    }
+
+    fun formatNoTrailingZeros(number: Number): String {
+        val decimalFormat = java.text.DecimalFormat("#.##")
         return decimalFormat.format(number)
     }
 
