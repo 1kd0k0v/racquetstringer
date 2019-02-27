@@ -14,6 +14,7 @@ class ConfigurationFragment : Fragment() {
     var minFreq = 0
     var maxFreq = 0
     var dbThreshold = 0
+    var occurrences = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -62,7 +63,7 @@ class ConfigurationFragment : Fragment() {
             }
         })
 
-        dbThreshold = SharedPrefsUtils.getDbThreshld(context!!).toInt()
+        dbThreshold = SharedPrefsUtils.getDbThreshold(context!!).toInt()
         dbSeekBar.progress = dbThreshold + 600
         dbTextView.text = dbThreshold.toString()
         dbSeekBar.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener {
@@ -78,10 +79,27 @@ class ConfigurationFragment : Fragment() {
             }
         })
 
+        occurrences = SharedPrefsUtils.getOccurrenceCount(context!!)
+        occurenceCountSeekBar.progress = occurrences
+        occurrenceCountTextView.text = occurrences.toString()
+        occurenceCountSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                occurrenceCountTextView.text = progress.toString()
+                occurrences = progress
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
+
         applyButton.setOnClickListener {
             SharedPrefsUtils.setMinFreq(context!!, minFreq.toFloat())
             SharedPrefsUtils.setMaxFreq(context!!, maxFreq.toFloat())
             SharedPrefsUtils.setDbThreshold(context!!, dbThreshold.toFloat())
+            SharedPrefsUtils.setOccurrenceCount(context!!, occurrences)
         }
 
     }

@@ -22,6 +22,7 @@ object SharedPrefsUtils {
     private const val KEY_MIN_FREQ = "KEY_MIN_FREQ"
     private const val KEY_MAX_FREQ = "KEY_MAX_FREQ"
     private const val KEY_DB_THRESHOLD = "KEY_DB_THRESHOLD"
+    private const val KEY_OCCURENCE_COUNT = "KEY_OCCURENCE_COUNT"
 
     private fun getEditor(context: Context) : SharedPreferences.Editor{
         return getSharedPreferences(context).edit()
@@ -128,7 +129,15 @@ object SharedPrefsUtils {
         getEditor(context).putFloat(KEY_DB_THRESHOLD, density).apply()
     }
 
-    fun getDbThreshld(context: Context): Float {
+    fun getDbThreshold(context: Context): Float {
         return getSharedPreferences(context).getFloat(KEY_DB_THRESHOLD, DefaultRacquetValues.DEFAULT_DB_THRESHOLD)
+    }
+
+    fun setOccurrenceCount(context: Context, count: Int) {
+        getEditor(context).putInt(KEY_OCCURENCE_COUNT, count).apply()
+    }
+
+    fun getOccurrenceCount(context: Context): Int {
+        return getSharedPreferences(context).getInt(KEY_OCCURENCE_COUNT, DefaultRacquetValues.DEFAULT_OCCURENCE_COUNT)
     }
 }

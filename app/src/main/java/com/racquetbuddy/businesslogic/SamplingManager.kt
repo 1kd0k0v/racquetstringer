@@ -30,7 +30,8 @@ class SamplingManager private constructor(){
 
         val minFreq = SharedPrefsUtils.getMinFreq(activity)
         val maxFreq = SharedPrefsUtils.getMaxFreq(activity)
-        val dbThreshold = SharedPrefsUtils.getDbThreshld(activity)
+        val dbThreshold = SharedPrefsUtils.getDbThreshold(activity)
+        val configuredOccurrenceCount = SharedPrefsUtils.getOccurrenceCount(activity)
 
         return SamplingLoop(
             object: SoundAnalyzerCallback {
@@ -39,12 +40,11 @@ class SamplingManager private constructor(){
                     Log.d("Amplitude", "Amp: $frequency")
 
                     if (frequency > minFreq && frequency < maxFreq && db > dbThreshold) {
-                        val found = freqBuffer.find { it > frequency - 2 && it < frequency + 2 }
-                        if (found != null) {
+                        val count = freqBuffer.count { it > frequency - 2 && it < frequency + 2 }
+                        if (count >= configuredOccurrenceCount) {
                             activity.runOnUiThread {
-                                val avgAmplitude = (found + frequency) / 2
                                 for (listener in ampListeners) {
-                                    listener.getMaxAmplitude(avgAmplitude.toFloat())
+                                    listener.getMaxAmplitude(frequency.toFloat())
                                 }
                             }
                             freqBuffer.clear()

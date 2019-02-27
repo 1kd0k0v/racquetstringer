@@ -123,4 +123,38 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <SeekBar
+        android:id="@+id/occurenceCountSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:max="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/occurrenceCountLabel" />
+
+    <TextView
+        android:id="@+id/occurrenceCountLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Occurrence Count:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dbSeekBar" />
+
+    <TextView
+        android:id="@+id/occurrenceCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="value"
+        app:layout_constraintBottom_toBottomOf="@+id/occurrenceCountLabel"
+        app:layout_constraintStart_toEndOf="@+id/occurrenceCountLabel"
+        app:layout_constraintTop_toTopOf="@+id/occurrenceCountLabel" />
 </android.support.constraint.ConstraintLayout>
