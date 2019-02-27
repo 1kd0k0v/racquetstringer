@@ -40,7 +40,6 @@ import android.util.Log;
 
 public class SamplingLoop extends Thread {
 
-    private static final int MAX_AMP_DB_THRESHOLD = -100;
     private final int AUDIO_SOURCE_ID = MediaRecorder.AudioSource.VOICE_RECOGNITION;
 
     CalibrationLoad calibLoad = new CalibrationLoad();  // data for calibration of spectrum
@@ -50,7 +49,7 @@ public class SamplingLoop extends Thread {
     private volatile boolean isPaused1 = false;
     private STFT stft;   // use with care
     private final AnalyzerParameters analyzerParam;
-    private AnalyzerCallback callback;
+    private SoundAnalyzerCallback callback;
 
     private double[] spectrumDBcopy;   // XXX, transfers data from SamplingLoop to AnalyzerGraphic
 
@@ -65,7 +64,7 @@ public class SamplingLoop extends Thread {
         }
     }
 
-    public SamplingLoop(AnalyzerCallback callback, Resources res) {
+    public SamplingLoop(SoundAnalyzerCallback callback, Resources res) {
         this.callback = callback;
 
         this.analyzerParam = new AnalyzerParameters(res);
@@ -192,7 +191,6 @@ public class SamplingLoop extends Thread {
 
         short[] audioSamples = new short[readChunkSize];
         byte[] byteAudioSamples = new byte[readChunkSize];
-        byte[] emptyAudioSamples = new byte[readChunkSize];
         int numOfReadShort;
 
         stft = new STFT(analyzerParam);
@@ -237,31 +235,10 @@ public class SamplingLoop extends Thread {
 
             // If there is new spectrum data, do plot
             if (stft.nElemSpectrumAmp() >= analyzerParam.nFFTAverage) {
-                // Update spectrum or spectrogram
-//                final double[] spectrumDB = stft.getSpectrumAmpDB();
-//                System.arraycopy(spectrumDB, 0, spectrumDBcopy, 0, spectrumDB.length);
-//                activity.analyzerViews.update(spectrumDBcopy);
-//          fpsCounter.inc();
-
                 stft.calculatePeak();
 
-                if (stft.maxAmpFreq > 400 && stft.maxAmpFreq < 700 && stft.maxAmpDB > MAX_AMP_DB_THRESHOLD) {
-//                    Log.d("MAXAMPDB", " MAXAMPDB: " + stft.maxAmpDB);
-//                    Log.d("MAXAMPFREQ", " MAXAMPFREQ: " + stft.maxAmpFreq);
-
-                    record.read(byteAudioSamples, 0, readChunkSize);
-                    callback.getSoundSpectrogram(byteAudioSamples);
-
-                    callback.getAmpFreq(stft.maxAmpFreq);
-                } else {
-                    callback.getSoundSpectrogram(emptyAudioSamples);
-                }
-
-//                activity.maxAmpDB = stft.maxAmpDB;
-
-                // get RMS
-//                activity.dtRMS = stft.getRMS();
-//                activity.dtRMSFromFT = stft.getRMSFromFT();
+                record.read(byteAudioSamples, 0, readChunkSize);
+                callback.onSoundDataReceived(stft.maxAmpFreq, stft.maxAmpDB, byteAudioSamples);
             }
         }
         Log.i(TAG, "SamplingLoop::Run(): Actual sample rate: " + recorderMonitor.getSampleRate());
@@ -270,9 +247,8 @@ public class SamplingLoop extends Thread {
         record.release();
     }
 
-    public interface AnalyzerCallback {
-        void getAmpFreq(double frequency);
-        void getSoundSpectrogram(byte [] values);
+    public interface SoundAnalyzerCallback {
+        void onSoundDataReceived(double frequency, double db, byte [] spectrogram);
     }
 
     void setAWeighting(boolean isAWeighting) {

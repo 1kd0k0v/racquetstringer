@@ -19,6 +19,9 @@ object SharedPrefsUtils {
     private const val KEY_CALIBRATED = "KEY_CALIBRATED"
     private const val KEY_TENSION_ADJUSMENT = "KEY_TENSION_ADJUSMENT"
     private const val KEY_STRING_DENSITY = "KEY_STRING_DENSITY"
+    private const val KEY_MIN_FREQ = "KEY_MIN_FREQ"
+    private const val KEY_MAX_FREQ = "KEY_MAX_FREQ"
+    private const val KEY_DB_THRESHOLD = "KEY_DB_THRESHOLD"
 
     private fun getEditor(context: Context) : SharedPreferences.Editor{
         return getSharedPreferences(context).edit()
@@ -103,5 +106,29 @@ object SharedPrefsUtils {
 
     fun getStringDensity(context: Context): Float {
         return getSharedPreferences(context).getFloat(KEY_STRING_DENSITY, DefaultRacquetValues.DEFAULT_RHO)
+    }
+
+    fun setMinFreq(context: Context, density: Float) {
+        getEditor(context).putFloat(KEY_MIN_FREQ, density).apply()
+    }
+
+    fun getMinFreq(context: Context): Float {
+        return getSharedPreferences(context).getFloat(KEY_MIN_FREQ, DefaultRacquetValues.DEFAULT_MIN_FREQ)
+    }
+
+    fun setMaxFreq(context: Context, density: Float) {
+        getEditor(context).putFloat(KEY_MAX_FREQ, density).apply()
+    }
+
+    fun getMaxFreq(context: Context): Float {
+        return getSharedPreferences(context).getFloat(KEY_MAX_FREQ, DefaultRacquetValues.DEFAULT_MAX_FREQ)
+    }
+
+    fun setDbThreshold(context: Context, density: Float) {
+        getEditor(context).putFloat(KEY_DB_THRESHOLD, density).apply()
+    }
+
+    fun getDbThreshld(context: Context): Float {
+        return getSharedPreferences(context).getFloat(KEY_DB_THRESHOLD, DefaultRacquetValues.DEFAULT_DB_THRESHOLD)
     }
 }

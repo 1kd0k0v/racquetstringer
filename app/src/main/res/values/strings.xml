@@ -69,12 +69,12 @@
     <string name="default_measurement">Default Measurement</string>
     <string name="string_tension">String Tension</string>
     <string name="dialog_adjust_title">Enter your trusted stringer racquet string tension!</string>
-    <string name="calibration_default_text">Fabric mode measurement is %1$s %2$s. Please enter your trusted stringer racquet string tension.</string>
+    <string name="calibration_default_text">Fabric mode measurement is %1$s %2$s. Please enter the already known tension of this racquet.</string>
     <string name="current_adjustment">(Calibration: %1$s%2$s%3$s)</string>
     <string name="adjustment_saved">Adjustment %1$f%2$s applied.</string>
     <string name="instructions_calibration">Calibration:\n
         1. Take a racquet with known string tension\n
-        2. Enter this racquet and it\'s string parameters in the settings\n
+        2. Enter this racquet and its string parameters in the settings\n
         3. Tap the string close to the microphone\n
         4. Push the Calibrate button and enter the preknown tension.
     </string>
@@ -90,4 +90,9 @@
         <li>Consider the tension loss receiving the outcome of the measurement</li>
     </string>
     <string name="no_calibration">Calibration: 0.0%1$s</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="configure">Configure</string>
+    <string name="hz_range">%1$s - %2$s</string>
 </resources>

@@ -11,8 +11,8 @@ android {
         minSdkVersion 23
 
         targetSdkVersion 28
-        versionCode 36
-        versionName "1.0.5"
+        versionCode 38
+        versionName "1.0.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -52,4 +52,8 @@ dependencies {
     implementation 'com.fxn769:musicwave:1.0'
 
     implementation 'com.chibde:audiovisualizer:2.0.1'
+
+    // 2 thumb seekbar
+    implementation 'io.apptik.widget:multislider:1.3'
+
 }

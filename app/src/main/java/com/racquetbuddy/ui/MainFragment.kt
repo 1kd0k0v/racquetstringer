@@ -4,14 +4,12 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.text.SpannableString
-import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.racquetbuddy.businesslogic.Racquet
 import com.racquetbuddy.businesslogic.SamplingManager
 import com.racquetbuddy.racquetstringer.R
@@ -36,6 +34,8 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
     private var currentHz: Float = 0f
 
+    private val handler: Handler = Handler();
+
     private val samplingManager = SamplingManager.instance
 
     override fun onPause() {
@@ -51,53 +51,45 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private fun startSampling() {
         samplingManager.addMaxAmpListener(object : SamplingManager.MaxAmplitudeListener {
             override fun getMaxAmplitude(amplitude: Float) {
-                if (activity != null) {
-                    displayTension(amplitude)
-                    currentHz = amplitude
-                }
+                if (activity == null) return
+
+                handler.removeCallbacks(clearDisplayTensionRunnable)
+                displayTension(amplitude)
+                handler.postDelayed(clearDisplayTensionRunnable, 1000)
+                currentHz = amplitude
             }
         })
         samplingManager.startSampling(activity!!, visualizerFrameLayout)
     }
 
+    val clearDisplayTensionRunnable = Runnable {
+        displayTension(0f)
+    }
+
     private fun displayTension(hz: Float) {
-        if (activity != null) {
+        if (activity == null) return
 
-            hzTextView.text = hz.toString()
+        var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
+        if(!SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
+            headSize = UnitUtils.cmToIn(headSize).toFloat()
+        }
 
-            var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
-            if(!SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
-                headSize = UnitUtils.cmToIn(headSize).toFloat()
+        personalModeUnitsTextView.text = UnitUtils.getUnits(activity!!)
+
+        val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!), SharedPrefsUtils.getStringDensity(activity!!))
+
+        displayTensionTextView.text =
+        if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
+            if (SharedPrefsUtils.isCalibrated(activity!!) && hz != 0f) {
+                NumberFormatUtils.format(UnitUtils.kiloToPound(tension).toFloat() + SharedPrefsUtils.getTensionAdjustment(activity!!))
+            } else {
+                NumberFormatUtils.format(UnitUtils.kiloToPound(tension))
             }
-
-            personalModeUnitsTextView.text = UnitUtils.getUnits(activity!!)
-
-            val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!), SharedPrefsUtils.getStringDensity(activity!!))
-
-            if (tension != 0.0) {
-                displayTensionTextView.text = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
-
-                    if (SharedPrefsUtils.isCalibrated(activity!!)) {
-                        NumberFormatUtils.format(UnitUtils.kiloToPound(tension).toFloat() + SharedPrefsUtils.getTensionAdjustment(activity!!))
-                    } else {
-                        NumberFormatUtils.format(UnitUtils.kiloToPound(tension))
-                    }
-                } else {
-                    if (SharedPrefsUtils.isCalibrated(activity!!)) {
-                        NumberFormatUtils.format(tension + SharedPrefsUtils.getTensionAdjustment(activity!!))
-                    } else {
-                        NumberFormatUtils.format(tension)
-                    }
-                }
-                val spannable = SpannableString(displayTensionTextView.text)
-
-                val start = displayTensionTextView.length() - 1
-                val end = (displayTensionTextView).length()
-
-//                spannable.setSpan(ForegroundColorSpan(Color.RED), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                spannable.setSpan(RelativeSizeSpan(0.5f), start, end, 0)
-
-                displayTensionTextView.setText(spannable, TextView.BufferType.SPANNABLE)
+        } else {
+            if (SharedPrefsUtils.isCalibrated(activity!!) && hz != 0f) {
+                NumberFormatUtils.format(tension + SharedPrefsUtils.getTensionAdjustment(activity!!))
+            } else {
+                NumberFormatUtils.format(tension)
             }
         }
     }
@@ -157,6 +149,8 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         if (SharedPrefsUtils.isFirstRun(activity!!)) {
             showInstructionsDialog()
         }
+
+        displayTension(0f);
     }
 
     private fun showInstructionsDialog() {

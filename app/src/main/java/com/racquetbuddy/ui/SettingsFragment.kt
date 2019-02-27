@@ -58,6 +58,12 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
             dialog.show(fragmentManager, "INSTRUCTIONS_TYPE")
             return@setOnPreferenceClickListener true
         }
+
+        val configure = findPreference("configure")
+        configure.setOnPreferenceClickListener {
+            startActivity(Intent(context, ConfigurationActivity::class.java))
+            return@setOnPreferenceClickListener true
+        }
     }
 
     private fun sendFeedback(): Boolean {

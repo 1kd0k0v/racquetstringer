@@ -46,45 +46,12 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
         currentAdjustment = SharedPrefsUtils.getTensionAdjustment(activity!!)
 
         samplingManager.addMaxAmpListener(object : SamplingManager.MaxAmplitudeListener {
-            override fun getMaxAmplitude(amplitude: Float) {
+            override fun getMaxAmplitude(hz: Float) {
+                if (activity == null) return
 
-                if (activity != null) {
-                    var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
-                    if(!SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
-                        headSize = UnitUtils.cmToIn(headSize).toFloat()
-                    }
-
-                    val tension = Racquet.getStringsTension(amplitude, headSize, SharedPrefsUtils.getStringsDiameter(activity!!), SharedPrefsUtils.getStringDensity(activity!!))
-                    val tensionInLb = UnitUtils.kiloToPound(tension).toDouble()
-
-                    defaultMeasurement = tension.toFloat()
-
-                    if (isImperial()) {
-                        val units = getString(R.string.tension_lb)
-                        fabricModeUnitsTextView.text = units
-                        calibrationPersonalModeUnitsTextView.text = units
-                        fabricModeTextView.text = NumberFormatUtils.format(tensionInLb)
-
-                        if (isCalibrated()) {
-                            personalModeTextView.text = NumberFormatUtils.format(tensionInLb +
-                                    currentAdjustment)
-                        } else {
-                            personalModeTextView.text = NumberFormatUtils.format(tensionInLb)
-                        }
-                    } else {
-                        val units = getString(R.string.tension_kg)
-                        fabricModeUnitsTextView.text = units
-                        calibrationPersonalModeUnitsTextView.text = units
-                        fabricModeTextView.text = NumberFormatUtils.format(tension)
-
-                        if (isCalibrated()) {
-                            personalModeTextView.text = NumberFormatUtils.format(tension + currentAdjustment)
-                        } else {
-                            personalModeTextView.text = NumberFormatUtils.format(tension)
-                        }
-                    }
-                }
+                displayTension(hz)
             }
+
         })
 
         adjustButton.setOnClickListener {
@@ -97,11 +64,44 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 
         initAdjustmentTextView()
 
-//        restoreDefaultButton.setOnClickListener {
-//            SharedPrefsUtils.setCalibrated(activity!!, false)
-//            SharedPrefsUtils.setTensionAdjustment(activity!!, 0f)
-//            Toast.makeText(activity!!, "Default values restored.", Toast.LENGTH_LONG).show()
-//        }
+        displayTension(0f)
+    }
+
+    private fun displayTension(hz: Float) {
+        var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
+        if(!SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
+            headSize = UnitUtils.cmToIn(headSize).toFloat()
+        }
+
+        val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!), SharedPrefsUtils.getStringDensity(activity!!))
+        defaultMeasurement = tension.toFloat()
+
+        if (isImperial()) {
+            val tensionInLb = UnitUtils.kiloToPound(tension).toDouble()
+            val units = getString(R.string.tension_lb)
+            fabricModeUnitsTextView.text = units
+            calibrationPersonalModeUnitsTextView.text = units
+            fabricModeTextView.text = NumberFormatUtils.format(tensionInLb)
+
+            if (isCalibrated()) {
+                personalModeTextView.text = NumberFormatUtils.format(tensionInLb +
+                        currentAdjustment)
+            } else {
+                personalModeTextView.text = NumberFormatUtils.format(tensionInLb)
+            }
+        } else {
+            val units = getString(R.string.tension_kg)
+            fabricModeUnitsTextView.text = units
+            calibrationPersonalModeUnitsTextView.text = units
+            fabricModeTextView.text = NumberFormatUtils.format(tension)
+
+            if (isCalibrated()) {
+                personalModeTextView.text = NumberFormatUtils.format(tension +
+                        currentAdjustment)
+            } else {
+                personalModeTextView.text = NumberFormatUtils.format(tension)
+            }
+        }
     }
 
     private fun getTension(): Float {
@@ -174,11 +174,11 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
         }
     }
 
-    fun isImperial(): Boolean {
+    private fun isImperial(): Boolean {
         return SharedPrefsUtils.isTensoinImperialUnits(activity!!)
     }
 
-    fun isCalibrated(): Boolean {
+    private fun isCalibrated(): Boolean {
         return SharedPrefsUtils.isCalibrated(activity!!)
     }
 

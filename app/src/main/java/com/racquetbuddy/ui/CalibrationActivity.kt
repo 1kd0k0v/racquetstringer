@@ -2,11 +2,8 @@ package com.racquetbuddy.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.View
+import android.support.v7.app.AppCompatActivity
 import com.racquetbuddy.racquetstringer.R
 import kotlinx.android.synthetic.main.calibration_activity.*
 
@@ -14,8 +11,8 @@ import kotlinx.android.synthetic.main.calibration_activity.*
 class CalibrationActivity : AppCompatActivity() {
 
     companion object {
-        val RETURN_TO_SETTINGS = "RETURN_TO_SETTINGS"
-        val RETURN_TO_SETTINGS_RESULT = 1
+        const val RETURN_TO_SETTINGS = "RETURN_TO_SETTINGS"
+        const val RETURN_TO_SETTINGS_RESULT = 1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +37,7 @@ class CalibrationActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    fun addExtraToBackToSettings() {
+    private fun addExtraToBackToSettings() {
         val bundle = Intent()
         bundle.putExtra(RETURN_TO_SETTINGS, RETURN_TO_SETTINGS_RESULT)
         setResult(Activity.RESULT_OK, bundle)
