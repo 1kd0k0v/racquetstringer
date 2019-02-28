@@ -157,4 +157,38 @@
         app:layout_constraintBottom_toBottomOf="@+id/occurrenceCountLabel"
         app:layout_constraintStart_toEndOf="@+id/occurrenceCountLabel"
         app:layout_constraintTop_toTopOf="@+id/occurrenceCountLabel" />
+
+    <TextView
+        android:id="@+id/queueCapacityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Queue Capacity:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/occurenceCountSeekBar" />
+
+    <TextView
+        android:id="@+id/queueCapacityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="value"
+        app:layout_constraintBottom_toBottomOf="@+id/queueCapacityLabel"
+        app:layout_constraintStart_toEndOf="@+id/queueCapacityLabel"
+        app:layout_constraintTop_toTopOf="@+id/queueCapacityLabel" />
+
+    <SeekBar
+        android:id="@+id/queueCapacitySeekBar"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:max="1000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/queueCapacityLabel" />
 </android.support.constraint.ConstraintLayout>

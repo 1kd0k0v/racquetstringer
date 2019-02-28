@@ -23,6 +23,7 @@ object SharedPrefsUtils {
     private const val KEY_MAX_FREQ = "KEY_MAX_FREQ"
     private const val KEY_DB_THRESHOLD = "KEY_DB_THRESHOLD"
     private const val KEY_OCCURENCE_COUNT = "KEY_OCCURENCE_COUNT"
+    private const val KEY_QUEUE_CAPACITY = "KEY_QUEUE_CAPACITY"
 
     private fun getEditor(context: Context) : SharedPreferences.Editor{
         return getSharedPreferences(context).edit()
@@ -139,5 +140,13 @@ object SharedPrefsUtils {
 
     fun getOccurrenceCount(context: Context): Int {
         return getSharedPreferences(context).getInt(KEY_OCCURENCE_COUNT, DefaultRacquetValues.DEFAULT_OCCURENCE_COUNT)
+    }
+
+    fun setQueueCapacity(context: Context, capacity: Int) {
+        getEditor(context).putInt(KEY_QUEUE_CAPACITY, capacity).apply()
+    }
+
+    fun getQueueCapacity(context: Context): Int {
+        return getSharedPreferences(context).getInt(KEY_QUEUE_CAPACITY, DefaultRacquetValues.DEFAULT_OCCURENCE_COUNT)
     }
 }

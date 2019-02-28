@@ -15,6 +15,7 @@ class ConfigurationFragment : Fragment() {
     var maxFreq = 0
     var dbThreshold = 0
     var occurrences = 0
+    var queueCapacity = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -95,11 +96,28 @@ class ConfigurationFragment : Fragment() {
             }
         })
 
+        queueCapacity = SharedPrefsUtils.getQueueCapacity(context!!)
+        queueCapacitySeekBar.progress = queueCapacity
+        queueCapacityTextView.text = queueCapacity.toString()
+        queueCapacitySeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                queueCapacityTextView.text = progress.toString()
+                queueCapacity = progress
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
+
         applyButton.setOnClickListener {
             SharedPrefsUtils.setMinFreq(context!!, minFreq.toFloat())
             SharedPrefsUtils.setMaxFreq(context!!, maxFreq.toFloat())
             SharedPrefsUtils.setDbThreshold(context!!, dbThreshold.toFloat())
             SharedPrefsUtils.setOccurrenceCount(context!!, occurrences)
+            SharedPrefsUtils.setQueueCapacity(context!!, queueCapacity)
         }
 
     }

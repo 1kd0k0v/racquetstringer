@@ -13,4 +13,5 @@ object DefaultRacquetValues {
     const val DEFAULT_MAX_FREQ = 700f
     const val DEFAULT_DB_THRESHOLD = -100f
     const val DEFAULT_OCCURENCE_COUNT = 2
+    const val DEFAULT_QUEUE_CAPACITY = 1000
 }

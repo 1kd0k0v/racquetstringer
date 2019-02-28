@@ -6,6 +6,7 @@ import com.gauravk.audiovisualizer.visualizer.WaveVisualizer
 import com.racquetbuddy.audioanalyzer.SamplingLoop
 import com.racquetbuddy.audioanalyzer.SamplingLoop.SoundAnalyzerCallback
 import com.racquetbuddy.utils.SharedPrefsUtils
+import java.util.concurrent.ArrayBlockingQueue
 
 /**
  * Created by musashiwarrior on 24-Oct-18.
@@ -26,7 +27,9 @@ class SamplingManager private constructor(){
 
     private fun getSamplingLoopInstance(activity: Activity, visualizerFrameLayout: WaveVisualizer?): SamplingLoop {
 
-        val freqBuffer = mutableListOf<Double>()
+        val queueCapacity = SharedPrefsUtils.getQueueCapacity(activity)
+
+        val frequencyQueue = ArrayBlockingQueue<Double>(queueCapacity)
 
         val minFreq = SharedPrefsUtils.getMinFreq(activity)
         val maxFreq = SharedPrefsUtils.getMaxFreq(activity)
@@ -34,42 +37,37 @@ class SamplingManager private constructor(){
         val configuredOccurrenceCount = SharedPrefsUtils.getOccurrenceCount(activity)
 
         return SamplingLoop(
-            object: SoundAnalyzerCallback {
-
-                override fun onSoundDataReceived(frequency: Double, db: Double, spectrogram: ByteArray?) {
+                SoundAnalyzerCallback { frequency, db, spectrogram ->
                     Log.d("Amplitude", "Amp: $frequency")
 
                     if (frequency > minFreq && frequency < maxFreq && db > dbThreshold) {
-                        val count = freqBuffer.count { it > frequency - 2 && it < frequency + 2 }
+                        val count = frequencyQueue.count { it > frequency - 2 && it < frequency + 2 }
                         if (count >= configuredOccurrenceCount) {
                             activity.runOnUiThread {
                                 for (listener in ampListeners) {
                                     listener.getMaxAmplitude(frequency.toFloat())
                                 }
+
+                                if (spectrogram != null && visualizerFrameLayout != null) {
+                                    visualizerFrameLayout.setRawAudioBytes(spectrogram)
+                                }
                             }
-                            freqBuffer.clear()
+                        } else {
+                            if (spectrogram != null && visualizerFrameLayout != null) {
+                                visualizerFrameLayout.setRawAudioBytes(emptyAudioSamples)
+                            }
                         }
 
-                        if (freqBuffer.size >= 1000) {
-                            freqBuffer.clear()
+                        if (frequencyQueue.size == queueCapacity) {
+                            frequencyQueue.remove()
                         }
-
-                        freqBuffer.add(frequency)
-
-                        if (spectrogram == null || visualizerFrameLayout == null) return
-                        activity.runOnUiThread {
-                            visualizerFrameLayout.setRawAudioBytes(spectrogram)
-                        }
+                        frequencyQueue.add(frequency)
                     } else {
-                        if (spectrogram == null || visualizerFrameLayout == null) return
-                        activity.runOnUiThread {
+                        if (spectrogram != null && visualizerFrameLayout != null) {
                             visualizerFrameLayout.setRawAudioBytes(emptyAudioSamples)
                         }
                     }
-
-
-                }
-            }, activity.resources)
+                }, activity.resources)
     }
 
     fun startSampling(activity: Activity, visualizerFrameLayout: WaveVisualizer?) {

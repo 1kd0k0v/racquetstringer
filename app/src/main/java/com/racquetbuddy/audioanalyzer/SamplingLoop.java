@@ -213,6 +213,7 @@ public class SamplingLoop extends Thread {
             return;
         }
 
+        int counter = 0;
         // Main loop
         // When running in this loop (including when paused), you can not change properties
         // related to recorder: e.g. audioSourceId, sampleRate, bufferSampleSize
@@ -235,6 +236,8 @@ public class SamplingLoop extends Thread {
 
             // If there is new spectrum data, do plot
             if (stft.nElemSpectrumAmp() >= analyzerParam.nFFTAverage) {
+
+                Log.d("Time", "counter " + counter++ + " time: " + System.currentTimeMillis());
                 stft.calculatePeak();
 
                 record.read(byteAudioSamples, 0, readChunkSize);
