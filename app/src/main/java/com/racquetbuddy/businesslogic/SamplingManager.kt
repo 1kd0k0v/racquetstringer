@@ -37,7 +37,9 @@ class SamplingManager private constructor(){
         val configuredOccurrenceCount = SharedPrefsUtils.getOccurrenceCount(activity)
 
         return SamplingLoop(
-                SoundAnalyzerCallback { frequency, db, spectrogram ->
+            object: SoundAnalyzerCallback {
+
+                override fun onSoundDataReceived(frequency: Double, db: Double, spectrogram: ByteArray?) {
                     Log.d("Amplitude", "Amp: $frequency")
 
                     if (frequency > minFreq && frequency < maxFreq && db > dbThreshold) {
@@ -67,7 +69,10 @@ class SamplingManager private constructor(){
                             visualizerFrameLayout.setRawAudioBytes(emptyAudioSamples)
                         }
                     }
-                }, activity.resources)
+
+
+                }
+            }, activity.resources)
     }
 
     fun startSampling(activity: Activity, visualizerFrameLayout: WaveVisualizer?) {
