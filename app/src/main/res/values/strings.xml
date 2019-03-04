@@ -60,31 +60,41 @@
     <string name="restore_default">Restore Default</string>
     <string name="adjust">Adjust</string>
     <string name="reset">Reset</string>
-    <string name="fabric">Fabric</string>
-    <string name="fabric_mode">Fabric Mode</string>
+    <string name="factory">Factory</string>
+    <string name="factory_mode">Factory Mode</string>
     <string name="mode">Mode</string>
     <string name="choose_mode">Choose Mode</string>
     <string name="personal">Personal</string>
     <string name="personal_mode">Personal Mode</string>
     <string name="default_measurement">Default Measurement</string>
-    <string name="string_tension">String Tension</string>
-    <string name="dialog_adjust_title">Enter your trusted stringer racquet string tension!</string>
-    <string name="calibration_default_text">Fabric mode measurement is %1$s %2$s. Please enter the already known tension of this racquet.</string>
+    <string name="calibration_edit_text_hint">Enter Personal Measurement</string>
+    <string name="dialog_adjust_title">Calibration</string>
+    <string name="calibration_default_text">Factory mode measurement is %1$s %2$s.</string>
     <string name="current_adjustment">(Calibration: %1$s%2$s%3$s)</string>
     <string name="adjustment_saved">Adjustment %1$f%2$s applied.</string>
     <string name="instructions_calibration">Calibration:\n
         1. Take a racquet with known string tension\n
         2. Enter this racquet and its string parameters in the settings\n
         3. Tap the string close to the microphone\n
-        4. Push the Calibrate button and enter the preknown tension.
+        4. After the Factory measurement is done push the Calibrate button and enter the known tension.
     </string>
     <string name="tap_the_strings">Hit the Strings</string>
     <string name="instructions_title">Instructions</string>
+    <string name="calibration_instructions_title">Instructions for Calibration</string>
+    <string name="calibration_instructions_body">
+The full capacity of TennisTension can be understood and reached when is used with the provided proper Calibration of the Personal mode. There are several important factors to consider:
+        <li>Tension Loss</li>\n\n
+Starts during stringing and at very high rate during the first couple of hours after stringing and the first 30 minutes of play.
+        <li>Type and model of the string with all its characteristics.</li>\n\n
+        <li>Stringing machine</li>\n\n
+        <li>Stringer abilities and stringing habits</li>\n\nTo make YOUR perfect Calibration you have to pick a racquet with YOUR string strung by a trusted stringer at desired tension couple of hours after stringing. Enter the racquet and string parameters in the settings. Tap the string anywhere with anything close to the bottom of the phone where the microphone is mounted. After you see that the Factory measurement is done push the Calibrate button and enter the preknown desired average tension between the main and cross strings you gave to your trusted stringer in advance.
+The Calibration is done and the Personal mode is ready for use.
+    </string>
     <string name="instructions_body">
         <li>TennisTension measures the average tension between main and cross strings by analyzing the sound heard from the string.</li>\n\n
         <li>Take off the Dampener</li>\n\n
         <li>Put the head size, the string diameter and it\'s type (if main and cross strings are with different diameter put the average value)</li>\n\n
-        <li>Use Fabric or Personal mode</li>\n\n
+        <li>Use Factory or Personal mode</li>\n\n
         <li>By Calibration of the Personal mode you can cope with all particularities of the racquets, strings, stringers and stringing machines.</li>\n\n
         <li>Tap the racquet string anywhere with anything close to the phone microphone</li>\n\n
         <li>Consider the tension loss receiving the outcome of the measurement</li>
@@ -95,4 +105,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="configure">Configure</string>
     <string name="hz_range">%1$s - %2$s</string>
+    <string name="read_more"><u>Read more&#8230;</u></string>
 </resources>

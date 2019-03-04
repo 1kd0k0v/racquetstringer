@@ -10,14 +10,18 @@ import com.racquetbuddy.businesslogic.Racquet
 import com.racquetbuddy.businesslogic.SamplingManager
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.dialog.CalibrateDialogFragment
+import com.racquetbuddy.ui.dialog.CalibrationInstructionsDialogFragment
 import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
 import com.racquetbuddy.utils.UnitUtils
 import kotlinx.android.synthetic.main.calibration_fragment.*
 
 class CalibrationFragment : Fragment(), OnRefreshViewsListener {
+
+    private val INSTRUCTIONS_DIALOG_FRAGMENT_TAG = "INSTRUCTIONS_DIALOG_FRAGMENT_TAG"
+
     override fun refreshViews() {
-        initAdjustmentTextView()
+        refreshCalibrationViews()
     }
 
     private val ADJUST_DIALOG_TAG = "ADJUST_DIALOG_TAG"
@@ -25,9 +29,10 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 
     private val samplingManager = SamplingManager.instance
 
-    private var currentAdjustment = 0f
+    private var currentCalibration = 0f
 
-    private var defaultMeasurement: Float = 0f
+    private var factoryMeasurement: Float = 0f
+    private var currentFrequency: Float = 0f
 
     companion object {
         fun newInstance() = CalibrationFragment()
@@ -43,10 +48,10 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 
         setHasOptionsMenu(true)
 
-        currentAdjustment = SharedPrefsUtils.getTensionAdjustment(activity!!)
+        currentCalibration = SharedPrefsUtils.getTensionAdjustment(activity!!)
 
-        samplingManager.addMaxAmpListener(object : SamplingManager.MaxAmplitudeListener {
-            override fun getMaxAmplitude(hz: Float) {
+        samplingManager.addFrequencyListener(object : SamplingManager.FrequencyListener {
+            override fun getFrequency(hz: Float) {
                 if (activity == null) return
 
                 displayTension(hz)
@@ -54,7 +59,7 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 
         })
 
-        adjustButton.setOnClickListener {
+        calibrationButton.setOnClickListener {
             val dialog = CalibrateDialogFragment.newInstance(getTension())
             dialog.setTargetFragment(this, 0)
             dialog.show(fragmentManager, ADJUST_DIALOG_TAG)
@@ -62,42 +67,51 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 
         initModeRadioGroup()
 
-        initAdjustmentTextView()
+        refreshCalibrationViews()
 
         displayTension(0f)
+
+        readMoreTextView.setOnClickListener {
+            showInstructionsDialog()
+        }
     }
 
     private fun displayTension(hz: Float) {
+
+        currentFrequency = hz
+
+        calibrationButton.isEnabled = hz != 0f
+
         var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
         if(!SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
             headSize = UnitUtils.cmToIn(headSize).toFloat()
         }
 
         val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!), SharedPrefsUtils.getStringDensity(activity!!))
-        defaultMeasurement = tension.toFloat()
+        factoryMeasurement = tension.toFloat()
 
         if (isImperial()) {
             val tensionInLb = UnitUtils.kiloToPound(tension).toDouble()
             val units = getString(R.string.tension_lb)
-            fabricModeUnitsTextView.text = units
+            factoryModeUnitsTextView.text = units
             calibrationPersonalModeUnitsTextView.text = units
-            fabricModeTextView.text = NumberFormatUtils.format(tensionInLb)
+            factoryModeTextView.text = NumberFormatUtils.format(tensionInLb)
 
             if (isCalibrated()) {
                 personalModeTextView.text = NumberFormatUtils.format(tensionInLb +
-                        currentAdjustment)
+                        currentCalibration)
             } else {
                 personalModeTextView.text = NumberFormatUtils.format(tensionInLb)
             }
         } else {
             val units = getString(R.string.tension_kg)
-            fabricModeUnitsTextView.text = units
+            factoryModeUnitsTextView.text = units
             calibrationPersonalModeUnitsTextView.text = units
-            fabricModeTextView.text = NumberFormatUtils.format(tension)
+            factoryModeTextView.text = NumberFormatUtils.format(tension)
 
             if (isCalibrated()) {
                 personalModeTextView.text = NumberFormatUtils.format(tension +
-                        currentAdjustment)
+                        currentCalibration)
             } else {
                 personalModeTextView.text = NumberFormatUtils.format(tension)
             }
@@ -106,9 +120,9 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 
     private fun getTension(): Float {
         return if (isImperial()) {
-            UnitUtils.kiloToPound(defaultMeasurement.toDouble()).toFloat()
+            UnitUtils.kiloToPound(factoryMeasurement.toDouble()).toFloat()
         } else {
-            defaultMeasurement
+            factoryMeasurement
         }
     }
 
@@ -121,7 +135,7 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
             modeRadioGroup.check(R.id.personalRadioButton)
             enableCalibrationLayout()
         } else {
-            modeRadioGroup.check(R.id.fabricRadioButton)
+            modeRadioGroup.check(R.id.factoryRadioButton)
             disableCalibrationLayout()
         }
 
@@ -130,11 +144,11 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
                 R.id.personalRadioButton -> {
                     isPersonalModeSelected = true
                     enableCalibrationLayout()
-                    SharedPrefsUtils.setTensionAdjustment(activity!!, currentAdjustment)
+                    SharedPrefsUtils.setTensionAdjustment(activity!!, currentCalibration)
                     SharedPrefsUtils.setCalibrated(activity!!, true)
                 }
 
-                R.id.fabricRadioButton -> {
+                R.id.factoryRadioButton -> {
                     isPersonalModeSelected = false
                     disableCalibrationLayout()
                     SharedPrefsUtils.setCalibrated(activity!!, false)
@@ -151,24 +165,26 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
         personalModeCalibrationLayout.visibility = View.INVISIBLE
     }
 
-    private fun initAdjustmentTextView() {
-        val adjustment = currentAdjustment
+    private fun refreshCalibrationViews() {
+        val calibration = currentCalibration
         val units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) getString(R.string.tension_lb) else getString(R.string.tension_kg)
         when {
-            adjustment == 0f -> currentAdjustmentTextView.text = ""
-            adjustment > 0f -> currentAdjustmentTextView.text = getString(R.string.current_adjustment,"+", NumberFormatUtils.format(adjustment), units)
+            calibration == 0f -> calibrationTextView.text = ""
+            calibration > 0f -> calibrationTextView.text = getString(R.string.current_adjustment,"+", NumberFormatUtils.format(calibration), units)
             else -> {
-                currentAdjustmentTextView.text = getString(R.string.current_adjustment,"", NumberFormatUtils.format(adjustment), units)
+                calibrationTextView.text = getString(R.string.current_adjustment,"", NumberFormatUtils.format(calibration), units)
             }
         }
+
+        displayTension(currentFrequency)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == ADJUST_REQUEST_CODE) {
             if (resultCode == CalibrateDialogFragment.RESULT_CODE_OK) {
                 val adjustment = data?.getFloatExtra(CalibrateDialogFragment.ADJUSTMENT_EXTRA, 0f) ?: 0f
-                currentAdjustment = adjustment
-                SharedPrefsUtils.setTensionAdjustment(activity!!, currentAdjustment)
+                currentCalibration = adjustment
+                SharedPrefsUtils.setTensionAdjustment(activity!!, currentCalibration)
                 SharedPrefsUtils.setCalibrated(activity!!, true)
             }
         }
@@ -190,6 +206,12 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
     override fun onPause() {
         super.onPause()
         samplingManager.stopSampling()
+    }
+
+    private fun showInstructionsDialog() {
+        val dialog = CalibrationInstructionsDialogFragment()
+        dialog.setTargetFragment(this, 0)
+        dialog.show(fragmentManager, INSTRUCTIONS_DIALOG_FRAGMENT_TAG)
     }
 
 }

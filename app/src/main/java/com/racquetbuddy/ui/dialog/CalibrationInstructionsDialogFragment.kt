@@ -9,12 +9,12 @@ import com.racquetbuddy.racquetstringer.R
 /**
  * Created by musashiwarrior on 15-Oct-18.
  */
-class InstructionsDialogFragment : DialogFragment() {
+class CalibrationInstructionsDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         return AlertDialog.Builder(activity!!)
-            .setTitle(R.string.instructions_title).setMessage(R.string.instructions_body)
+            .setMessage(R.string.calibration_instructions_body).setTitle(R.string.calibration_instructions_title)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->
                     dismiss()

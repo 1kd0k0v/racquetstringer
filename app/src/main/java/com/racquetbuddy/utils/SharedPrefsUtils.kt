@@ -147,6 +147,6 @@ object SharedPrefsUtils {
     }
 
     fun getQueueCapacity(context: Context): Int {
-        return getSharedPreferences(context).getInt(KEY_QUEUE_CAPACITY, DefaultRacquetValues.DEFAULT_OCCURENCE_COUNT)
+        return getSharedPreferences(context).getInt(KEY_QUEUE_CAPACITY, DefaultRacquetValues.DEFAULT_QUEUE_CAPACITY)
     }
 }

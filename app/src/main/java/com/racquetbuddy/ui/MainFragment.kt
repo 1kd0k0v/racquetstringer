@@ -49,8 +49,8 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun startSampling() {
-        samplingManager.addMaxAmpListener(object : SamplingManager.MaxAmplitudeListener {
-            override fun getMaxAmplitude(amplitude: Float) {
+        samplingManager.addFrequencyListener(object : SamplingManager.FrequencyListener {
+            override fun getFrequency(amplitude: Float) {
                 if (activity == null) return
 
                 handler.removeCallbacks(clearDisplayTensionRunnable)
@@ -63,6 +63,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     val clearDisplayTensionRunnable = Runnable {
+        currentHz = 0f
         displayTension(0f)
     }
 
@@ -184,7 +185,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 personalAdjustTextView.text = getString(R.string.no_calibration, units)
             }
         } else {
-            calibrationTextView.text = getString(R.string.fabric_mode)
+            calibrationTextView.text = getString(R.string.factory_mode)
             personalAdjustTextView.visibility = View.GONE
             personalAdjustTextView.text = getString(R.string.no_calibration)
         }

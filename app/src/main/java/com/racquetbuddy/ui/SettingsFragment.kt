@@ -59,11 +59,11 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
             return@setOnPreferenceClickListener true
         }
 
-        val configure = findPreference("configure")
-        configure.setOnPreferenceClickListener {
-            startActivity(Intent(context, ConfigurationActivity::class.java))
-            return@setOnPreferenceClickListener true
-        }
+//        val configure = findPreference("configure")
+//        configure.setOnPreferenceClickListener {
+//            startActivity(Intent(context, ConfigurationActivity::class.java))
+//            return@setOnPreferenceClickListener true
+//        }
     }
 
     private fun sendFeedback(): Boolean {
@@ -82,7 +82,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
             if (SharedPrefsUtils.isCalibrated(activity!!)) {
                 calibration.summary = getString(R.string.personal_mode)
             } else {
-                calibration.summary = getString(R.string.fabric_mode)
+                calibration.summary = getString(R.string.factory_mode)
             }
 
             calibration.setOnPreferenceClickListener {

@@ -15,7 +15,7 @@ class SamplingManager private constructor(){
 
     private val samplingThreads = ArrayList<Thread>()
 
-    val ampListeners = ArrayList<MaxAmplitudeListener>()
+    val frequencyListeners = ArrayList<FrequencyListener>()
 
     val emptyAudioSamples = ByteArray(1024)
 
@@ -37,17 +37,15 @@ class SamplingManager private constructor(){
         val configuredOccurrenceCount = SharedPrefsUtils.getOccurrenceCount(activity)
 
         return SamplingLoop(
-            object: SoundAnalyzerCallback {
-
-                override fun onSoundDataReceived(frequency: Double, db: Double, spectrogram: ByteArray?) {
+                SoundAnalyzerCallback { frequency, db, spectrogram ->
                     Log.d("Amplitude", "Amp: $frequency")
 
                     if (frequency > minFreq && frequency < maxFreq && db > dbThreshold) {
                         val count = frequencyQueue.count { it > frequency - 2 && it < frequency + 2 }
                         if (count >= configuredOccurrenceCount) {
                             activity.runOnUiThread {
-                                for (listener in ampListeners) {
-                                    listener.getMaxAmplitude(frequency.toFloat())
+                                for (listener in frequencyListeners) {
+                                    listener.getFrequency(frequency.toFloat())
                                 }
 
                                 if (spectrogram != null && visualizerFrameLayout != null) {
@@ -56,7 +54,9 @@ class SamplingManager private constructor(){
                             }
                         } else {
                             if (spectrogram != null && visualizerFrameLayout != null) {
-                                visualizerFrameLayout.setRawAudioBytes(emptyAudioSamples)
+                                activity.runOnUiThread {
+                                    visualizerFrameLayout.setRawAudioBytes(emptyAudioSamples)
+                                }
                             }
                         }
 
@@ -66,13 +66,12 @@ class SamplingManager private constructor(){
                         frequencyQueue.add(frequency)
                     } else {
                         if (spectrogram != null && visualizerFrameLayout != null) {
-                            visualizerFrameLayout.setRawAudioBytes(emptyAudioSamples)
+                            activity.runOnUiThread {
+                                visualizerFrameLayout.setRawAudioBytes(emptyAudioSamples)
+                            }
                         }
                     }
-
-
-                }
-            }, activity.resources)
+                }, activity.resources)
     }
 
     fun startSampling(activity: Activity, visualizerFrameLayout: WaveVisualizer?) {
@@ -87,15 +86,15 @@ class SamplingManager private constructor(){
         }
     }
 
-    fun addMaxAmpListener(listener: MaxAmplitudeListener) {
-        if (!ampListeners.contains(listener)) ampListeners.add(listener)
+    fun addFrequencyListener(listener: FrequencyListener) {
+        if (!frequencyListeners.contains(listener)) frequencyListeners.add(listener)
     }
 
-    fun removeMaxAmpListener(listener: MaxAmplitudeListener) {
-        if (ampListeners.contains(listener)) ampListeners.remove(listener)
+    fun removeFrequencyListener(listener: FrequencyListener) {
+        if (frequencyListeners.contains(listener)) frequencyListeners.remove(listener)
     }
 
-    interface MaxAmplitudeListener {
-        fun getMaxAmplitude(amplitude: Float)
+    interface FrequencyListener {
+        fun getFrequency(amplitude: Float)
     }
 }
