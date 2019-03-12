@@ -10,17 +10,10 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.racquetbuddy.businesslogic.Racquet
 import com.racquetbuddy.businesslogic.SamplingManager
 import com.racquetbuddy.racquetstringer.R
-import com.racquetbuddy.ui.dialog.HeadSizeDialogFragment
-import com.racquetbuddy.ui.dialog.InstructionsDialogFragment
-import com.racquetbuddy.ui.dialog.StringDiameterDialogFragment
-import com.racquetbuddy.ui.dialog.StringTypeDialogFragment
-import com.racquetbuddy.utils.NumberFormatUtils
-import com.racquetbuddy.utils.SharedPrefsUtils
-import com.racquetbuddy.utils.StringTypeUtils
-import com.racquetbuddy.utils.UnitUtils
+import com.racquetbuddy.ui.dialog.*
+import com.racquetbuddy.utils.*
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
@@ -50,16 +43,16 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
     private fun startSampling() {
         samplingManager.addFrequencyListener(object : SamplingManager.FrequencyListener {
-            override fun getFrequency(amplitude: Float) {
+            override fun getFrequency(hz: Float) {
                 if (activity == null) return
 
                 handler.removeCallbacks(clearDisplayTensionRunnable)
-                displayTension(amplitude)
+                displayTension(hz)
                 handler.postDelayed(clearDisplayTensionRunnable, 1000)
-                currentHz = amplitude
+                currentHz = hz
             }
         })
-        samplingManager.startSampling(activity!!, visualizerFrameLayout)
+        samplingManager.startSampling(activity!!, wv_layout)
     }
 
     val clearDisplayTensionRunnable = Runnable {
@@ -75,11 +68,23 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             headSize = UnitUtils.cmToIn(headSize).toFloat()
         }
 
-        personalModeUnitsTextView.text = UnitUtils.getUnits(activity!!)
+        tv_personal_mode_units.text = UnitUtils.getUnits(activity!!)
 
-        val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!), SharedPrefsUtils.getStringDensity(activity!!))
+        val stringThickness = SharedPrefsUtils.getStringsThickness(activity!!)
+        val stringDensity = StringTypeUtils.getDensity(SharedPrefsUtils.getStringType(context!!))
 
-        displayTensionTextView.text =
+        val tension =
+                if (SharedPrefsUtils.isStringHybrid(context!!))
+                    RacquetTensionUtils.getStringTension(
+                            hz,
+                            headSize,
+                            stringThickness,
+                            stringDensity,
+                            SharedPrefsUtils.getCrossStringsThickness(context!!),
+                            StringTypeUtils.getDensity(SharedPrefsUtils.getCrossStringType(context!!)))
+                else RacquetTensionUtils.getStringTension(hz, headSize, stringThickness, stringDensity)
+
+        tv_display_tension.text =
         if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
             if (SharedPrefsUtils.isCalibrated(activity!!) && hz != 0f) {
                 NumberFormatUtils.format(UnitUtils.kiloToPound(tension).toFloat() + SharedPrefsUtils.getTensionAdjustment(activity!!))
@@ -101,15 +106,46 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         refreshStringDiameterView()
         refreshStringType()
         refreshCalibrated()
+
+        refreshCrossStringType()
+        refreshCrossStringThicknessView()
+
+        refreshLabels()
+
+        if (SharedPrefsUtils.isStringHybrid(context!!)) {
+            cl_cross_string.visibility = View.VISIBLE
+        } else {
+            cl_cross_string.visibility = View.GONE
+        }
+    }
+
+    private fun refreshLabels() {
+        if (SharedPrefsUtils.isStringHybrid(context!!)) {
+            tv_label_string_type.text = getString(R.string.main_type)
+            tv_string_thickness_label.text = getString(R.string.main_thickness)
+        } else {
+            tv_label_string_type.text = getString(R.string.type)
+            tv_string_thickness_label.text = getString(R.string.thickness)
+        }
     }
 
     private fun refreshStringType() {
-        stringTypeValue?.text = StringTypeUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].name
+        tv_value_string_type?.text = StringTypeUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].name
     }
 
     private fun refreshStringDiameterView() {
-        stringDiameterValue?.text = getString(R.string.value_space_unit,
-                SharedPrefsUtils.getStringsDiameter(activity!!).toString(),
+        tv_string_thickness_value?.text = getString(R.string.value_space_unit,
+                SharedPrefsUtils.getStringsThickness(activity!!).toString(),
+                getString(R.string.mm))
+    }
+
+    private fun refreshCrossStringType() {
+        tv_value_cross_string_type?.text = StringTypeUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(activity!!)].name
+    }
+
+    private fun refreshCrossStringThicknessView() {
+        tv_value_cross_string_thickness?.text = getString(R.string.value_space_unit,
+                SharedPrefsUtils.getCrossStringsThickness(activity!!).toString(),
                 getString(R.string.mm))
     }
 
@@ -120,38 +156,75 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), RECORD_AUDIO_CODE)
         } else {
-            samplingManager.startSampling(activity!!, visualizerFrameLayout)
+            samplingManager.startSampling(activity!!, wv_layout)
         }
 
-        headSizeLayout.setOnClickListener {
+        cl_head_size.setOnClickListener {
             val dialog = HeadSizeDialogFragment()
             dialog.setTargetFragment(this, 0)
             dialog.show(fragmentManager, HEAD_SIZE_DIALOG_TAG)
         }
 
-        stringDiameterLayout.setOnClickListener {
-            val dialog = StringDiameterDialogFragment()
+        cl_string_thickness.setOnClickListener {
+            val dialog =
+                    StringThicknessDialogFragment.newInstance(SharedPrefsUtils.getStringsThickness(activity!!),
+                            object : StringThicknessChangeListener{
+                                override fun setStringThickness(thickness: Float) {
+                                    SharedPrefsUtils.setStringsThickness(activity!!, thickness)
+                                    refreshViews()
+                                }
+                            })
             dialog.setTargetFragment(this, 0)
             dialog.show(fragmentManager, STRINGS_DIAMETER_DIALOG_TAG)
         }
 
-        stringTypeLayout.setOnClickListener {
-            val dialog = StringTypeDialogFragment()
+        cl_string_type.setOnClickListener {
+            val dialog =
+                    StringTypeDialogFragment.newInstance(
+                            SharedPrefsUtils.getStringType(activity!!),
+                            object : OnStringTypeChangeListener {
+                                override fun onStringTypeChange(stringType: Int) {
+                                    SharedPrefsUtils.setStringType(activity!!, stringType)
+                                    refreshViews()
+                                }
+                            })
             dialog.setTargetFragment(this, 0)
             dialog.show(fragmentManager, STRING_TYPE_DIALOG_TAG)
         }
 
-        refreshHeadSizeView()
-        refreshStringDiameterView()
-        refreshStringType()
-        refreshCalibrated()
+        cl_cross_string_type.setOnClickListener {
+            val dialog =
+                    StringTypeDialogFragment.newInstance(
+                            SharedPrefsUtils.getCrossStringType(activity!!),
+                            object : OnStringTypeChangeListener {
+                                override fun onStringTypeChange(stringType: Int) {
+                                    SharedPrefsUtils.setCrossStringType(activity!!, stringType)
+                                    refreshViews()
+                                }
+                            })
+            dialog.setTargetFragment(this, 0)
+            dialog.show(fragmentManager, STRING_TYPE_DIALOG_TAG)
+        }
+
+        cl_cross_string_thickness.setOnClickListener {
+            val dialog =
+                    StringThicknessDialogFragment.newInstance(SharedPrefsUtils.getCrossStringsThickness(activity!!),
+                            object : StringThicknessChangeListener{
+                                override fun setStringThickness(thickness: Float) {
+                                    SharedPrefsUtils.setCrossStringsThickness(activity!!, thickness)
+                                    refreshViews()
+                                }
+                            })
+            dialog.setTargetFragment(this, 0)
+            dialog.show(fragmentManager, STRINGS_DIAMETER_DIALOG_TAG)
+        }
 
         // if first time
         if (SharedPrefsUtils.isFirstRun(activity!!)) {
             showInstructionsDialog()
         }
 
-        displayTension(0f);
+        refreshViews()
     }
 
     private fun showInstructionsDialog() {
@@ -161,7 +234,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshCalibrated() {
-        calibrationTextView.setTypeface(null, Typeface.BOLD)
+        tv_calibration.setTypeface(null, Typeface.BOLD)
 //        calibrationTextView.paintFlags = calibrationTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         val units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
             getString(R.string.tension_lb)
@@ -170,7 +243,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         }
 
         if (SharedPrefsUtils.isCalibrated(activity!!)) {
-            calibrationTextView.text = getString(R.string.personal_mode)
+            tv_calibration.text = getString(R.string.personal_mode)
             val adjustment = SharedPrefsUtils.getTensionAdjustment(activity!!)
             if (adjustment != 0f) {
                 val sign = if (adjustment > 0) {
@@ -178,16 +251,16 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 } else {
                     ""
                 }
-                personalAdjustTextView.text = getString(R.string.current_adjustment, sign, NumberFormatUtils.format(adjustment), units)
-                personalAdjustTextView.visibility = View.VISIBLE
+                tv_calibration_value.text = getString(R.string.current_adjustment, sign, NumberFormatUtils.format(adjustment), units)
+                tv_calibration_value.visibility = View.VISIBLE
             } else {
-                personalAdjustTextView.visibility = View.VISIBLE
-                personalAdjustTextView.text = getString(R.string.no_calibration, units)
+                tv_calibration_value.visibility = View.VISIBLE
+                tv_calibration_value.text = getString(R.string.no_calibration, units)
             }
         } else {
-            calibrationTextView.text = getString(R.string.factory_mode)
-            personalAdjustTextView.visibility = View.GONE
-            personalAdjustTextView.text = getString(R.string.no_calibration)
+            tv_calibration.text = getString(R.string.factory_mode)
+            tv_calibration_value.visibility = View.GONE
+            tv_calibration_value.text = getString(R.string.no_calibration)
         }
     }
 
@@ -195,11 +268,11 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         if (activity != null) {
             val headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
             if (SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
-                headSizeValue.text = getString(R.string.value_space_unit,
+                tv_value_head_size.text = getString(R.string.value_space_unit,
                         NumberFormatUtils.round(headSize),
                         getString(R.string.square_inch))
             } else {
-                headSizeValue.text = getString(R.string.value_space_unit,
+                tv_value_head_size.text = getString(R.string.value_space_unit,
                         NumberFormatUtils.round(headSize),
                         getString(R.string.square_cm))
             }
@@ -212,7 +285,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             RECORD_AUDIO_CODE -> {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    samplingManager.startSampling(activity!!, visualizerFrameLayout)
+                    samplingManager.startSampling(activity!!, wv_layout)
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                 } else {

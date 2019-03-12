@@ -6,14 +6,11 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.racquetbuddy.businesslogic.Racquet
 import com.racquetbuddy.businesslogic.SamplingManager
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.dialog.CalibrateDialogFragment
 import com.racquetbuddy.ui.dialog.CalibrationInstructionsDialogFragment
-import com.racquetbuddy.utils.NumberFormatUtils
-import com.racquetbuddy.utils.SharedPrefsUtils
-import com.racquetbuddy.utils.UnitUtils
+import com.racquetbuddy.utils.*
 import kotlinx.android.synthetic.main.calibration_fragment.*
 
 class CalibrationFragment : Fragment(), OnRefreshViewsListener {
@@ -87,7 +84,21 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
             headSize = UnitUtils.cmToIn(headSize).toFloat()
         }
 
-        val tension = Racquet.getStringsTension(hz, headSize, SharedPrefsUtils.getStringsDiameter(activity!!), SharedPrefsUtils.getStringDensity(activity!!))
+
+        val stringThickness = SharedPrefsUtils.getStringsThickness(activity!!)
+        val stringDensity = StringTypeUtils.getDensity(SharedPrefsUtils.getStringType(context!!))
+
+        val tension =
+                if (SharedPrefsUtils.isStringHybrid(context!!))
+                    RacquetTensionUtils.getStringTension(
+                            hz,
+                            headSize,
+                            stringThickness,
+                            stringDensity,
+                            SharedPrefsUtils.getCrossStringsThickness(context!!),
+                            StringTypeUtils.getDensity(SharedPrefsUtils.getCrossStringType(context!!)))
+                else RacquetTensionUtils.getStringTension(hz, headSize, stringThickness, stringDensity)
+
         factoryMeasurement = tension.toFloat()
 
         if (isImperial()) {
@@ -169,10 +180,10 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
         val calibration = currentCalibration
         val units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) getString(R.string.tension_lb) else getString(R.string.tension_kg)
         when {
-            calibration == 0f -> calibrationTextView.text = ""
-            calibration > 0f -> calibrationTextView.text = getString(R.string.current_adjustment,"+", NumberFormatUtils.format(calibration), units)
+            calibration == 0f -> tv_calibration.text = ""
+            calibration > 0f -> tv_calibration.text = getString(R.string.current_adjustment,"+", NumberFormatUtils.format(calibration), units)
             else -> {
-                calibrationTextView.text = getString(R.string.current_adjustment,"", NumberFormatUtils.format(calibration), units)
+                tv_calibration.text = getString(R.string.current_adjustment,"", NumberFormatUtils.format(calibration), units)
             }
         }
 

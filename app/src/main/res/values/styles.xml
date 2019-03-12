@@ -69,10 +69,14 @@
     <style name="MainScreenBoxes">
         <item name="android:background">@drawable/main_screen_boxes_background</item>
         <item name="android:elevation">4dp</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
+    </style>
+
+    <style name="MainScreenBoxesText">
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>

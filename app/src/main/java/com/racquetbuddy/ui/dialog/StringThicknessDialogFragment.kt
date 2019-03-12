@@ -9,13 +9,32 @@ import android.view.WindowManager
 import android.widget.EditText
 import android.widget.TextView
 import com.racquetbuddy.racquetstringer.R
-import com.racquetbuddy.ui.OnRefreshViewsListener
-import com.racquetbuddy.utils.SharedPrefsUtils
 
 /**
  * Created by musashiwarrior on 15-Oct-18.
  */
-class StringDiameterDialogFragment : DialogFragment() {
+class StringThicknessDialogFragment : DialogFragment() {
+
+    private var listener: StringThicknessChangeListener? = null
+
+    private var thickness: Float = 0f
+
+    companion object {
+        fun newInstance(thickness: Float, listener: StringThicknessChangeListener) : StringThicknessDialogFragment {
+            val dialog = StringThicknessDialogFragment()
+            dialog.setOnThicknessChangeListener(listener)
+            dialog.setThickness(thickness)
+            return dialog
+        }
+    }
+
+    private fun setThickness(thickness: Float) {
+        this.thickness = thickness
+    }
+
+    private fun setOnThicknessChangeListener(listener: StringThicknessChangeListener) {
+        this.listener = listener
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -25,18 +44,15 @@ class StringDiameterDialogFragment : DialogFragment() {
 
         val unitsTextView = root?.findViewById<TextView>(R.id.unitsTextView)
         val stringsDiameterInputFieldDialog = root?.findViewById<EditText>(R.id.stringsDiameterInputFieldDialog)
-        stringsDiameterInputFieldDialog?.setText(SharedPrefsUtils.getStringsDiameter(activity!!).toString())
-        stringsDiameterInputFieldDialog?.setSelection(stringsDiameterInputFieldDialog.text.length);
+        stringsDiameterInputFieldDialog?.setText(thickness.toString())
+        stringsDiameterInputFieldDialog?.setSelection(stringsDiameterInputFieldDialog.text.length)
         unitsTextView?.text = getString(R.string.mm)
 
         return AlertDialog.Builder(activity!!)
-                .setView(root).setMessage(R.string.string_diameter_dialog_title)
+                .setView(root).setMessage(R.string.string_thickness_dialog_title)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->
-                    SharedPrefsUtils.setStringsDiameter(activity!!, stringsDiameterInputFieldDialog?.text.toString().toDouble())
-                    if (targetFragment is OnRefreshViewsListener) {
-                        (targetFragment as OnRefreshViewsListener).refreshViews()
-                    }
+                    listener?.setStringThickness(stringsDiameterInputFieldDialog?.text.toString().toFloat())
                 }
                 .setNegativeButton(R.string.cancel
                 ) { _, _ ->
@@ -49,4 +65,8 @@ class StringDiameterDialogFragment : DialogFragment() {
 
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
+}
+
+interface StringThicknessChangeListener {
+    fun setStringThickness(thickness: Float)
 }

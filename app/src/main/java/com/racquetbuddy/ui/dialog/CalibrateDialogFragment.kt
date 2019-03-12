@@ -58,8 +58,7 @@ class CalibrateDialogFragment : DialogFragment() {
 
         return AlertDialog.Builder(activity!!)
             .setView(root).setMessage(R.string.dialog_adjust_title)
-                .setPositiveButton(R.string.ok
-                ) { _, _ ->
+                .setPositiveButton(R.string.ok) { _, _ ->
 
                     if (tensionInput?.text.toString().isEmpty()) return@setPositiveButton
 
@@ -75,8 +74,7 @@ class CalibrateDialogFragment : DialogFragment() {
                         (targetFragment as OnRefreshViewsListener).refreshViews()
                     }
                 }
-                .setNegativeButton(R.string.cancel
-                ) { _, _ ->
+                .setNegativeButton(R.string.cancel) { _, _ ->
 //                    targetFragment!!.onActivityResult(targetRequestCode, RESULT_CODE_CANCEL, Intent())
                     dismiss()
                 }.create()

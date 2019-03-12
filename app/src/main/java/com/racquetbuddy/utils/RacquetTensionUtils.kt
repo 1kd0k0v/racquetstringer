@@ -1,8 +1,7 @@
-package com.racquetbuddy.businesslogic
+package com.racquetbuddy.utils
 
-import android.content.Context
-import com.racquetbuddy.businesslogic.DefaultRacquetValues.NEEDED_TO_CALC_CF
-import com.racquetbuddy.utils.SharedPrefsUtils
+import com.racquetbuddy.businesslogic.DefaultRacquetValues
+import com.racquetbuddy.businesslogic.DefaultRacquetValues.CF
 
 /**
  * Created by musashiwarrior on 13-Oct-18.
@@ -14,9 +13,9 @@ import com.racquetbuddy.utils.SharedPrefsUtils
  * C0 = Cf * rho * d * d * S
  * Tx = C0 * Vx * Vx
  */
-object Racquet {
+object RacquetTensionUtils {
 
-    // Racquet characteristics
+    // RacquetTensionUtils characteristics
 
     // Area of the racquet's head
 //    private var S: Double = DefaultRacquetValues.DEFAULT_S
@@ -59,7 +58,7 @@ object Racquet {
     /**
      * @param v the vibration in Hz of the racquet
      */
-    fun getStringsTension(v: Double): Double {
+    fun getStringTension(v: Double): Double {
         C0 = DefaultRacquetValues.DEFAULT_CF * DefaultRacquetValues.DEFAULT_D * DefaultRacquetValues.DEFAULT_D * DefaultRacquetValues.DEFAULT_S
         return C0 * v * v
     }
@@ -67,7 +66,7 @@ object Racquet {
     /**
      * @param v the vibration in Hz of the racquet
      */
-    fun getStringsTension(v: Double, S: Double): Double {
+    fun getStringTension(v: Double, S: Double): Double {
         C0 = DefaultRacquetValues.DEFAULT_CF * DefaultRacquetValues.DEFAULT_D * DefaultRacquetValues.DEFAULT_D * S
         return C0 * v * v
     }
@@ -76,7 +75,7 @@ object Racquet {
      * @return Tensions in KG
      * @param v the vibration in Hz of the racquet
      */
-    fun getStringsTension(v: Float, S: Float, d: Float): Double {
+    fun getStringTension(v: Float, S: Float, d: Float): Double {
         C0 = DefaultRacquetValues.DEFAULT_CF * d * d * S
         return C0 * v * v
     }
@@ -86,9 +85,11 @@ object Racquet {
      * @param v the vibration in Hz of the racquet
      * @param rho the density of the string
      */
-    fun getStringsTension(v: Float, S: Float, d: Float, rho: Float): Double {
-        val cf = NEEDED_TO_CALC_CF * rho
-        C0 = cf * d * d * S
-        return C0 * v * v
+    fun getStringTension(v: Float, S: Float, d: Float, rho: Float): Double {
+        return CF * rho * d * d * S * v * v
+    }
+
+    fun getStringTension(v: Float, S: Float, d1: Float, rho1: Float, d2: Float, rho2: Float): Double {
+        return CF * ((rho1 * d1 * d1 + rho2 * d2 * d2) / 2) * S * v * v
     }
 }

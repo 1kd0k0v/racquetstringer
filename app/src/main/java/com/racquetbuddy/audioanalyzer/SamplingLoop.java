@@ -237,7 +237,7 @@ public class SamplingLoop extends Thread {
             // If there is new spectrum data, do plot
             if (stft.nElemSpectrumAmp() >= analyzerParam.nFFTAverage) {
 
-                Log.d("Time", "counter " + counter++ + " time: " + System.currentTimeMillis());
+//                Log.d("Time", "counter " + counter++ + " time: " + System.currentTimeMillis());
                 stft.calculatePeak();
 
                 record.read(byteAudioSamples, 0, readChunkSize);

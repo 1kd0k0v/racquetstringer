@@ -14,13 +14,13 @@
     <string name="play">Play</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
-    <string name="string_diameter_2_lines">String\nDiameter</string>
+    <string name="string_thickness_2_lines">String\nThickness</string>
     <string name="string_type_2_lines">String\nType</string>
     <string name="diameter">Diameter</string>
     <string name="type">Type</string>
     <string name="help">Help</string>
     <string name="pref_title_head_size">Head Size</string>
-    <string name="pref_title_string_diameter">String Diameter</string>
+    <string name="pref_title_string_thickness">String Thickness</string>
     <string name="pref_title_string_type">String Type</string>
     <string name="about">About</string>
     <string name="pref_title_instructions">Instructions</string>
@@ -33,7 +33,9 @@
     <string name="units">Units</string>
     <string name="square_inch">in\u00B2</string>
     <string name="square_cm">cm\u00B2</string>
-    <string name="string_diameter">String Diameter</string>
+    <string name="string_thickness">String Thickness</string>
+    <string name="thickness">Thickness</string>
+    <string name="Type">Type</string>
     <string name="inch">in</string>
     <string name="cm">cm</string>
     <string name="mm">mm</string>
@@ -44,7 +46,7 @@
     <string name="metric">Metric</string>
     <string name="ok">OK</string>
     <string name="choose_units_of_measurement">Select Units</string>
-    <string name="string_diameter_dialog_title">Enter string diameter.</string>
+    <string name="string_thickness_dialog_title">Enter string thickness.</string>
     <string name="calibration">Calibration</string>
     <string name="listening">Listening</string>
     <string name="pref_tension_units">Tension Units</string>
@@ -82,9 +84,8 @@
     <string name="instructions_title">Instructions</string>
     <string name="calibration_instructions_title">Instructions for Calibration</string>
     <string name="calibration_instructions_body">
-The full capacity of TennisTension can be understood and reached when is used with the provided proper Calibration of the Personal mode. There are several important factors to consider:
-        <li>Tension Loss</li>\n\n
-Starts during stringing and at very high rate during the first couple of hours after stringing and the first 30 minutes of play.
+The full capacity of TennisTension can be understood and reached when is used with the provided proper Calibration of the Personal mode. There are several important factors to consider:\n\n
+        <li>Tension Loss - starts during stringing and at very high rate during the first couple of hours after stringing and the first 30 minutes of play.</li>\n\n
         <li>Type and model of the string with all its characteristics.</li>\n\n
         <li>Stringing machine</li>\n\n
         <li>Stringer abilities and stringing habits</li>\n\nTo make YOUR perfect Calibration you have to pick a racquet with YOUR string strung by a trusted stringer at desired tension couple of hours after stringing. Enter the racquet and string parameters in the settings. Tap the string anywhere with anything close to the bottom of the phone where the microphone is mounted. After you see that the Factory measurement is done push the Calibrate button and enter the preknown desired average tension between the main and cross strings you gave to your trusted stringer in advance.
@@ -96,7 +97,7 @@ The Calibration is done and the Personal mode is ready for use.
         <li>Put the head size, the string diameter and it\'s type (if main and cross strings are with different diameter put the average value)</li>\n\n
         <li>Use Factory or Personal mode</li>\n\n
         <li>By Calibration of the Personal mode you can cope with all particularities of the racquets, strings, stringers and stringing machines.</li>\n\n
-        <li>Tap the racquet string anywhere with anything close to the phone microphone</li>\n\n
+        <li>Tap the racquet string anywhere with anything close to the phone microphone and receive an instant check of the tension.</li>\n\n
         <li>Consider the tension loss receiving the outcome of the measurement</li>
     </string>
     <string name="no_calibration">Calibration: 0.0%1$s</string>
@@ -106,4 +107,13 @@ The Calibration is done and the Personal mode is ready for use.
     <string name="configure">Configure</string>
     <string name="hz_range">%1$s - %2$s</string>
     <string name="read_more"><u>Read more&#8230;</u></string>
+    <string name="string">String</string>
+    <string name="single">Single</string>
+    <string name="hybrid">Hybrid</string>
+    <string name="cross_thickness">Cross Thickness</string>
+    <string name="cross_type">Cross Type</string>
+    <string name="cross_string_thickness">Cross String Thickness</string>
+    <string name="cross_string_type">Cross String Type</string>
+    <string name="main_thickness">Main Thickness</string>
+    <string name="main_type">Main Type</string>
 </resources>

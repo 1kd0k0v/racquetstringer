@@ -1,7 +1,6 @@
 package com.racquetbuddy.businesslogic
 
 import android.app.Activity
-import android.util.Log
 import com.gauravk.audiovisualizer.visualizer.WaveVisualizer
 import com.racquetbuddy.audioanalyzer.SamplingLoop
 import com.racquetbuddy.audioanalyzer.SamplingLoop.SoundAnalyzerCallback
@@ -38,7 +37,6 @@ class SamplingManager private constructor(){
 
         return SamplingLoop(
                 SoundAnalyzerCallback { frequency, db, spectrogram ->
-                    Log.d("Amplitude", "Amp: $frequency")
 
                     if (frequency > minFreq && frequency < maxFreq && db > dbThreshold) {
                         val count = frequencyQueue.count { it > frequency - 2 && it < frequency + 2 }
@@ -95,6 +93,6 @@ class SamplingManager private constructor(){
     }
 
     interface FrequencyListener {
-        fun getFrequency(amplitude: Float)
+        fun getFrequency(hz: Float)
     }
 }

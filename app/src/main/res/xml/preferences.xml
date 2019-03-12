@@ -17,14 +17,30 @@
             android:key="pref_key_head_size"
             android:title="@string/pref_title_head_size" />
         <Preference
-            android:key="pref_key_string_diameter"
-            android:title="@string/pref_title_string_diameter" />
-        <Preference
-            android:key="pref_key_string_type"
-            android:title="@string/pref_title_string_type" />
-        <Preference
             android:key="pref_key_units"
             android:title="@string/pref_tension_units" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/string"
+        android:key="pref_key_string_category">
+        <SwitchPreference
+            android:key="pref_key_string_switch_preference"
+            android:title="@string/string_type"
+            android:summaryOn="@string/hybrid"
+            android:summaryOff="@string/single"/>
+        <Preference
+            android:key="pref_key_string_thickness"
+            android:title="@string/thickness" />
+        <Preference
+            android:key="pref_key_string_type"
+            android:title="@string/type" />
+        <Preference
+            android:key="pref_key_cross_string_thickness"
+            android:title="@string/cross_thickness" />
+        <Preference
+            android:key="pref_key_cross_string_type"
+            android:title="@string/cross_type" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/help"
@@ -34,7 +50,9 @@
             android:title="@string/pref_title_instructions" />
         <Preference
             android:key="pref_key_video_instructions"
-            android:title="@string/pref_title_video_instructions" />
+            android:title="@string/pref_title_video_instructions">
+            <intent android:action="android.intent.action.VIEW" android:data="https://www.youtube.com/watch?v=QZGqs-9C-6I&amp;feature=youtu.be"/>
+        </Preference>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/about"

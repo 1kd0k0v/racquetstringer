@@ -9,8 +9,6 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import com.racquetbuddy.racquetstringer.R
-import com.racquetbuddy.ui.OnRefreshViewsListener
-import com.racquetbuddy.utils.SharedPrefsUtils
 import com.racquetbuddy.utils.StringTypeUtils
 
 
@@ -19,14 +17,34 @@ import com.racquetbuddy.utils.StringTypeUtils
  */
 class StringTypeDialogFragment : DialogFragment() {
 
+    private var onStringTypeChangeListener: OnStringTypeChangeListener? = null
+
+    private var defaultSelection: Int = 0
+
+    companion object {
+        fun newInstance(selection: Int, listener: OnStringTypeChangeListener): StringTypeDialogFragment {
+            val dialog = StringTypeDialogFragment()
+            dialog.setOnTypeChangeListener(listener)
+            dialog.setDefaultSelection(selection)
+            return dialog
+        }
+    }
+
+    fun setDefaultSelection(selection: Int) {
+        defaultSelection = selection
+    }
+
+    fun setOnTypeChangeListener(listener: OnStringTypeChangeListener) {
+        this.onStringTypeChangeListener = listener
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val inflater = LayoutInflater.from(activity)
 
         val root = inflater.inflate(R.layout.input_string_type_layout, null)
 
-        var selected = SharedPrefsUtils.getStringType(activity!!)
-        var density = SharedPrefsUtils.getStringDensity(activity!!)
+        var selected = defaultSelection
 
         val radioGroup = root?.findViewById<RadioGroup>(R.id.stringTypeRadioGroup)
         radioGroup?.orientation = LinearLayout.VERTICAL
@@ -43,23 +61,21 @@ class StringTypeDialogFragment : DialogFragment() {
         radioGroup?.check(selected)
 
         radioGroup?.setOnCheckedChangeListener { _, id ->
-            selected = id
-            density = StringTypeUtils.getDensity(id)}
+            selected = id}
 
         return AlertDialog.Builder(activity!!)
                 .setView(root).setMessage(R.string.dialog_title_string_type)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->
-                    SharedPrefsUtils.setStringType(activity!!, selected)
-                    SharedPrefsUtils.setStringDensity(activity!!, density)
-
-                    if (targetFragment is OnRefreshViewsListener) {
-                        (targetFragment as OnRefreshViewsListener).refreshViews()
-                    }
+                    onStringTypeChangeListener?.onStringTypeChange(selected)
                 }
                 .setNegativeButton(R.string.cancel
                 ) { _, _ ->
                     dismiss()
                 }.create()
     }
+}
+
+interface OnStringTypeChangeListener {
+    fun onStringTypeChange(stringType: Int)
 }
