@@ -51,7 +51,7 @@
     <string name="listening">Listening</string>
     <string name="pref_tension_units">Tension Units</string>
     <string name="dialog_title_string_type">Choose string type.</string>
-    <string name="dialog_title_grommet">Choose racquet\'s frame and grommets.</string>
+    <string name="dialog_title_grommet">Choose racquet\'s frame and grommet influence.</string>
     <string name="dialog_title_stringers_style">Choose stringer\'s style.</string>
     <string name="dialog_title_string_pattern">Choose string pattern.</string>
     <string name="tension_lb">lb</string>

@@ -241,7 +241,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
             if (SharedPrefsUtils.isStringHybrid(context!!)) {
                 stringTypePreference.setTitle(R.string.main_type)
             } else {
-                stringTypePreference.setTitle(R.string.type)
+                stringTypePreference.setTitle(R.string.string_type)
             }
 
             stringTypePreference.summary = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].name

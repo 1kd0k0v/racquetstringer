@@ -3,7 +3,7 @@ package com.racquetbuddy.utils
 import android.content.Context
 import android.content.SharedPreferences
 import com.racquetbuddy.businesslogic.DefaultRacquetValues
-import com.racquetbuddy.utils.StringDataArrayUtils.GROMMET_DEFAULT
+import com.racquetbuddy.utils.StringDataArrayUtils.FRAME_DEFAULT
 import com.racquetbuddy.utils.StringDataArrayUtils.STRINGERS_STYLE_DEFAULT
 import com.racquetbuddy.utils.StringDataArrayUtils.STRING_PATTERN_DEFAULT
 import com.racquetbuddy.utils.StringDataArrayUtils.STRING_TYPE_DEFAULT
@@ -112,7 +112,7 @@ object SharedPrefsUtils {
     }
 
     fun getFrame(context: Context): Int {
-        return getSharedPreferences(context).getInt(KEY_GROMMET, GROMMET_DEFAULT)
+        return getSharedPreferences(context).getInt(KEY_GROMMET, FRAME_DEFAULT)
     }
 
     fun setStringersStyle(context: Context, type: Int) {

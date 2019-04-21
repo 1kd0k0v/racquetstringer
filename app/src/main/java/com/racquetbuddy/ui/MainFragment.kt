@@ -110,7 +110,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             tv_label_string_type.text = getString(R.string.main_type)
             tv_string_thickness_label.text = getString(R.string.main_thickness)
         } else {
-            tv_label_string_type.text = getString(R.string.type)
+            tv_label_string_type.text = getString(R.string.string_type)
             tv_string_thickness_label.text = getString(R.string.thickness)
         }
     }

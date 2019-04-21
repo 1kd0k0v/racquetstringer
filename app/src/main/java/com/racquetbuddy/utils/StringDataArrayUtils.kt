@@ -8,16 +8,16 @@ object StringDataArrayUtils {
     const val STRING_PATTERN_DEFAULT = 4
     const val STRING_TYPE_DEFAULT = 1
     const val STRINGERS_STYLE_DEFAULT = 2
-    const val GROMMET_DEFAULT = 1
+    const val FRAME_DEFAULT = 1
 
     val stringTypesArrayList = arrayListOf(
-            StringType("Heavy polyester", 1.38f),
-            StringType("Average polyester", 1.35f),
-            StringType("Light polyester", 1.32f),
-            StringType("Heavy synthetic", 1.16f),
-            StringType("Average synthetic", 1.12f),
-            StringType("Light synthetic", 1.08f),
-            StringType("Natural gut", 1.28f)
+            StringType("heavy polyester", 1.38f),
+            StringType("average polyester", 1.35f),
+            StringType("light polyester", 1.32f),
+            StringType("heavy synthetic", 1.16f),
+            StringType("average synthetic", 1.12f),
+            StringType("light synthetic", 1.08f),
+            StringType("natural gut", 1.28f)
     )
 
     fun getStringDensity(id: Int): Float {
@@ -61,12 +61,13 @@ object StringDataArrayUtils {
     )
 
     val framesArrayList = arrayListOf(
-            Grommet("increasing the tension", 0.98f),
-            Grommet("not influenced",1f),
-            Grommet("decreasing the tension",1.02f)
+            Frame("decreased", 0.98f),
+            Frame("not influencing",1f),
+            Frame("increased",1.02f)
     )
+
     class StringType(val name: String, val density: Float)
     class StringPattern(val name: String, val coefficient: Float)
     class StringersStyle(val name: String, val coefficient: Float)
-    class Grommet(val name: String, val coefficient: Float)
+    class Frame(val name: String, val coefficient: Float)
 }
