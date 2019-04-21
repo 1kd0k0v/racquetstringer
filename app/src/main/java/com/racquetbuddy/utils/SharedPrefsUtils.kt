@@ -3,6 +3,10 @@ package com.racquetbuddy.utils
 import android.content.Context
 import android.content.SharedPreferences
 import com.racquetbuddy.businesslogic.DefaultRacquetValues
+import com.racquetbuddy.utils.StringDataArrayUtils.GROMMET_DEFAULT
+import com.racquetbuddy.utils.StringDataArrayUtils.STRINGERS_STYLE_DEFAULT
+import com.racquetbuddy.utils.StringDataArrayUtils.STRING_PATTERN_DEFAULT
+import com.racquetbuddy.utils.StringDataArrayUtils.STRING_TYPE_DEFAULT
 
 /**
  * Created by musashiwarrior on 14-Oct-18.
@@ -24,6 +28,9 @@ object SharedPrefsUtils {
 
     private const val KEY_STRING_TYPE = "KEY_STRING_TYPE"
     private const val KEY_STRINGS_THICKNESS = "KEY_STRINGS_THICKNESS"
+    private const val KEY_STRING_PATTERN = "KEY_STRING_PATTERN"
+    private const val KEY_STRINGERS_STYLE = "KEY_STRINGERS_STYLE"
+    private const val KEY_GROMMET = "KEY_GROMMET"
 
     private const val KEY_CROSS_STRING_TYPE = "KEY_CROSS_STRING_TYPE"
     private const val KEY_CROSS_STRING_THICKNESS = "KEY_CROSS_STRING_THICKNESS"
@@ -89,7 +96,31 @@ object SharedPrefsUtils {
     }
 
     fun getStringType(context: Context): Int {
-        return getSharedPreferences(context).getInt(KEY_STRING_TYPE, 0)
+        return getSharedPreferences(context).getInt(KEY_STRING_TYPE, STRING_TYPE_DEFAULT)
+    }
+
+    fun setStringPattern(context: Context, type: Int) {
+        getEditor(context).putInt(KEY_STRING_PATTERN, type).apply()
+    }
+
+    fun getStringPattern(context: Context): Int {
+        return getSharedPreferences(context).getInt(KEY_STRING_PATTERN, STRING_PATTERN_DEFAULT)
+    }
+
+    fun setFrame(context: Context, type: Int) {
+        getEditor(context).putInt(KEY_GROMMET, type).apply()
+    }
+
+    fun getFrame(context: Context): Int {
+        return getSharedPreferences(context).getInt(KEY_GROMMET, GROMMET_DEFAULT)
+    }
+
+    fun setStringersStyle(context: Context, type: Int) {
+        getEditor(context).putInt(KEY_STRINGERS_STYLE, type).apply()
+    }
+
+    fun getStringersStyle(context: Context): Int {
+        return getSharedPreferences(context).getInt(KEY_STRINGERS_STYLE, STRINGERS_STYLE_DEFAULT)
     }
 
     fun getCrossStringsThickness(context: Context): Float {

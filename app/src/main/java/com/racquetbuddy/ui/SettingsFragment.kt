@@ -10,7 +10,7 @@ import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.dialog.*
 import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
-import com.racquetbuddy.utils.StringTypeUtils
+import com.racquetbuddy.utils.StringDataArrayUtils
 
 class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
 
@@ -24,6 +24,75 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         initStringsThicknessPreference()
         initStringTypePreference()
         initHybridStringPreferences()
+        initFrameAndGrommets()
+        initStringersStyle()
+        initStringPattern()
+    }
+
+    private fun initStringPattern() {
+        val stringPatternPreference = findPreference("pref_key_string_pattern")
+        if (stringPatternPreference != null) {
+            stringPatternPreference.summary = StringDataArrayUtils.stringPatternArrayList[SharedPrefsUtils.getStringPattern(activity!!)].name
+            stringPatternPreference.setOnPreferenceClickListener {
+                val dialog =
+                        StringPatternDialogFragment.newInstance(
+                                SharedPrefsUtils.getStringPattern(activity!!),
+                                object : OnStringPatternChangeListener {
+                                    override fun onChange(stringPattern: Int) {
+                                        SharedPrefsUtils.setStringPattern(activity!!, stringPattern)
+                                        refreshViews()
+                                    }
+                                }
+                        )
+                dialog.setTargetFragment(this, 0)
+                dialog.show(fragmentManager, "STRING_PATTERN")
+                return@setOnPreferenceClickListener true
+            }
+        }
+    }
+
+    private fun initStringersStyle() {
+        val stringerStylePreference = findPreference("pref_key_stringer_style")
+        if (stringerStylePreference != null) {
+            stringerStylePreference.summary = StringDataArrayUtils.stringerStyleArrayList[SharedPrefsUtils.getStringersStyle(activity!!)].name
+            stringerStylePreference.setOnPreferenceClickListener {
+                val dialog =
+                        StringersStyleDialogFragment.newInstance(
+                                SharedPrefsUtils.getStringersStyle(activity!!),
+                                object : OnStringersStyleChangeListener {
+                                    override fun onChange(stringersStyle: Int) {
+                                        SharedPrefsUtils.setStringersStyle(activity!!, stringersStyle)
+                                        refreshViews()
+                                    }
+                                }
+                        )
+                dialog.setTargetFragment(this, 0)
+                dialog.show(fragmentManager, "STRINGER_STYLE")
+                return@setOnPreferenceClickListener true
+            }
+        }
+    }
+
+    private fun initFrameAndGrommets() {
+        val framePreference = findPreference("pref_key_frame")
+        if (framePreference != null) {
+            framePreference.summary = StringDataArrayUtils.framesArrayList[SharedPrefsUtils.getFrame(activity!!)].name
+            framePreference.setOnPreferenceClickListener {
+                val dialog =
+                        FrameDialogFragment.newInstance(
+                                SharedPrefsUtils.getFrame(activity!!),
+                                object : OnFrameChangeListener {
+                                    override fun onFrameChange(frame: Int) {
+                                        SharedPrefsUtils.setFrame(activity!!, frame)
+                                        refreshViews()
+                                    }
+                                }
+                        )
+                dialog.setTargetFragment(this, 0)
+                dialog.show(fragmentManager, "FRAME")
+                return@setOnPreferenceClickListener true
+            }
+        }
     }
 
     private fun initHybridStringPreferences() {
@@ -62,12 +131,6 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
             dialog.show(fragmentManager, "INSTRUCTIONS_TYPE")
             return@setOnPreferenceClickListener true
         }
-
-//        val configure = findPreference("configure")
-//        configure.setOnPreferenceClickListener {
-//            startActivity(Intent(context, ConfigurationActivity::class.java))
-//            return@setOnPreferenceClickListener true
-//        }
     }
 
     private fun initStringTypeSwitchPreference() {
@@ -96,9 +159,9 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         val calibration = findPreference("pref_key_own_calibration")
         if (calibration != null) {
             if (SharedPrefsUtils.isCalibrated(activity!!)) {
-                calibration.summary = getString(R.string.personal_mode)
+                calibration.summary = getString(R.string.on)
             } else {
-                calibration.summary = getString(R.string.factory_mode)
+                calibration.summary = getString(R.string.off)
             }
 
             calibration.setOnPreferenceClickListener {
@@ -181,7 +244,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
                 stringTypePreference.setTitle(R.string.type)
             }
 
-            stringTypePreference.summary = StringTypeUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].name
+            stringTypePreference.summary = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].name
             stringTypePreference.setOnPreferenceClickListener {
                 val dialog =
                         StringTypeDialogFragment.newInstance(
@@ -231,7 +294,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         val stringTypePreference = findPreference("pref_key_cross_string_type")
         if (stringTypePreference != null) {
             if (SharedPrefsUtils.isStringHybrid(context!!)) {
-                stringTypePreference.summary = StringTypeUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(activity!!)].name
+                stringTypePreference.summary = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(activity!!)].name
                 stringTypePreference.setOnPreferenceClickListener {
                     val dialog =
                             StringTypeDialogFragment.newInstance(SharedPrefsUtils.getCrossStringType(activity!!),

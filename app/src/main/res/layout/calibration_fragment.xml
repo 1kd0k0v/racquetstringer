@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <RadioGroup
         android:id="@+id/modeRadioGroup"
         android:layout_width="0dp"
@@ -23,7 +22,7 @@
             android:layout_gravity="start"
             android:layoutDirection="rtl"
             android:textSize="16sp"
-            android:text="@string/factory_mode"
+            android:text="@string/off"
             android:textAlignment="textStart"
             tools:layout_editor_absoluteX="137dp"
             tools:layout_editor_absoluteY="0dp" />
@@ -35,7 +34,7 @@
             android:layout_gravity="start"
             android:layoutDirection="rtl"
             android:textSize="16sp"
-            android:text="@string/personal_mode"
+            android:text="@string/on"
             android:textAlignment="textStart"
             tools:layout_editor_absoluteX="137dp"
             tools:layout_editor_absoluteY="0dp" />
@@ -151,7 +150,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/personal"
+                android:text="@string/calibrated"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
                 app:layout_constraintBottom_toTopOf="@+id/personalModeTextView"
                 app:layout_constraintEnd_toEndOf="parent"

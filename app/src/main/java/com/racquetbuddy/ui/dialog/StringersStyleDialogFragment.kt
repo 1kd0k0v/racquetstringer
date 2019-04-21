@@ -15,16 +15,16 @@ import com.racquetbuddy.utils.StringDataArrayUtils
 /**
  * Created by musashiwarrior on 15-Oct-18.
  */
-class StringTypeDialogFragment : DialogFragment() {
+class StringersStyleDialogFragment : DialogFragment() {
 
-    private var onStringTypeChangeListener: OnStringTypeChangeListener? = null
+    private var onStringersStyleChangeListener: OnStringersStyleChangeListener? = null
 
     private var defaultSelection: Int = 0
 
     companion object {
-        fun newInstance(selection: Int, listener: OnStringTypeChangeListener): StringTypeDialogFragment {
-            val dialog = StringTypeDialogFragment()
-            dialog.setOnTypeChangeListener(listener)
+        fun newInstance(selection: Int, listener: OnStringersStyleChangeListener): StringersStyleDialogFragment {
+            val dialog = StringersStyleDialogFragment()
+            dialog.setListener(listener)
             dialog.setDefaultSelection(selection)
             return dialog
         }
@@ -34,8 +34,8 @@ class StringTypeDialogFragment : DialogFragment() {
         defaultSelection = selection
     }
 
-    fun setOnTypeChangeListener(listener: OnStringTypeChangeListener) {
-        this.onStringTypeChangeListener = listener
+    fun setListener(listener: OnStringersStyleChangeListener) {
+        this.onStringersStyleChangeListener = listener
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -49,7 +49,7 @@ class StringTypeDialogFragment : DialogFragment() {
         val radioGroup = root?.findViewById<RadioGroup>(R.id.stringTypeRadioGroup)
         radioGroup?.orientation = LinearLayout.VERTICAL
 
-        val array = StringDataArrayUtils.stringTypesArrayList
+        val array = StringDataArrayUtils.stringerStyleArrayList
 
         for ((i, type) in array.withIndex()) {
             val btn = RadioButton(activity)
@@ -64,10 +64,10 @@ class StringTypeDialogFragment : DialogFragment() {
             selected = id}
 
         return AlertDialog.Builder(activity!!)
-                .setView(root).setMessage(R.string.dialog_title_string_type)
+                .setView(root).setMessage(R.string.dialog_title_stringers_style)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->
-                    onStringTypeChangeListener?.onStringTypeChange(selected)
+                    onStringersStyleChangeListener?.onChange(selected)
                 }
                 .setNegativeButton(R.string.cancel
                 ) { _, _ ->
@@ -76,6 +76,6 @@ class StringTypeDialogFragment : DialogFragment() {
     }
 }
 
-interface OnStringTypeChangeListener {
-    fun onStringTypeChange(stringType: Int)
+interface OnStringersStyleChangeListener {
+    fun onChange(stringersStyle: Int)
 }

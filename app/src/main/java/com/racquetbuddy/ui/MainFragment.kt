@@ -63,41 +63,11 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private fun displayTension(hz: Float) {
         if (activity == null) return
 
-        var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
-        if(!SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
-            headSize = UnitUtils.cmToIn(headSize).toFloat()
-        }
-
         tv_personal_mode_units.text = UnitUtils.getUnits(activity!!)
 
-        val stringThickness = SharedPrefsUtils.getStringsThickness(activity!!)
-        val stringDensity = StringTypeUtils.getDensity(SharedPrefsUtils.getStringType(context!!))
+        val tension = RacquetTensionUtils.calculateStringTension(hz, context!!)
 
-        val tension =
-                if (SharedPrefsUtils.isStringHybrid(context!!))
-                    RacquetTensionUtils.getStringTension(
-                            hz,
-                            headSize,
-                            stringThickness,
-                            stringDensity,
-                            SharedPrefsUtils.getCrossStringsThickness(context!!),
-                            StringTypeUtils.getDensity(SharedPrefsUtils.getCrossStringType(context!!)))
-                else RacquetTensionUtils.getStringTension(hz, headSize, stringThickness, stringDensity)
-
-        tv_display_tension.text =
-        if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
-            if (SharedPrefsUtils.isCalibrated(activity!!) && hz != 0f) {
-                NumberFormatUtils.format(UnitUtils.kiloToPound(tension).toFloat() + SharedPrefsUtils.getTensionAdjustment(activity!!))
-            } else {
-                NumberFormatUtils.format(UnitUtils.kiloToPound(tension))
-            }
-        } else {
-            if (SharedPrefsUtils.isCalibrated(activity!!) && hz != 0f) {
-                NumberFormatUtils.format(tension + SharedPrefsUtils.getTensionAdjustment(activity!!))
-            } else {
-                NumberFormatUtils.format(tension)
-            }
-        }
+        tv_display_tension.text = RacquetTensionUtils.getDisplayTension(tension, context!!)
     }
 
     override fun refreshViews() {
@@ -112,11 +82,27 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
         refreshLabels()
 
+        refreshStringPattern()
+        refreshFrame()
+        refreshStringersStyle()
+
         if (SharedPrefsUtils.isStringHybrid(context!!)) {
             cl_cross_string.visibility = View.VISIBLE
         } else {
             cl_cross_string.visibility = View.GONE
         }
+    }
+
+    private fun refreshStringersStyle() {
+        tv_value_stringers_style.text = StringDataArrayUtils.stringerStyleArrayList[SharedPrefsUtils.getStringersStyle(context!!)].name
+    }
+
+    private fun refreshFrame() {
+        tv_value_frame.text = StringDataArrayUtils.framesArrayList[SharedPrefsUtils.getFrame(context!!)].name
+    }
+
+    private fun refreshStringPattern() {
+        tv_value_string_pattern.text = StringDataArrayUtils.stringPatternArrayList[SharedPrefsUtils.getStringPattern(context!!)].name
     }
 
     private fun refreshLabels() {
@@ -130,7 +116,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshStringType() {
-        tv_value_string_type?.text = StringTypeUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].name
+        tv_value_string_type?.text = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].name
     }
 
     private fun refreshStringDiameterView() {
@@ -140,7 +126,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshCrossStringType() {
-        tv_value_cross_string_type?.text = StringTypeUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(activity!!)].name
+        tv_value_cross_string_type?.text = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(activity!!)].name
     }
 
     private fun refreshCrossStringThicknessView() {
@@ -219,6 +205,51 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             dialog.show(fragmentManager, STRINGS_DIAMETER_DIALOG_TAG)
         }
 
+        cl_string_pattern.setOnClickListener {
+            val dialog =
+                    StringPatternDialogFragment.newInstance(
+                            SharedPrefsUtils.getStringPattern(activity!!),
+                            object : OnStringPatternChangeListener {
+                                override fun onChange(stringPattern: Int) {
+                                    SharedPrefsUtils.setStringPattern(activity!!, stringPattern)
+                                    refreshViews()
+                                }
+                            }
+                    )
+            dialog.setTargetFragment(this, 0)
+            dialog.show(fragmentManager, "STRING_PATTERN")
+        }
+
+        cl_racquets_frame.setOnClickListener {
+            val dialog =
+                    FrameDialogFragment.newInstance(
+                            SharedPrefsUtils.getFrame(activity!!),
+                            object : OnFrameChangeListener {
+                                override fun onFrameChange(frame: Int) {
+                                    SharedPrefsUtils.setFrame(activity!!, frame)
+                                    refreshViews()
+                                }
+                            }
+                    )
+            dialog.setTargetFragment(this, 0)
+            dialog.show(fragmentManager, "FRAME")
+        }
+
+        cl_stringers_style.setOnClickListener {
+            val dialog =
+                    StringersStyleDialogFragment.newInstance(
+                            SharedPrefsUtils.getStringersStyle(activity!!),
+                            object : OnStringersStyleChangeListener {
+                                override fun onChange(stringersStyle: Int) {
+                                    SharedPrefsUtils.setStringersStyle(activity!!, stringersStyle)
+                                    refreshViews()
+                                }
+                            }
+                    )
+            dialog.setTargetFragment(this, 0)
+            dialog.show(fragmentManager, "STRINGER_STYLE")
+        }
+
         // if first time
         if (SharedPrefsUtils.isFirstRun(activity!!)) {
             showInstructionsDialog()
@@ -242,8 +273,9 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             getString(R.string.tension_kg)
         }
 
-        if (SharedPrefsUtils.isCalibrated(activity!!)) {
-            tv_calibration.text = getString(R.string.personal_mode)
+        if (SharedPrefsUtils.isCalibrated(activity!!) && SharedPrefsUtils.getTensionAdjustment(activity!!) != 0f) {
+            tv_calibration.visibility = View.VISIBLE
+            tv_calibration.text = getString(R.string.calibrated)
             val adjustment = SharedPrefsUtils.getTensionAdjustment(activity!!)
             if (adjustment != 0f) {
                 val sign = if (adjustment > 0) {
@@ -258,9 +290,9 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 tv_calibration_value.text = getString(R.string.no_calibration, units)
             }
         } else {
-            tv_calibration.text = getString(R.string.factory_mode)
-            tv_calibration_value.visibility = View.GONE
+            tv_calibration.visibility = View.GONE
             tv_calibration_value.text = getString(R.string.no_calibration)
+            tv_calibration_value.visibility = View.GONE
         }
     }
 

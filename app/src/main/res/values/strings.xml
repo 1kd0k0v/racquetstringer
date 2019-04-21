@@ -51,6 +51,9 @@
     <string name="listening">Listening</string>
     <string name="pref_tension_units">Tension Units</string>
     <string name="dialog_title_string_type">Choose string type.</string>
+    <string name="dialog_title_grommet">Choose racquet\'s frame and grommets.</string>
+    <string name="dialog_title_stringers_style">Choose stringer\'s style.</string>
+    <string name="dialog_title_string_pattern">Choose string pattern.</string>
     <string name="tension_lb">lb</string>
     <string name="tension_kg">kg</string>
     <string name="value_space_unit">%1$s %2$s</string>
@@ -92,13 +95,16 @@ The full capacity of TennisTension can be understood and reached when is used wi
 The Calibration is done and the Personal mode is ready for use.
     </string>
     <string name="instructions_body">
-        <li>TennisTension measures the average tension between main and cross strings by analyzing the sound heard from the string.</li>\n\n
-        <li>Take off the Dampener</li>\n\n
-        <li>Put the head size, the string diameter and it\'s type (if main and cross strings are with different diameter put the average value)</li>\n\n
-        <li>Use Factory or Personal mode</li>\n\n
-        <li>By Calibration of the Personal mode you can cope with all particularities of the racquets, strings, stringers and stringing machines.</li>\n\n
-        <li>Tap the racquet string anywhere with anything close to the phone microphone and receive an instant check of the tension.</li>\n\n
-        <li>Consider the tension loss receiving the outcome of the measurement</li>
+        <li>Remove the dampener!</li>\n
+        <li>Tap gently the string once or more times with a stiff object - fingernails, another racquet, finger knuckles etc, while keeping the resonating string as near as possible and in front of the microphone (mounted usually at the bottom of the phone)!</li>\n
+        <li>The measurement shows the average string tension between the main and cross strings of the racquet.</li>\n
+        <!--<li>TennisTension measures the average tension between main and cross strings by analyzing the sound heard from the string.</li>\n\n-->
+        <!--<li>Take off the Dampener</li>\n\n-->
+        <!--<li>Put the head size, the string diameter and it\'s type (if main and cross strings are with different diameter put the average value)</li>\n\n-->
+        <!--<li>Use Factory or Personal mode</li>\n\n-->
+        <!--<li>By Calibration of the Personal mode you can cope with all particularities of the racquets, strings, stringers and stringing machines.</li>\n\n-->
+        <!--<li>Tap the racquet string anywhere with anything close to the phone microphone and receive an instant check of the tension.</li>\n\n-->
+        <!--<li>Consider the tension loss receiving the outcome of the measurement</li>-->
     </string>
     <string name="no_calibration">Calibration: 0.0%1$s</string>
 
@@ -116,4 +122,11 @@ The Calibration is done and the Personal mode is ready for use.
     <string name="cross_string_type">Cross String Type</string>
     <string name="main_thickness">Main Thickness</string>
     <string name="main_type">Main Type</string>
+    <string name="calibration_off">Calibration Off</string>
+    <string name="experimental">Experimental</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="frame_influence">Frame influence</string>
+    <string name="stringers_style">Stringer\'s style</string>
+    <string name="string_pattern">String pattern</string>
 </resources>

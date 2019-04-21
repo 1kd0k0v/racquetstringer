@@ -9,16 +9,14 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_string_type"
-        style="@style/MainScreenBoxes"
-        android:layout_width="wrap_content"
+        style="@style/BigScreenBox"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cl_string_thickness"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/cl_cross_string"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cl_string_thickness"
-        app:layout_constraintTop_toTopOf="@+id/cl_string_thickness">
+        app:layout_constraintTop_toBottomOf="@+id/cl_racquets_frame">
 
 
         <TextView
@@ -56,17 +54,13 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_string_thickness"
-        style="@style/MainScreenBoxes"
-        android:layout_width="wrap_content"
+        style="@style/SmallScreenBox"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/cl_cross_string"
+        app:layout_constraintBottom_toBottomOf="@+id/cl_string_type"
         app:layout_constraintEnd_toStartOf="@+id/cl_string_type"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_head_size">
+        app:layout_constraintTop_toTopOf="@+id/cl_string_type">
 
 
         <TextView
@@ -104,16 +98,16 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_display_tension_circle"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_centerInParent="true"
         android:layout_margin="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/tension_result_background"
         android:elevation="16dp"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.419"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -142,9 +136,7 @@
             android:layout_marginBottom="8dp"
             android:gravity="center"
             android:text="@string/zero"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -155,7 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_display_tension"
             app:layout_constraintStart_toStartOf="@+id/tv_display_tension"
             app:layout_constraintTop_toBottomOf="@+id/tv_display_tension" />
@@ -173,15 +165,13 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_head_size"
-        style="@style/MainScreenBoxes"
-        android:layout_width="wrap_content"
+        style="@style/SmallScreenBox"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/cl_string_thickness"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cl_racquets_frame"
+        app:layout_constraintEnd_toStartOf="@+id/cl_stringers_style"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cl_string_pattern"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wv_layout">
 
@@ -222,7 +212,7 @@
     <com.gauravk.audiovisualizer.visualizer.WaveVisualizer
         android:id="@+id/wv_layout"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="30dp"
         android:layout_marginTop="8dp"
         android:elevation="16dp"
         app:avColor="@color/headStartGradient"
@@ -242,15 +232,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_string_thickness">
+        app:layout_constraintTop_toBottomOf="@+id/cl_string_type">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cl_cross_string_thickness"
-            style="@style/MainScreenBoxes"
-            android:layout_width="wrap_content"
+            style="@style/SmallScreenBox"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -295,11 +282,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cl_cross_string_type"
-            style="@style/MainScreenBoxes"
-            android:layout_width="wrap_content"
+            style="@style/BigScreenBox"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/cl_cross_string_thickness"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -338,6 +322,131 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_string_pattern"
+        style="@style/SmallScreenBox"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/cl_racquets_frame"
+        app:layout_constraintEnd_toStartOf="@+id/cl_racquets_frame"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cl_racquets_frame">
+
+        <TextView
+            android:id="@+id/tv_label_string_pattern"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/string_pattern"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/main_screen_small_text"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_value_string_pattern" />
+
+        <TextView
+            android:id="@+id/tv_value_string_pattern"
+            style="@style/MainScreenBoxesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/string_pattern"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_racquets_frame"
+        style="@style/BigScreenBox"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/cl_string_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cl_string_pattern"
+        app:layout_constraintTop_toBottomOf="@+id/cl_head_size">
+
+        <TextView
+            android:id="@+id/tv_label_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/frame_influence"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/main_screen_small_text"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_value_frame" />
+
+        <TextView
+            android:id="@+id/tv_value_frame"
+            style="@style/MainScreenBoxesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/frame_influence"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_stringers_style"
+        style="@style/BigScreenBox"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/cl_head_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cl_head_size"
+        app:layout_constraintTop_toTopOf="@+id/cl_head_size">
+
+        <TextView
+            android:id="@+id/tv_label_stringers_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/stringers_style"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/main_screen_small_text"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_value_stringers_style" />
+
+        <TextView
+            android:id="@+id/tv_value_stringers_style"
+            style="@style/MainScreenBoxesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/frame_influence"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

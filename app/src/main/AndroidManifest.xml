@@ -24,7 +24,7 @@
         </activity>
         <activity
             android:name="com.racquetbuddy.ui.CalibrationActivity"
-            android:label="@string/choose_mode"
+            android:label="@string/calibration"
             android:parentActivityName="com.racquetbuddy.ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

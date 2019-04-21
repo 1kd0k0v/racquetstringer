@@ -1,47 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-<!--    <Preference
-        android:key="configure"
-        android:title="@string/configure"/>-->
-    <PreferenceCategory
-        android:title="@string/calibration"
-        android:key="pref_key_racquet_details">
-        <Preference
-            android:key="pref_key_own_calibration"
-            android:title="@string/mode"/>
-    </PreferenceCategory>
+
     <PreferenceCategory
         android:title="@string/racquet"
         android:key="pref_key_racquet_details">
+
         <Preference
             android:key="pref_key_head_size"
             android:title="@string/pref_title_head_size" />
+
         <Preference
             android:key="pref_key_units"
             android:title="@string/pref_tension_units" />
+
+        <Preference
+            android:key="pref_key_frame"
+            android:title="@string/frame_influence" />
+
+        <Preference
+            android:key="pref_key_string_pattern"
+            android:title="@string/string_pattern" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/string"
         android:key="pref_key_string_category">
+
+        <Preference
+            android:key="pref_key_stringer_style"
+            android:title="@string/stringers_style" />
+
         <SwitchPreference
             android:key="pref_key_string_switch_preference"
             android:title="@string/string_type"
             android:summaryOn="@string/hybrid"
             android:summaryOff="@string/single"/>
+
         <Preference
             android:key="pref_key_string_thickness"
             android:title="@string/thickness" />
+
         <Preference
             android:key="pref_key_string_type"
             android:title="@string/type" />
+
         <Preference
             android:key="pref_key_cross_string_thickness"
             android:title="@string/cross_thickness" />
+
         <Preference
             android:key="pref_key_cross_string_type"
             android:title="@string/cross_type" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/experimental"
+        android:key="pref_key_racquet_details">
+        <Preference
+            android:key="pref_key_own_calibration"
+            android:title="@string/calibration"/>
+    </PreferenceCategory>
+
     <PreferenceCategory
         android:title="@string/help"
         android:key="pref_key_help">
@@ -51,9 +71,11 @@
         <Preference
             android:key="pref_key_video_instructions"
             android:title="@string/pref_title_video_instructions">
-            <intent android:action="android.intent.action.VIEW" android:data="https://www.youtube.com/watch?v=QZGqs-9C-6I&amp;feature=youtu.be"/>
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://www.youtube.com/watch?v=LFTkCCRR7ss"/>
         </Preference>
     </PreferenceCategory>
+
     <PreferenceCategory
         android:title="@string/about"
         android:key="pref_key_about">

@@ -10,7 +10,10 @@ import com.racquetbuddy.businesslogic.SamplingManager
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.dialog.CalibrateDialogFragment
 import com.racquetbuddy.ui.dialog.CalibrationInstructionsDialogFragment
-import com.racquetbuddy.utils.*
+import com.racquetbuddy.utils.NumberFormatUtils
+import com.racquetbuddy.utils.RacquetTensionUtils
+import com.racquetbuddy.utils.SharedPrefsUtils
+import com.racquetbuddy.utils.UnitUtils
 import kotlinx.android.synthetic.main.calibration_fragment.*
 
 class CalibrationFragment : Fragment(), OnRefreshViewsListener {
@@ -53,7 +56,6 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 
                 displayTension(hz)
             }
-
         })
 
         calibrationButton.setOnClickListener {
@@ -79,25 +81,7 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 
         calibrationButton.isEnabled = hz != 0f
 
-        var headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
-        if(!SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
-            headSize = UnitUtils.cmToIn(headSize).toFloat()
-        }
-
-
-        val stringThickness = SharedPrefsUtils.getStringsThickness(activity!!)
-        val stringDensity = StringTypeUtils.getDensity(SharedPrefsUtils.getStringType(context!!))
-
-        val tension =
-                if (SharedPrefsUtils.isStringHybrid(context!!))
-                    RacquetTensionUtils.getStringTension(
-                            hz,
-                            headSize,
-                            stringThickness,
-                            stringDensity,
-                            SharedPrefsUtils.getCrossStringsThickness(context!!),
-                            StringTypeUtils.getDensity(SharedPrefsUtils.getCrossStringType(context!!)))
-                else RacquetTensionUtils.getStringTension(hz, headSize, stringThickness, stringDensity)
+        val tension = RacquetTensionUtils.calculateStringTension(hz, context!!)
 
         factoryMeasurement = tension.toFloat()
 
