@@ -92,7 +92,7 @@ object RacquetTensionUtils {
      * @param p - string pattern
      */
     private fun getStringTension(v: Float, S: Float, d: Float, rho: Float, g: Float, f: Float, p: Float): Double {
-        return CF * rho * d * d * S * v * v
+        return CF * rho * d * d * S * v * v * g * f * p
     }
 
     /**

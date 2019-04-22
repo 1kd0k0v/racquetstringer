@@ -61,9 +61,9 @@ object StringDataArrayUtils {
     )
 
     val framesArrayList = arrayListOf(
-            Frame("decreased", 0.98f),
+            Frame("decreasing", 0.98f),
             Frame("not influencing",1f),
-            Frame("increased",1.02f)
+            Frame("increasing",1.02f)
     )
 
     class StringType(val name: String, val density: Float)
