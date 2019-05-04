@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cl_string_thickness"
-        app:layout_constraintTop_toBottomOf="@+id/cl_racquets_frame">
+        app:layout_constraintTop_toBottomOf="@+id/cl_string_opening_size">
 
 
         <TextView
@@ -168,7 +168,7 @@
         style="@style/SmallScreenBox"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/cl_racquets_frame"
+        app:layout_constraintBottom_toTopOf="@+id/cl_string_opening_size"
         app:layout_constraintEnd_toStartOf="@+id/cl_stringers_style"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cl_string_pattern"
@@ -328,11 +328,11 @@
         android:id="@+id/cl_string_pattern"
         style="@style/SmallScreenBox"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/cl_racquets_frame"
-        app:layout_constraintEnd_toStartOf="@+id/cl_racquets_frame"
+        app:layout_constraintBottom_toBottomOf="@+id/cl_string_opening_size"
+        app:layout_constraintEnd_toStartOf="@+id/cl_string_opening_size"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cl_racquets_frame">
+        app:layout_constraintTop_toTopOf="@+id/cl_string_opening_size">
 
         <TextView
             android:id="@+id/tv_label_string_pattern"
@@ -366,7 +366,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl_racquets_frame"
+        android:id="@+id/cl_string_opening_size"
         style="@style/BigScreenBox"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -377,31 +377,31 @@
         app:layout_constraintTop_toBottomOf="@+id/cl_head_size">
 
         <TextView
-            android:id="@+id/tv_label_frame"
+            android:id="@+id/tv_label_string_opening_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/frame_influence"
+            android:text="@string/string_opening_size"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/main_screen_small_text"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_value_frame" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_value_string_opening_size" />
 
         <TextView
-            android:id="@+id/tv_value_frame"
+            android:id="@+id/tv_value_string_opening_size"
             style="@style/MainScreenBoxesText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/frame_influence"
+            android:text="@string/string_opening_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -426,7 +426,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/stringers_style"
+            android:text="@string/stringing_type"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/main_screen_small_text"
             android:textStyle="bold"
@@ -443,7 +443,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/frame_influence"
+            android:text="@string/string_opening_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

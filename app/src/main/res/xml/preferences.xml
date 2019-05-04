@@ -14,8 +14,8 @@
             android:title="@string/pref_tension_units" />
 
         <Preference
-            android:key="pref_key_frame"
-            android:title="@string/frame_influence" />
+            android:key="pref_key_string_opening_size"
+            android:title="@string/string_opening_size" />
 
         <Preference
             android:key="pref_key_string_pattern"
@@ -29,7 +29,7 @@
 
         <Preference
             android:key="pref_key_stringer_style"
-            android:title="@string/stringers_style" />
+            android:title="@string/stringing_type" />
 
         <SwitchPreference
             android:key="pref_key_string_switch_preference"

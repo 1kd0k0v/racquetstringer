@@ -19,7 +19,7 @@
     <string name="diameter">Diameter</string>
     <string name="type">Type</string>
     <string name="help">Help</string>
-    <string name="pref_title_head_size">Head Size</string>
+    <string name="pref_title_head_size">Head size</string>
     <string name="pref_title_string_thickness">String Thickness</string>
     <string name="pref_title_string_type">String Type</string>
     <string name="about">About</string>
@@ -28,7 +28,7 @@
     <string name="pref_title_feedback">Feedback</string>
     <string name="pref_title_privacy_policy">Privacy Policy</string>
     <string name="app_version">Version</string>
-    <string name="head_size">Head Size</string>
+    <string name="head_size">Head size</string>
     <string name="dialog_title_head_size">Enter Racquet\'s head size.</string>
     <string name="units">Units</string>
     <string name="square_inch">in\u00B2</string>
@@ -40,7 +40,7 @@
     <string name="cm">cm</string>
     <string name="mm">mm</string>
     <string name="synthetic_gut">Synthetic Gut</string>
-    <string name="string_type">String Type</string>
+    <string name="string_type">String type</string>
     <string name="pref_units">Units</string>
     <string name="imperial">Imperial</string>
     <string name="metric">Metric</string>
@@ -51,8 +51,9 @@
     <string name="listening">Listening</string>
     <string name="pref_tension_units">Tension Units</string>
     <string name="dialog_title_string_type">Choose string type.</string>
-    <string name="dialog_title_grommet">Choose racquet\'s frame and grommet influence.</string>
-    <string name="dialog_title_stringers_style">Choose stringer\'s style.</string>
+    <string name="dialog_title_string_opening_size">Choose the average area size S of one string opening in the center of the stringbed (measured in square millimetres):
+S=a×b (a,b are the distances between 2 main and 2 cross neighbouring strings respectively in millimetres).</string>
+    <string name="dialog_title_stringing_type">Choose stringing type (stringing machine/stringer combination).</string>
     <string name="dialog_title_string_pattern">Choose string pattern.</string>
     <string name="tension_lb">lb</string>
     <string name="tension_kg">kg</string>
@@ -69,8 +70,6 @@
     <string name="factory_mode">Factory Mode</string>
     <string name="mode">Mode</string>
     <string name="choose_mode">Choose Mode</string>
-    <string name="personal">Personal</string>
-    <string name="personal_mode">Personal Mode</string>
     <string name="default_measurement">Default Measurement</string>
     <string name="calibration_edit_text_hint">Enter Personal Measurement</string>
     <string name="dialog_adjust_title">Calibration</string>
@@ -87,12 +86,12 @@
     <string name="instructions_title">Instructions</string>
     <string name="calibration_instructions_title">Instructions for Calibration</string>
     <string name="calibration_instructions_body">
-The full capacity of TennisTension can be understood and reached when is used with the provided proper Calibration of the Personal mode. There are several important factors to consider:\n\n
+The full capacity of TennisTension can be understood and reached when is used with the provided proper Calibration. There are several important factors to consider:\n\n
         <li>Tension Loss - starts during stringing and at very high rate during the first couple of hours after stringing and the first 30 minutes of play.</li>\n\n
         <li>Type and model of the string with all its characteristics.</li>\n\n
         <li>Stringing machine</li>\n\n
         <li>Stringer abilities and stringing habits</li>\n\nTo make YOUR perfect Calibration you have to pick a racquet with YOUR string strung by a trusted stringer at desired tension couple of hours after stringing. Enter the racquet and string parameters in the settings. Tap the string anywhere with anything close to the bottom of the phone where the microphone is mounted. After you see that the Factory measurement is done push the Calibrate button and enter the preknown desired average tension between the main and cross strings you gave to your trusted stringer in advance.
-The Calibration is done and the Personal mode is ready for use.
+The Calibration is done and is ready for use.
     </string>
     <string name="instructions_body">
         <li>Remove the dampener!</li>\n
@@ -126,7 +125,7 @@ The Calibration is done and the Personal mode is ready for use.
     <string name="experimental">Experimental</string>
     <string name="on">On</string>
     <string name="off">Off</string>
-    <string name="frame_influence">Frame influence</string>
-    <string name="stringers_style">Stringer\'s style</string>
+    <string name="string_opening_size">String opening size</string>
+    <string name="stringing_type">Stringing type</string>
     <string name="string_pattern">String pattern</string>
 </resources>

@@ -94,11 +94,11 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshStringersStyle() {
-        tv_value_stringers_style.text = StringDataArrayUtils.stringerStyleArrayList[SharedPrefsUtils.getStringersStyle(context!!)].name
+        tv_value_stringers_style.text = StringDataArrayUtils.stringingTypeArrayList[SharedPrefsUtils.getStringersStyle(context!!)].name
     }
 
     private fun refreshFrame() {
-        tv_value_frame.text = StringDataArrayUtils.framesArrayList[SharedPrefsUtils.getFrame(context!!)].name
+        tv_value_string_opening_size.text = StringDataArrayUtils.stringOpeningSizeArrayList[SharedPrefsUtils.getFrame(context!!)].name
     }
 
     private fun refreshStringPattern() {
@@ -220,19 +220,19 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             dialog.show(fragmentManager, "STRING_PATTERN")
         }
 
-        cl_racquets_frame.setOnClickListener {
+        cl_string_opening_size.setOnClickListener {
             val dialog =
-                    FrameDialogFragment.newInstance(
+                    StringOpeningSizeDialogFragment.newInstance(
                             SharedPrefsUtils.getFrame(activity!!),
-                            object : OnFrameChangeListener {
-                                override fun onFrameChange(frame: Int) {
-                                    SharedPrefsUtils.setFrame(activity!!, frame)
+                            object : OnChangeListener {
+                                override fun onChange(newValue: Int) {
+                                    SharedPrefsUtils.setStringOpeningSize(activity!!, newValue)
                                     refreshViews()
                                 }
                             }
                     )
             dialog.setTargetFragment(this, 0)
-            dialog.show(fragmentManager, "FRAME")
+            dialog.show(fragmentManager, "STRING_OPENING_SIZE")
         }
 
         cl_stringers_style.setOnClickListener {

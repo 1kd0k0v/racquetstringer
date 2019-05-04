@@ -15,15 +15,15 @@ import com.racquetbuddy.utils.StringDataArrayUtils
 /**
  * Created by musashiwarrior on 15-Oct-18.
  */
-class FrameDialogFragment : DialogFragment() {
+class StringOpeningSizeDialogFragment : DialogFragment() {
 
-    private var mListener: OnFrameChangeListener? = null
+    private var mListener: OnChangeListener? = null
 
     private var defaultSelection: Int = 0
 
     companion object {
-        fun newInstance(selection: Int, listener: OnFrameChangeListener): FrameDialogFragment {
-            val dialog = FrameDialogFragment()
+        fun newInstance(selection: Int, listener: OnChangeListener): StringOpeningSizeDialogFragment {
+            val dialog = StringOpeningSizeDialogFragment()
             dialog.setListener(listener)
             dialog.setDefaultSelection(selection)
             return dialog
@@ -34,7 +34,7 @@ class FrameDialogFragment : DialogFragment() {
         defaultSelection = selection
     }
 
-    fun setListener(listener: OnFrameChangeListener) {
+    fun setListener(listener: OnChangeListener) {
         this.mListener = listener
     }
 
@@ -49,7 +49,7 @@ class FrameDialogFragment : DialogFragment() {
         val radioGroup = root?.findViewById<RadioGroup>(R.id.stringTypeRadioGroup)
         radioGroup?.orientation = LinearLayout.VERTICAL
 
-        val array = StringDataArrayUtils.framesArrayList
+        val array = StringDataArrayUtils.stringOpeningSizeArrayList
 
         for ((i, type) in array.withIndex()) {
             val btn = RadioButton(activity)
@@ -64,10 +64,10 @@ class FrameDialogFragment : DialogFragment() {
             selected = id}
 
         return AlertDialog.Builder(activity!!)
-                .setView(root).setMessage(R.string.dialog_title_grommet)
+                .setView(root).setMessage(R.string.dialog_title_string_opening_size)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->
-                    mListener?.onFrameChange(selected)
+                    mListener?.onChange(selected)
                 }
                 .setNegativeButton(R.string.cancel
                 ) { _, _ ->
@@ -76,6 +76,6 @@ class FrameDialogFragment : DialogFragment() {
     }
 }
 
-interface OnFrameChangeListener {
-    fun onFrameChange(grommet: Int)
+interface OnChangeListener {
+    fun onChange(newValue: Int)
 }

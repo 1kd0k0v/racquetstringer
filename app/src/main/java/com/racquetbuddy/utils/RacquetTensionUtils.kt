@@ -120,7 +120,7 @@ object RacquetTensionUtils {
         val stringThickness = SharedPrefsUtils.getStringsThickness(context)
         val stringDensity = StringDataArrayUtils.getStringDensity(SharedPrefsUtils.getStringType(context))
         val stringerStyle = StringDataArrayUtils.getStringerStyle(SharedPrefsUtils.getStringersStyle(context))
-        val frame = StringDataArrayUtils.getFrame(SharedPrefsUtils.getFrame(context))
+        val frame = StringDataArrayUtils.getStringOpeningSize(SharedPrefsUtils.getFrame(context))
         val stringPattern = StringDataArrayUtils.getStringPattern(SharedPrefsUtils.getStringPattern(context))
 
         return if (SharedPrefsUtils.isStringHybrid(context)) {

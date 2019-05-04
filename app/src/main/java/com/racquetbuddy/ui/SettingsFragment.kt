@@ -54,7 +54,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     private fun initStringersStyle() {
         val stringerStylePreference = findPreference("pref_key_stringer_style")
         if (stringerStylePreference != null) {
-            stringerStylePreference.summary = StringDataArrayUtils.stringerStyleArrayList[SharedPrefsUtils.getStringersStyle(activity!!)].name
+            stringerStylePreference.summary = StringDataArrayUtils.stringingTypeArrayList[SharedPrefsUtils.getStringersStyle(activity!!)].name
             stringerStylePreference.setOnPreferenceClickListener {
                 val dialog =
                         StringersStyleDialogFragment.newInstance(
@@ -74,22 +74,22 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     }
 
     private fun initFrameAndGrommets() {
-        val framePreference = findPreference("pref_key_frame")
+        val framePreference = findPreference("pref_key_string_opening_size")
         if (framePreference != null) {
-            framePreference.summary = StringDataArrayUtils.framesArrayList[SharedPrefsUtils.getFrame(activity!!)].name
+            framePreference.summary = StringDataArrayUtils.stringOpeningSizeArrayList[SharedPrefsUtils.getFrame(activity!!)].name
             framePreference.setOnPreferenceClickListener {
                 val dialog =
-                        FrameDialogFragment.newInstance(
+                        StringOpeningSizeDialogFragment.newInstance(
                                 SharedPrefsUtils.getFrame(activity!!),
-                                object : OnFrameChangeListener {
-                                    override fun onFrameChange(frame: Int) {
-                                        SharedPrefsUtils.setFrame(activity!!, frame)
+                                object : OnChangeListener {
+                                    override fun onChange(newValue: Int) {
+                                        SharedPrefsUtils.setStringOpeningSize(activity!!, newValue)
                                         refreshViews()
                                     }
                                 }
                         )
                 dialog.setTargetFragment(this, 0)
-                dialog.show(fragmentManager, "FRAME")
+                dialog.show(fragmentManager, "STRING_OPENING_SIZE")
                 return@setOnPreferenceClickListener true
             }
         }

@@ -3,8 +3,8 @@ package com.racquetbuddy.utils
 import android.content.Context
 import android.content.SharedPreferences
 import com.racquetbuddy.businesslogic.DefaultRacquetValues
-import com.racquetbuddy.utils.StringDataArrayUtils.FRAME_DEFAULT
-import com.racquetbuddy.utils.StringDataArrayUtils.STRINGERS_STYLE_DEFAULT
+import com.racquetbuddy.utils.StringDataArrayUtils.STRING_OPENING_SIZE_DEFAULT
+import com.racquetbuddy.utils.StringDataArrayUtils.STRINGING_TYPE_DEFAULT
 import com.racquetbuddy.utils.StringDataArrayUtils.STRING_PATTERN_DEFAULT
 import com.racquetbuddy.utils.StringDataArrayUtils.STRING_TYPE_DEFAULT
 
@@ -107,12 +107,12 @@ object SharedPrefsUtils {
         return getSharedPreferences(context).getInt(KEY_STRING_PATTERN, STRING_PATTERN_DEFAULT)
     }
 
-    fun setFrame(context: Context, type: Int) {
+    fun setStringOpeningSize(context: Context, type: Int) {
         getEditor(context).putInt(KEY_GROMMET, type).apply()
     }
 
     fun getFrame(context: Context): Int {
-        return getSharedPreferences(context).getInt(KEY_GROMMET, FRAME_DEFAULT)
+        return getSharedPreferences(context).getInt(KEY_GROMMET, STRING_OPENING_SIZE_DEFAULT)
     }
 
     fun setStringersStyle(context: Context, type: Int) {
@@ -120,7 +120,7 @@ object SharedPrefsUtils {
     }
 
     fun getStringersStyle(context: Context): Int {
-        return getSharedPreferences(context).getInt(KEY_STRINGERS_STYLE, STRINGERS_STYLE_DEFAULT)
+        return getSharedPreferences(context).getInt(KEY_STRINGERS_STYLE, STRINGING_TYPE_DEFAULT)
     }
 
     fun getCrossStringsThickness(context: Context): Float {

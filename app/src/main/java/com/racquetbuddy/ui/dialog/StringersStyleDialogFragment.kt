@@ -49,7 +49,7 @@ class StringersStyleDialogFragment : DialogFragment() {
         val radioGroup = root?.findViewById<RadioGroup>(R.id.stringTypeRadioGroup)
         radioGroup?.orientation = LinearLayout.VERTICAL
 
-        val array = StringDataArrayUtils.stringerStyleArrayList
+        val array = StringDataArrayUtils.stringingTypeArrayList
 
         for ((i, type) in array.withIndex()) {
             val btn = RadioButton(activity)
@@ -64,7 +64,7 @@ class StringersStyleDialogFragment : DialogFragment() {
             selected = id}
 
         return AlertDialog.Builder(activity!!)
-                .setView(root).setMessage(R.string.dialog_title_stringers_style)
+                .setView(root).setMessage(R.string.dialog_title_stringing_type)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->
                     onStringersStyleChangeListener?.onChange(selected)
