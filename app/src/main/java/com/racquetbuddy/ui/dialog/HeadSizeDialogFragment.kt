@@ -54,6 +54,15 @@ class HeadSizeDialogFragment : DialogFragment() {
                 }.create()
     }
 
+    // TODO [musashi] add validation
+    private fun isValid(size: Double, isImperial: Boolean): Boolean {
+        return if (isImperial) {
+            size in 80.0..125.0
+        } else {
+            size in 520.0..810.0
+        }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
