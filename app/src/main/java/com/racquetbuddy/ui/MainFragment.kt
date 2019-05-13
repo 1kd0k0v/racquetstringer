@@ -98,7 +98,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshFrame() {
-        tv_value_string_opening_size.text = StringDataArrayUtils.stringOpeningSizeArrayList[SharedPrefsUtils.getFrame(context!!)].name
+        tv_value_string_opening_size.text = StringDataArrayUtils.stringOpeningSizeArrayList[SharedPrefsUtils.getFrame(context!!)].shortName
     }
 
     private fun refreshStringPattern() {
@@ -111,7 +111,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             tv_string_thickness_label.text = getString(R.string.main_thickness)
         } else {
             tv_label_string_type.text = getString(R.string.string_type)
-            tv_string_thickness_label.text = getString(R.string.thickness)
+            tv_string_thickness_label.text = getString(R.string.string_thickness)
         }
     }
 

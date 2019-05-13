@@ -76,7 +76,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     private fun initFrameAndGrommets() {
         val framePreference = findPreference("pref_key_string_opening_size")
         if (framePreference != null) {
-            framePreference.summary = StringDataArrayUtils.stringOpeningSizeArrayList[SharedPrefsUtils.getFrame(activity!!)].name
+            framePreference.summary = StringDataArrayUtils.stringOpeningSizeArrayList[SharedPrefsUtils.getFrame(activity!!)].shortName
             framePreference.setOnPreferenceClickListener {
                 val dialog =
                         StringOpeningSizeDialogFragment.newInstance(

@@ -33,7 +33,7 @@
     <string name="units">Units</string>
     <string name="square_inch">in\u00B2</string>
     <string name="square_cm">cm\u00B2</string>
-    <string name="string_thickness">String Thickness</string>
+    <string name="string_thickness">String thickness</string>
     <string name="thickness">Thickness</string>
     <string name="Type">Type</string>
     <string name="inch">in</string>
@@ -45,11 +45,11 @@
     <string name="imperial">Imperial</string>
     <string name="metric">Metric</string>
     <string name="ok">OK</string>
-    <string name="choose_units_of_measurement">Select Units</string>
+    <string name="choose_units_of_measurement">Select units</string>
     <string name="string_thickness_dialog_title">Enter string thickness.</string>
     <string name="calibration">Calibration</string>
     <string name="listening">Listening</string>
-    <string name="pref_tension_units">Tension Units</string>
+    <string name="pref_tension_units">Tension units</string>
     <string name="dialog_title_string_type">Choose string type.</string>
     <string name="dialog_title_string_opening_size">Choose the average area size S of one string opening in the center of the stringbed (measured in square millimetres):
 S=a×b (a,b are the distances between 2 main and 2 cross neighbouring strings respectively in millimetres).</string>
@@ -71,7 +71,7 @@ S=a×b (a,b are the distances between 2 main and 2 cross neighbouring strings re
     <string name="mode">Mode</string>
     <string name="choose_mode">Choose Mode</string>
     <string name="default_measurement">Default Measurement</string>
-    <string name="calibration_edit_text_hint">Enter Personal Measurement</string>
+    <string name="calibration_edit_text_hint">Enter the preknown tension</string>
     <string name="dialog_adjust_title">Calibration</string>
     <string name="calibration_default_text">Factory mode measurement is %1$s %2$s.</string>
     <string name="current_adjustment">(Calibration: %1$s%2$s%3$s)</string>
@@ -94,16 +94,14 @@ The full capacity of TennisTension can be understood and reached when is used wi
 The Calibration is done and is ready for use.
     </string>
     <string name="instructions_body">
+        <li>The user has to learn how to produce the proper ringing sound close (2 to 10 cm) and in front of the phone microphone. Find the microphone which uses single, very small hole either at the top or at the bottom of the phone.</li>\n
         <li>Remove the dampener!</li>\n
-        <li>Tap gently the string once or more times with a stiff object - fingernails, another racquet, finger knuckles etc, while keeping the resonating string as near as possible and in front of the microphone (mounted usually at the bottom of the phone)!</li>\n
-        <li>The measurement shows the average string tension between the main and cross strings of the racquet.</li>\n
-        <!--<li>TennisTension measures the average tension between main and cross strings by analyzing the sound heard from the string.</li>\n\n-->
-        <!--<li>Take off the Dampener</li>\n\n-->
-        <!--<li>Put the head size, the string diameter and it\'s type (if main and cross strings are with different diameter put the average value)</li>\n\n-->
-        <!--<li>Use Factory or Personal mode</li>\n\n-->
-        <!--<li>By Calibration of the Personal mode you can cope with all particularities of the racquets, strings, stringers and stringing machines.</li>\n\n-->
-        <!--<li>Tap the racquet string anywhere with anything close to the phone microphone and receive an instant check of the tension.</li>\n\n-->
-        <!--<li>Consider the tension loss receiving the outcome of the measurement</li>-->
+        <li>Tap the racquet string very gently several times every 1 or 2 sec. with a stiff object. The easiest way to produce a good ringing sound is using a pen or pencil, or use another racquet, fingernails, etc.</li>\n
+        <li>While ringing, the resonating racquet string must stay 2 to 10 cm from the microphone, in front of it, especially in a noisier environment. It is shown well in the YouTube video provided for TennisTension mobile app.</li>\n
+        <li>To receive the exact momentous string tension, define all the necessary racquet and string parameters. If you don\'t know some of the them, default average values are taken for the calculations, or the last values that the user put it in.</li>\n
+        <li>TennisTension measures the average tension between main and cross strings of the racquet (for example, if a racquet is strung 25/24 kg, the measurement result will be 24.5 kg).</li>\n
+        <li>String tensions of hybrid strings could be measured as well.</li>\n
+        <li>The error of the measurement result is less than 0.2 kg.</li>\n
     </string>
     <string name="no_calibration">Calibration: 0.0%1$s</string>
 
@@ -115,12 +113,12 @@ The Calibration is done and is ready for use.
     <string name="string">String</string>
     <string name="single">Single</string>
     <string name="hybrid">Hybrid</string>
-    <string name="cross_thickness">Cross Thickness</string>
-    <string name="cross_type">Cross Type</string>
-    <string name="cross_string_thickness">Cross String Thickness</string>
-    <string name="cross_string_type">Cross String Type</string>
-    <string name="main_thickness">Main Thickness</string>
-    <string name="main_type">Main Type</string>
+    <string name="cross_thickness">Cross thickness</string>
+    <string name="cross_type">Cross type</string>
+    <string name="cross_string_thickness">Cross string thickness</string>
+    <string name="cross_string_type">Cross string type</string>
+    <string name="main_thickness">Main thickness</string>
+    <string name="main_type">Main type</string>
     <string name="calibration_off">Calibration Off</string>
     <string name="experimental">Experimental</string>
     <string name="on">On</string>

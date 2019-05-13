@@ -10,7 +10,7 @@ object DefaultRacquetValues {
     const val DEFAULT_CF = 4.6e-7
 
     const val CF = 3.5e-7
-    const val DEFAULT_MIN_FREQ = 400f
+    const val DEFAULT_MIN_FREQ = 370f
     const val DEFAULT_MAX_FREQ = 697f
     const val DEFAULT_DB_THRESHOLD = -100f
     const val DEFAULT_OCCURENCE_COUNT = 2
