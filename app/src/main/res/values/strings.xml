@@ -58,6 +58,7 @@ S=a×b (a,b are the distances between 2 main and 2 cross neighbouring strings re
     <string name="tension_lb">lb</string>
     <string name="tension_kg">kg</string>
     <string name="value_space_unit">%1$s %2$s</string>
+    <string name="head_size_error_range">Head size should be between %1$d and %2$d %3$s.</string>
     <string name="calibrated">Calibrated</string>
     <string name="not_calibrated">Not Calibrated</string>
     <string name="calibrate">Calibrate</string>

@@ -43,7 +43,7 @@ class StringThicknessDialogFragment : DialogFragment() {
         val root = inflater.inflate(R.layout.input_strings_diameter_layout, null)
 
         val unitsTextView = root?.findViewById<TextView>(R.id.unitsTextView)
-        val stringsDiameterInputFieldDialog = root?.findViewById<EditText>(R.id.stringsDiameterInputFieldDialog)
+        val stringsDiameterInputFieldDialog = root?.findViewById<EditText>(R.id.tiet_head_size)
         stringsDiameterInputFieldDialog?.setText(thickness.toString())
         stringsDiameterInputFieldDialog?.setSelection(stringsDiameterInputFieldDialog.text.length)
         unitsTextView?.text = getString(R.string.mm)
