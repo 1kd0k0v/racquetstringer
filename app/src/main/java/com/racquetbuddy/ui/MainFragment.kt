@@ -116,7 +116,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshStringType() {
-        tv_value_string_type?.text = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].name
+        tv_value_string_type?.text = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].shortName
     }
 
     private fun refreshStringDiameterView() {
@@ -126,7 +126,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshCrossStringType() {
-        tv_value_cross_string_type?.text = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(activity!!)].name
+        tv_value_cross_string_type?.text = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(activity!!)].shortName
     }
 
     private fun refreshCrossStringThicknessView() {

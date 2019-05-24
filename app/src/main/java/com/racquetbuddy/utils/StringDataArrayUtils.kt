@@ -8,13 +8,27 @@ object StringDataArrayUtils {
     const val STRING_TYPE_DEFAULT = 1
 
     val stringTypesArrayList = arrayListOf(
-            StringType("heavy polyester - less stretchable; higher density ingredients", 1.38f),
-            StringType("average polyester", 1.35f),
-            StringType("light polyester - more stretchable; lower density ingredients", 1.32f),
-            StringType("heavy synthetic - less stretchable; higher density ingredients", 1.16f),
-            StringType("average synthetic", 1.12f),
-            StringType("light synthetic - more stretchable; lower density ingredients", 1.08f),
-            StringType("natural gut", 1.28f)
+            StringType("heavy polyester",
+                    "heavy polyester - less stretchable; higher density ingredients",
+                    1.38f),
+            StringType("average polyester",
+                    "average polyester",
+                    1.35f),
+            StringType("light polyester",
+                    "light polyester - more stretchable; lower density ingredients",
+                    1.32f),
+            StringType("multifilament",
+                    "multifilament",
+                    1.16f),
+            StringType("average synthetic",
+                    "average synthetic",
+                    1.12f),
+            StringType("light synthetic",
+                    "light synthetic - more stretchable; lower density ingredients",
+                    1.08f),
+            StringType("natural gut",
+                    "natural gut",
+                    1.28f)
     )
 
     const val STRING_PATTERN_DEFAULT = 5
@@ -75,7 +89,7 @@ object StringDataArrayUtils {
         return stringPatternArrayList[id].coefficient
     }
 
-    class StringType(val name: String, val density: Float)
+    class StringType(val shortName: String, val longName: String, val density: Float)
     class StringPattern(val name: String, val coefficient: Float)
     class StringersStyle(val name: String, val coefficient: Float)
     class Frame(val shortName: String, val longName: String, val coefficient: Float)

@@ -33,7 +33,7 @@
 
         <SwitchPreference
             android:key="pref_key_string_switch_preference"
-            android:title="@string/string_type"
+            android:title="@string/strings"
             android:summaryOn="@string/hybrid"
             android:summaryOff="@string/single"/>
 
@@ -52,11 +52,7 @@
         <Preference
             android:key="pref_key_cross_string_type"
             android:title="@string/cross_type" />
-    </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/experimental"
-        android:key="pref_key_racquet_details">
         <Preference
             android:key="pref_key_own_calibration"
             android:title="@string/calibration"/>

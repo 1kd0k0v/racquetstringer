@@ -244,7 +244,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
                 stringTypePreference.setTitle(R.string.string_type)
             }
 
-            stringTypePreference.summary = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].name
+            stringTypePreference.summary = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].shortName
             stringTypePreference.setOnPreferenceClickListener {
                 val dialog =
                         StringTypeDialogFragment.newInstance(
@@ -294,7 +294,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         val stringTypePreference = findPreference("pref_key_cross_string_type")
         if (stringTypePreference != null) {
             if (SharedPrefsUtils.isStringHybrid(context!!)) {
-                stringTypePreference.summary = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(activity!!)].name
+                stringTypePreference.summary = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(activity!!)].shortName
                 stringTypePreference.setOnPreferenceClickListener {
                     val dialog =
                             StringTypeDialogFragment.newInstance(SharedPrefsUtils.getCrossStringType(activity!!),

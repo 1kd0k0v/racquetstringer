@@ -103,6 +103,7 @@ The Calibration is done and is ready for use.
         <li>TennisTension measures the average tension between main and cross strings of the racquet (for example, if a racquet is strung 25/24 kg, the measurement result will be 24.5 kg).</li>\n
         <li>String tensions of hybrid strings could be measured as well.</li>\n
         <li>The error of the measurement result is less than 0.2 kg.</li>\n
+        <li>Use the "Calibration" to cope COMPLETELY with all specific characteristics of every racquet, string and stringing machine/stringer combination.</li>\n
     </string>
     <string name="no_calibration">Calibration: 0.0%1$s</string>
 
