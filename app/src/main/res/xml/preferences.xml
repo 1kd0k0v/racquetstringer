@@ -33,7 +33,7 @@
 
         <SwitchPreference
             android:key="pref_key_string_switch_preference"
-            android:title="@string/strings"
+            android:title="@string/hybrid_stringing"
             android:summaryOn="@string/hybrid"
             android:summaryOff="@string/single"/>
 

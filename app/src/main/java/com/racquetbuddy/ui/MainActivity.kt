@@ -8,7 +8,6 @@ import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
 import com.racquetbuddy.racquetstringer.R
@@ -28,23 +27,6 @@ class MainActivity : AppCompatActivity() {
         adapter = MainPagerAdapter(applicationContext, supportFragmentManager)
         viewPagerMain.adapter = adapter
         viewPagerMain.offscreenPageLimit = 2
-        viewPagerMain.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(p0: Int) {}
-
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
-
-            override fun onPageSelected(p0: Int) {
-                when (p0) {
-                    0 -> {
-                        ((adapter as FragmentStatePagerAdapter).getItem(0) as OnRefreshViewsListener).refreshViews()
-                    }
-
-                    1 -> {
-                        ((adapter as FragmentStatePagerAdapter).getItem(1) as OnRefreshViewsListener).refreshViews()
-                    }
-                }
-            }
-        })
 
         if (savedInstanceState != null) {
             viewPagerMain.currentItem = savedInstanceState.getInt("currentItem", 0)

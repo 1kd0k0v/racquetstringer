@@ -1,27 +1,15 @@
 <resources>
     <string name="app_name">TennisTension</string>
     <string name="action_settings">Settings</string>
-    <string name="sample_rates_name">SAMPLE/S::0</string>
-    <string name="fft_len_name">FFT LEN::0</string>
-    <string name="fft_ave_num_name">N AVE::0</string>
     <string name="strings">Strings</string>
-    <string name="head_size_2_lines">Head\nSize</string>
-    <string name="zero">0</string>
-    <string name="edit">Edit</string>
     <string name="racquet">Racquet</string>
     <string name="measure">Measure</string>
-    <string name="pause">Pause</string>
-    <string name="play">Play</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
-    <string name="string_thickness_2_lines">String\nThickness</string>
-    <string name="string_type_2_lines">String\nType</string>
-    <string name="diameter">Diameter</string>
     <string name="type">Type</string>
     <string name="help">Help</string>
+    <!-- Settings -->
     <string name="pref_title_head_size">Head size</string>
-    <string name="pref_title_string_thickness">String Thickness</string>
-    <string name="pref_title_string_type">String Type</string>
     <string name="about">About</string>
     <string name="pref_title_instructions">Instructions</string>
     <string name="pref_title_video_instructions">Video</string>
@@ -30,102 +18,124 @@
     <string name="app_version">Version</string>
     <string name="head_size">Head size</string>
     <string name="dialog_title_head_size">Enter Racquet\'s head size.</string>
-    <string name="units">Units</string>
     <string name="square_inch">in\u00B2</string>
     <string name="square_cm">cm\u00B2</string>
     <string name="string_thickness">String thickness</string>
     <string name="thickness">Thickness</string>
-    <string name="Type">Type</string>
-    <string name="inch">in</string>
-    <string name="cm">cm</string>
     <string name="mm">mm</string>
     <string name="synthetic_gut">Synthetic Gut</string>
     <string name="string_type">String type</string>
-    <string name="pref_units">Units</string>
-    <string name="imperial">Imperial</string>
-    <string name="metric">Metric</string>
     <string name="ok">OK</string>
     <string name="choose_units_of_measurement">Select units</string>
-    <string name="string_thickness_dialog_title">Enter string thickness.</string>
+    <string name="string_thickness_dialog_title">Enter string
+thickness.</string>
     <string name="calibration">Calibration</string>
-    <string name="listening">Listening</string>
     <string name="pref_tension_units">Tension units</string>
     <string name="dialog_title_string_type">Choose string type.</string>
-    <string name="dialog_title_string_opening_size">Choose the average area size S of one string opening in the center of the stringbed (measured in square millimetres):
-S=a×b (a,b are the distances between 2 main and 2 cross neighbouring strings respectively in millimetres).</string>
-    <string name="dialog_title_stringing_type">Choose stringing type (stringing machine/stringer combination).</string>
+    <string name="dialog_title_string_opening_size">Every racquet model has different density of the strings in the center of the racquet head.\nMeasure with a ruler the distances "a" and "b" in millimetres between 2 neighbouring main and 2 neighbouring cross strings in the center of the racquet head.\nCalculate the average area "S" of one string opening in the head center:\nS=a.b\nChoose the corresponding String opening size:</string>
+    <string name="dialog_title_stringing_type">Every Stringer in combination with his Stringing machine, strings with a certain degree of tightness.\nChoose the degree of tightness of the Stinger/Stringing machine.</string>
     <string name="dialog_title_string_pattern">Choose string pattern.</string>
     <string name="tension_lb">lb</string>
     <string name="tension_kg">kg</string>
     <string name="value_space_unit">%1$s %2$s</string>
-    <string name="head_size_error_range">Head size should be between %1$d and %2$d %3$s.</string>
+    <string name="head_size_error_range">Head size should be between %1$d and
+%2$d %3$s.</string>
+    <!-- Calibration -->
     <string name="calibrated">Calibrated</string>
-    <string name="not_calibrated">Not Calibrated</string>
     <string name="calibrate">Calibrate</string>
     <string name="pref_share">Share</string>
-    <string name="default_value">Default</string>
-    <string name="restore_default">Restore Default</string>
-    <string name="adjust">Adjust</string>
-    <string name="reset">Reset</string>
     <string name="factory">Factory</string>
-    <string name="factory_mode">Factory Mode</string>
-    <string name="mode">Mode</string>
-    <string name="choose_mode">Choose Mode</string>
-    <string name="default_measurement">Default Measurement</string>
-    <string name="calibration_edit_text_hint">Enter the preknown tension</string>
+    <string name="calibration_edit_text_hint">Enter the preknown
+tension</string>
     <string name="dialog_adjust_title">Calibration</string>
-    <string name="calibration_default_text">Factory mode measurement is %1$s %2$s.</string>
+    <string name="calibration_default_text">Factory mode measurement is %1$s
+%2$s.</string>
     <string name="current_adjustment">(Calibration: %1$s%2$s%3$s)</string>
-    <string name="adjustment_saved">Adjustment %1$f%2$s applied.</string>
+    <string name="no_calibration">Calibration: 0.0%1$s</string>
+    <!-- Instructions -->
     <string name="instructions_calibration">Calibration:\n
-        1. Take a racquet with known string tension\n
-        2. Enter this racquet and its string parameters in the settings\n
-        3. Tap the string close to the microphone\n
-        4. After the Factory measurement is done push the Calibrate button and enter the known tension.
-    </string>
-    <string name="tap_the_strings">Hit the Strings</string>
+1. Take a racquet with known string tension\n
+2. Enter this racquet and its string parameters in the settings\n
+3. Tap the string close to the microphone\n
+4. After the Factory measurement is done push the Calibrate button and enter the known tension.
+</string>
     <string name="instructions_title">Instructions</string>
     <string name="calibration_instructions_title">Instructions for Calibration</string>
     <string name="calibration_instructions_body">
-The full capacity of TennisTension can be understood and reached when is used with the provided proper Calibration. There are several important factors to consider:\n\n
-        <li>Tension Loss - starts during stringing and at very high rate during the first couple of hours after stringing and the first 30 minutes of play.</li>\n\n
+        The full capacity of TennisTension can be understood and reached when is used
+        with the provided proper Calibration. There are several important factors to
+        consider:\n\n
+        <li>Tension Loss - starts during stringing and is at very high rate
+        during the first couple of hours after stringing and during the first 30
+        minutes of play.</li>\n\n
         <li>Type and model of the string with all its characteristics.</li>\n\n
         <li>Stringing machine</li>\n\n
-        <li>Stringer abilities and stringing habits</li>\n\nTo make YOUR perfect Calibration you have to pick a racquet with YOUR string strung by a trusted stringer at desired tension couple of hours after stringing. Enter the racquet and string parameters in the settings. Tap the string anywhere with anything close to the bottom of the phone where the microphone is mounted. After you see that the Factory measurement is done push the Calibrate button and enter the preknown desired average tension between the main and cross strings you gave to your trusted stringer in advance.
-The Calibration is done and is ready for use.
+        <li>Stringer abilities and stringing habits</li>\n\nTo make your perfect
+        calibration you have to pick a racquet with your string strung by a trusted
+        stringer at desired tension couple of hours after stringing. Enter the racquet
+        and string parameters in the settings. Tap the string anywhere with anything
+        close to the phone microphone. The microphone could be either at the top or at
+        the bottom of the phone. After you see that the Factory measurement is done,
+        push the Calibrate button and enter the preknown average tension between the
+        main and cross strings, which you gave to your trusted stringer in advance.
+        Now the Calibration is done,you can see the amendment of the measurements and
+        TennisTension is ready for use in a mode with Calibration.
     </string>
     <string name="instructions_body">
-        <li>The user has to learn how to produce the proper ringing sound close (2 to 10 cm) and in front of the phone microphone. Find the microphone which uses single, very small hole either at the top or at the bottom of the phone.</li>\n
+        <li>For best results use TennisTension in places with less noise!</li>\n
+        <li>The user has to learn how to produce the proper ringing sound close
+        (2 to 10 cm) and in front of the phone microphone. Find the microphone which
+        uses single, very small hole either at the top or at the bottom of the
+        phone.</li>\n
         <li>Remove the dampener!</li>\n
-        <li>Tap the racquet string very gently several times every 1 or 2 sec. with a stiff object. The easiest way to produce a good ringing sound is using a pen or pencil, or use another racquet, fingernails, etc.</li>\n
-        <li>While ringing, the resonating racquet string must stay 2 to 10 cm from the microphone, in front of it, especially in a noisier environment. It is shown well in the YouTube video provided for TennisTension mobile app.</li>\n
-        <li>To receive the exact momentous string tension, define all the necessary racquet and string parameters. If you don\'t know some of the them, default average values are taken for the calculations, or the last values that the user put it in.</li>\n
-        <li>TennisTension measures the average tension between main and cross strings of the racquet (for example, if a racquet is strung 25/24 kg, the measurement result will be 24.5 kg).</li>\n
+        <li>Tap the racquet string very gently several times every 1 or 2 sec.
+        with any stiff object. The easiest way to produce a good ringing sound is using
+        a pen (pencil), or use another racquet, fingernails, etc.</li>\n
+        <li>While ringing, the resonating racquet string must stay 2 to 10 cm
+        from the microphone, in front of it, especially in a noisier environment. It is
+        well shown in the YouTube video provided for TennisTension mobile app.</li>\n
+        <li>To receive the exact momentous string tension, define all the
+        necessary racquet and string parameters. If you don\'t know some of the them,
+        default average values are taken for the calculations, or the last values that
+        the user put it in.</li>\n
+        <li>TennisTension measures the average tension between main and cross
+        strings of the racquet (for example, if a racquet is strung 25/24 kg, the
+        measurement result will be 24.5 kg).</li>\n
         <li>String tensions of hybrid strings could be measured as well.</li>\n
         <li>The error of the measurement result is less than 0.2 kg.</li>\n
-        <li>Use the "Calibration" to cope COMPLETELY with all specific characteristics of every racquet, string and stringing machine/stringer combination.</li>\n
+        <li>Use the Calibration to cope completely with all specific
+        characteristics of every racquet, string and stringing machine/stringer
+        combination.</li>\n
     </string>
-    <string name="no_calibration">Calibration: 0.0%1$s</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="configure">Configure</string>
-    <string name="hz_range">%1$s - %2$s</string>
     <string name="read_more"><u>Read more&#8230;</u></string>
     <string name="string">String</string>
     <string name="single">Single</string>
     <string name="hybrid">Hybrid</string>
     <string name="cross_thickness">Cross thickness</string>
     <string name="cross_type">Cross type</string>
-    <string name="cross_string_thickness">Cross string thickness</string>
-    <string name="cross_string_type">Cross string type</string>
     <string name="main_thickness">Main thickness</string>
     <string name="main_type">Main type</string>
-    <string name="calibration_off">Calibration Off</string>
-    <string name="experimental">Experimental</string>
     <string name="on">On</string>
     <string name="off">Off</string>
     <string name="string_opening_size">String opening size</string>
     <string name="stringing_type">Stringing type</string>
     <string name="string_pattern">String pattern</string>
+    <!-- Doesn't need to translate strings below -->
+    <string name="sample_rates_name">SAMPLE/S::0</string>
+    <string name="fft_len_name">FFT LEN::0</string>
+    <string name="fft_ave_num_name">N AVE::0</string>
+    <string name="units">Units</string>
+    <string name="zero">0</string>
+    <string name="hybrid_stringing">Hybrid stringing</string>
+    <!-- Stringing type -->
+    <string name="heavy_polyester_short">heavy polyester</string>
+    <string name="heavy_polyester_long"><b>heavy polyester</b>\n<i>less stretchable; higher density ingredients</i></string>
+    <string name="average_polyester_short">average polyester</string>
+    <string name="light_polyester_short">light polyester</string>
+    <string name="light_polyester_long"><b>light polyester</b>\nmore stretchable; lower density ingredients</string>
+    <string name="multifilament_short">multifilament</string>
+    <string name="average_synthetic_short">average synthetic</string>
+    <string name="light_synthetic_short">light synthetic</string>
+    <string name="light_synthetic_long"><b>light synthetic</b>\nmore stretchable; lower density ingredients</string>
+    <string name="natural_gut_short">natural gut</string>
 </resources>

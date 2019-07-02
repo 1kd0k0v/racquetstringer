@@ -54,7 +54,7 @@ class StringTypeDialogFragment : DialogFragment() {
         for ((i, type) in array.withIndex()) {
             val btn = RadioButton(activity)
             btn.id = i
-            btn.text = type.longName
+            btn.text = getString(type.longName)
             radioGroup?.addView(btn)
         }
 

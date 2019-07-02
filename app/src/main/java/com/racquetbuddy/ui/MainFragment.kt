@@ -71,6 +71,8 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     override fun refreshViews() {
+        if (activity == null) return
+
         displayTension(currentHz)
         refreshHeadSizeView()
         refreshStringDiameterView()
@@ -116,7 +118,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshStringType() {
-        tv_value_string_type?.text = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].shortName
+        tv_value_string_type?.text = getString(StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].shortName)
     }
 
     private fun refreshStringDiameterView() {
@@ -126,7 +128,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshCrossStringType() {
-        tv_value_cross_string_type?.text = StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(activity!!)].shortName
+        tv_value_cross_string_type?.text = getString(StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(activity!!)].shortName)
     }
 
     private fun refreshCrossStringThicknessView() {
@@ -265,7 +267,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshCalibrated() {
-        tv_calibration.setTypeface(null, Typeface.BOLD)
+        tv_calibration?.setTypeface(null, Typeface.BOLD)
 //        calibrationTextView.paintFlags = calibrationTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         val units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
             getString(R.string.tension_lb)
@@ -337,8 +339,14 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser) {
+            refreshViews();
+        }
     }
 
     companion object {

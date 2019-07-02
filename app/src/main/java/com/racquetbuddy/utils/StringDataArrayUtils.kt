@@ -1,5 +1,7 @@
 package com.racquetbuddy.utils
 
+import com.racquetbuddy.racquetstringer.R
+
 /**
  * Created by musashiwarrior on 31-Oct-18.
  */
@@ -8,26 +10,26 @@ object StringDataArrayUtils {
     const val STRING_TYPE_DEFAULT = 1
 
     val stringTypesArrayList = arrayListOf(
-            StringType("heavy polyester",
-                    "heavy polyester - less stretchable; higher density ingredients",
+            StringType(R.string.heavy_polyester_short,
+                    R.string.heavy_polyester_long,
                     1.38f),
-            StringType("average polyester",
-                    "average polyester",
+            StringType(R.string.average_polyester_short,
+                    R.string.average_polyester_short,
                     1.35f),
-            StringType("light polyester",
-                    "light polyester - more stretchable; lower density ingredients",
+            StringType(R.string.light_polyester_short,
+                    R.string.light_polyester_long,
                     1.32f),
-            StringType("multifilament",
-                    "multifilament",
+            StringType(R.string.multifilament_short,
+                    R.string.multifilament_short,
                     1.16f),
-            StringType("average synthetic",
-                    "average synthetic",
+            StringType(R.string.average_synthetic_short,
+                    R.string.average_synthetic_short,
                     1.12f),
-            StringType("light synthetic",
-                    "light synthetic - more stretchable; lower density ingredients",
+            StringType(R.string.light_synthetic_short,
+                    R.string.light_synthetic_long,
                     1.08f),
-            StringType("natural gut",
-                    "natural gut",
+            StringType(R.string.natural_gut_short,
+                    R.string.natural_gut_short,
                     1.28f)
     )
 
@@ -89,7 +91,7 @@ object StringDataArrayUtils {
         return stringPatternArrayList[id].coefficient
     }
 
-    class StringType(val shortName: String, val longName: String, val density: Float)
+    class StringType(val shortName: Int, val longName: Int, val density: Float)
     class StringPattern(val name: String, val coefficient: Float)
     class StringersStyle(val name: String, val coefficient: Float)
     class Frame(val shortName: String, val longName: String, val coefficient: Float)
