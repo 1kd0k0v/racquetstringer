@@ -29,7 +29,7 @@
 
         <Preference
             android:key="pref_key_stringer_style"
-            android:title="@string/stringing_type" />
+            android:title="@string/stringing" />
 
         <SwitchPreference
             android:key="pref_key_string_switch_preference"
@@ -68,7 +68,7 @@
             android:key="pref_key_video_instructions"
             android:title="@string/pref_title_video_instructions">
             <intent android:action="android.intent.action.VIEW"
-                android:data="https://www.youtube.com/watch?v=Lq9xhtLQgXg"/>
+                android:data="https://www.youtube.com/watch?v=PNTyjG7jr98"/>
         </Preference>
     </PreferenceCategory>
 

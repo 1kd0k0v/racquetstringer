@@ -54,10 +54,11 @@ tension</string>
     <string name="no_calibration">Calibration: 0.0%1$s</string>
     <!-- Instructions -->
     <string name="instructions_calibration">Calibration:\n
-1. Take a racquet with known string tension\n
-2. Enter this racquet and its string parameters in the settings\n
-3. Tap the string close to the microphone\n
-4. After the Factory measurement is done push the Calibrate button and enter the known tension.
+1. String a racquet by TRUSTED stringer\n
+2. Take a racquet with known string tension\n
+3. Enter this racquet and its string parameters in the settings\n
+4. Tap the string close to the microphone\n
+5. After the Factory measurement is done push the Calibrate button and enter the known tension.
 </string>
     <string name="instructions_title">Instructions</string>
     <string name="calibration_instructions_title">Instructions for Calibration</string>
@@ -82,30 +83,15 @@ tension</string>
         TennisTension is ready for use in a mode with Calibration.
     </string>
     <string name="instructions_body">
-        <li>For best results use TennisTension in places with less noise!</li>\n
-        <li>The user has to learn how to produce the proper ringing sound close
-        (2 to 10 cm) and in front of the phone microphone. Find the microphone which
-        uses single, very small hole either at the top or at the bottom of the
-        phone.</li>\n
-        <li>Remove the dampener!</li>\n
-        <li>Tap the racquet string very gently several times every 1 or 2 sec.
-        with any stiff object. The easiest way to produce a good ringing sound is using
-        a pen (pencil), or use another racquet, fingernails, etc.</li>\n
-        <li>While ringing, the resonating racquet string must stay 2 to 10 cm
-        from the microphone, in front of it, especially in a noisier environment. It is
-        well shown in the YouTube video provided for TennisTension mobile app.</li>\n
-        <li>To receive the exact momentous string tension, define all the
-        necessary racquet and string parameters. If you don\'t know some of the them,
-        default average values are taken for the calculations, or the last values that
-        the user put it in.</li>\n
-        <li>TennisTension measures the average tension between main and cross
-        strings of the racquet (for example, if a racquet is strung 25/24 kg, the
-        measurement result will be 24.5 kg).</li>\n
-        <li>String tensions of hybrid strings could be measured as well.</li>\n
-        <li>The error of the measurement result is less than 0.2 kg.</li>\n
-        <li>Use the Calibration to cope completely with all specific
-        characteristics of every racquet, string and stringing machine/stringer
-        combination.</li>\n
+        <li>For best results use the app in places with less noise!</li>\n
+        <li>The user has to learn how to produce the proper ringing sound CLOSE (2 to 10 cm) and IN FRONT of the phone microphone. Find the microphone which uses single, very small hole either at the TOP or at the BOTTOM of the phone.</li>\n
+        <li>REMOVE the dampener - if you have.</li>\n
+        <li>Tap the racquet strings VERY GENTLY ANYWHERE  several times every 1 or 2 sec. with ANY STIFF object. KEEP the resonating RINGING strings CLOSE (2 to 10 cm) and IN FRONT OF the phone microphone. The best way is with a pen or pencil, or use another racquet, fingernails, etc. It is shown well in the YouTube video https://youtu.be/PNTyjG7jr98 provided for TennisTension mobile app, Google Play Store or on www.tennistension.app</li>\n
+        <li>To receive the exact momentous string tension, define all the necessary racquet and string parameters. If you don\'t know some of them, default average values are taken for the calculations or the last values that the user put it in.</li>\n
+        <li>TennisTension measures the average tension between main and cross strings of the racquet. For example, if a racquet is strung 25/24 kg, the measurement result will be 24.5 kg.</li>\n
+        <li>String tensions of hybrid strings could be measured as well. In this case, define the parameters of both main and cross strings.</li>\n
+        <li>The error of the measurement result is less than 0.2 kg when the accurate racquet, string, and stringer/stringing machine parameters are set.</li>\n
+        <li>A Calibration for the app is provided in the case you want to cope COMPLETELY and SIMULTANEOUSLY with ALL specific characteristics of your PERSONAL racquet and string model. In this case, use a TRUSTED stringer</li>
     </string>
     <string name="read_more"><u>Read more&#8230;</u></string>
     <string name="string">String</string>
@@ -118,7 +104,6 @@ tension</string>
     <string name="on">On</string>
     <string name="off">Off</string>
     <string name="string_opening_size">String opening size</string>
-    <string name="stringing_type">Stringing type</string>
     <string name="string_pattern">String pattern</string>
     <!-- Doesn't need to translate strings below -->
     <string name="sample_rates_name">SAMPLE/S::0</string>
@@ -138,4 +123,5 @@ tension</string>
     <string name="light_synthetic_short">light synthetic</string>
     <string name="light_synthetic_long"><b>light synthetic</b>\nmore stretchable; lower density ingredients</string>
     <string name="natural_gut_short">natural gut</string>
+    <string name="stringing">Stringing</string>
 </resources>
