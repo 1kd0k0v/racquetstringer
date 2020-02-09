@@ -148,7 +148,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     private fun sendFeedback(): Boolean {
         val emailIntent = Intent(Intent.ACTION_SEND)
         emailIntent.type = "text/email"
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("ikdokov@gmail.me"))
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("tennistension@gmail.com"))
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback")
         emailIntent.putExtra(Intent.EXTRA_TEXT, "")
         startActivity(Intent.createChooser(emailIntent, "Send Feedback:"))
