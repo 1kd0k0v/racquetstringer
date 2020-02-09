@@ -14,9 +14,9 @@ class SamplingManager private constructor(){
 
     private val samplingThreads = ArrayList<Thread>()
 
-    val frequencyListeners = ArrayList<FrequencyListener>()
+    private val frequencyListeners = ArrayList<FrequencyListener>()
 
-    val emptyAudioSamples = ByteArray(1024)
+    private val emptyAudioSamples = ByteArray(1024)
 
     private object Holder {val INSTANCE = SamplingManager()}
 
