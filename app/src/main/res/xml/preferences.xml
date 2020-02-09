@@ -68,7 +68,7 @@
             android:key="pref_key_video_instructions"
             android:title="@string/pref_title_video_instructions">
             <intent android:action="android.intent.action.VIEW"
-                android:data="https://www.youtube.com/watch?v=PNTyjG7jr98"/>
+                android:data="https://www.youtube.com/watch?v=XCOffuXGDrU"/>
         </Preference>
     </PreferenceCategory>
 

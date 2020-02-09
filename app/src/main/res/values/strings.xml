@@ -53,12 +53,11 @@ tension</string>
     <string name="current_adjustment">(Calibration: %1$s%2$s%3$s)</string>
     <string name="no_calibration">Calibration: 0.0%1$s</string>
     <!-- Instructions -->
-    <string name="instructions_calibration">Calibration:\n
-1. String a racquet by TRUSTED stringer\n
-2. Take a racquet with known string tension\n
-3. Enter this racquet and its string parameters in the settings\n
-4. Tap the string close to the microphone\n
-5. After the Factory measurement is done push the Calibrate button and enter the known tension.
+    <string name="instructions_calibration">Every racquet model, string model and stringer have unique characteristics. The “Calibration” completely takes them into account:\n
+        1. Take a newly strung racquet.\n
+        2. Preset all known racquet and string parameters.\n
+        3. Hit the string close to the microphone.\n
+        4. “Calibrate” the App by entering the average tension between main and cross strings applied by the stringer.
 </string>
     <string name="instructions_title">Instructions</string>
     <string name="calibration_instructions_title">Instructions for Calibration</string>
