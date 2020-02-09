@@ -2,9 +2,9 @@ package com.racquetbuddy.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.racquetbuddy.businesslogic.DefaultRacquetValues
-import com.racquetbuddy.utils.StringDataArrayUtils.STRING_OPENING_SIZE_DEFAULT
+import com.racquetbuddy.businesslogic.RacquetConstants
 import com.racquetbuddy.utils.StringDataArrayUtils.STRINGING_TYPE_DEFAULT
+import com.racquetbuddy.utils.StringDataArrayUtils.STRING_OPENING_SIZE_DEFAULT
 import com.racquetbuddy.utils.StringDataArrayUtils.STRING_PATTERN_DEFAULT
 import com.racquetbuddy.utils.StringDataArrayUtils.STRING_TYPE_DEFAULT
 
@@ -68,7 +68,7 @@ object SharedPrefsUtils {
     }
 
     fun getRacquetHeadSize(context: Context): Float {
-        return getSharedPreferences(context).getFloat(KEY_HEAD_SIZE, DefaultRacquetValues.DEFAULT_S.toFloat())
+        return getSharedPreferences(context).getFloat(KEY_HEAD_SIZE, RacquetConstants.S.toFloat())
     }
 
     fun setRacquetHeadSize(context: Context, headSize: Double) {
@@ -84,7 +84,7 @@ object SharedPrefsUtils {
     }
 
     fun getStringsThickness(context: Context): Float {
-        return getSharedPreferences(context).getFloat(KEY_STRINGS_THICKNESS, DefaultRacquetValues.DEFAULT_D)
+        return getSharedPreferences(context).getFloat(KEY_STRINGS_THICKNESS, RacquetConstants.D)
     }
 
     fun setStringsThickness(context: Context, stringsDiameter: Float) {
@@ -124,7 +124,7 @@ object SharedPrefsUtils {
     }
 
     fun getCrossStringsThickness(context: Context): Float {
-        return getSharedPreferences(context).getFloat(KEY_CROSS_STRING_THICKNESS, DefaultRacquetValues.DEFAULT_D)
+        return getSharedPreferences(context).getFloat(KEY_CROSS_STRING_THICKNESS, RacquetConstants.D)
     }
 
     fun setCrossStringsThickness(context: Context, stringsDiameter: Float) {
@@ -160,7 +160,7 @@ object SharedPrefsUtils {
     }
 
     fun getMinFreq(context: Context): Float {
-        return getSharedPreferences(context).getFloat(KEY_MIN_FREQ, DefaultRacquetValues.DEFAULT_MIN_FREQ)
+        return getSharedPreferences(context).getFloat(KEY_MIN_FREQ, RacquetConstants.MIN_FREQ)
     }
 
     fun setMaxFreq(context: Context, density: Float) {
@@ -168,7 +168,7 @@ object SharedPrefsUtils {
     }
 
     fun getMaxFreq(context: Context): Float {
-        return getSharedPreferences(context).getFloat(KEY_MAX_FREQ, DefaultRacquetValues.DEFAULT_MAX_FREQ)
+        return getSharedPreferences(context).getFloat(KEY_MAX_FREQ, RacquetConstants.MAX_FREQ)
     }
 
     fun setDbThreshold(context: Context, density: Float) {
@@ -176,7 +176,7 @@ object SharedPrefsUtils {
     }
 
     fun getDbThreshold(context: Context): Float {
-        return getSharedPreferences(context).getFloat(KEY_DB_THRESHOLD, DefaultRacquetValues.DEFAULT_DB_THRESHOLD)
+        return getSharedPreferences(context).getFloat(KEY_DB_THRESHOLD, RacquetConstants.DB_THRESHOLD)
     }
 
     fun setOccurrenceCount(context: Context, count: Int) {
@@ -184,7 +184,7 @@ object SharedPrefsUtils {
     }
 
     fun getOccurrenceCount(context: Context): Int {
-        return getSharedPreferences(context).getInt(KEY_OCCURENCE_COUNT, DefaultRacquetValues.DEFAULT_OCCURENCE_COUNT)
+        return getSharedPreferences(context).getInt(KEY_OCCURENCE_COUNT, RacquetConstants.OCCURRENCE_COUNT)
     }
 
     fun setQueueCapacity(context: Context, capacity: Int) {
@@ -192,7 +192,7 @@ object SharedPrefsUtils {
     }
 
     fun getQueueCapacity(context: Context): Int {
-        return getSharedPreferences(context).getInt(KEY_QUEUE_CAPACITY, DefaultRacquetValues.DEFAULT_QUEUE_CAPACITY)
+        return getSharedPreferences(context).getInt(KEY_QUEUE_CAPACITY, RacquetConstants.QUEUE_CAPACITY)
     }
 
     fun setStringHybrid(context: Context, hybrid: Boolean) {
