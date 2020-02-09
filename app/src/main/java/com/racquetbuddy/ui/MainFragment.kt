@@ -24,6 +24,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private val STRINGS_DIAMETER_DIALOG_TAG = "STRINGS_DIAMETER_DIALOG_TAG"
     private val STRING_TYPE_DIALOG_TAG = "STRING_TYPE_DIALOG_TAG"
     private val INSTRUCTIONS_DIALOG_FRAGMENT_TAG = "INSTRUCTIONS_DIALOG_FRAGMENT_TAG"
+    private val PERMISSIONS_DIALOG_FRAGMENT_TAG = "PERMISSIONS_DIALOG_FRAGMENT_TAG"
 
     private var currentHz: Float = 0f
 
@@ -268,33 +269,11 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
     private fun refreshCalibrated() {
         tv_calibration?.setTypeface(null, Typeface.BOLD)
-//        calibrationTextView.paintFlags = calibrationTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-        val units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
-            getString(R.string.tension_lb)
-        } else {
-            getString(R.string.tension_kg)
-        }
 
         if (SharedPrefsUtils.isCalibrated(activity!!) && SharedPrefsUtils.getTensionAdjustment(activity!!) != 0f) {
             tv_calibration.visibility = View.VISIBLE
-            tv_calibration.text = getString(R.string.calibrated)
-            val adjustment = SharedPrefsUtils.getTensionAdjustment(activity!!)
-            if (adjustment != 0f) {
-                val sign = if (adjustment > 0) {
-                    "+"
-                } else {
-                    ""
-                }
-                tv_calibration_value.text = getString(R.string.current_adjustment, sign, NumberFormatUtils.format(adjustment), units)
-                tv_calibration_value.visibility = View.VISIBLE
-            } else {
-                tv_calibration_value.visibility = View.VISIBLE
-                tv_calibration_value.text = getString(R.string.no_calibration, units)
-            }
         } else {
             tv_calibration.visibility = View.GONE
-            tv_calibration_value.text = getString(R.string.no_calibration)
-            tv_calibration_value.visibility = View.GONE
         }
     }
 
@@ -313,18 +292,13 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         }
     }
 
-    // TODO [musashi] add dialogs to inform user why mic is needed
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             RECORD_AUDIO_CODE -> {
-                // If request is cancelled, the result arrays are empty.
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                if (PackageManager.PERMISSION_GRANTED == grantResults.firstOrNull()) {
                     samplingManager.startSampling(activity!!, wv_layout)
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
                 } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                    PermissionDialog().show(fragmentManager, PERMISSIONS_DIALOG_FRAGMENT_TAG)
                 }
                 return
             }

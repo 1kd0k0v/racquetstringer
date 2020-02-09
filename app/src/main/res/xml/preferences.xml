@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference
+        android:key="pref_key_own_calibration"
+        android:title="@string/calibration"/>
+
+    <SwitchPreference
+        android:key="pref_key_string_switch_preference"
+        android:title="@string/hybrid_stringing"
+        android:summaryOn="@string/hybrid"
+        android:summaryOff="@string/single"/>
+
     <PreferenceCategory
         android:title="@string/racquet"
         android:key="pref_key_racquet_details">
@@ -31,12 +41,6 @@
             android:key="pref_key_stringer_style"
             android:title="@string/stringing" />
 
-        <SwitchPreference
-            android:key="pref_key_string_switch_preference"
-            android:title="@string/hybrid_stringing"
-            android:summaryOn="@string/hybrid"
-            android:summaryOff="@string/single"/>
-
         <Preference
             android:key="pref_key_string_thickness"
             android:title="@string/thickness" />
@@ -53,9 +57,6 @@
             android:key="pref_key_cross_string_type"
             android:title="@string/cross_type" />
 
-        <Preference
-            android:key="pref_key_own_calibration"
-            android:title="@string/calibration"/>
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -52,6 +52,8 @@ tension</string>
 %2$s.</string>
     <string name="current_adjustment">(Calibration: %1$s%2$s%3$s)</string>
     <string name="no_calibration">Calibration: 0.0%1$s</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
     <!-- Instructions -->
     <string name="instructions_calibration">Every racquet model, string model and stringer have unique characteristics. The “Calibration” completely takes them into account:\n
         1. Take a newly strung racquet.\n
@@ -123,4 +125,6 @@ tension</string>
     <string name="light_synthetic_long"><b>light synthetic</b>\nmore stretchable; lower density ingredients</string>
     <string name="natural_gut_short">natural gut</string>
     <string name="stringing">Stringing</string>
+    <string name="permission_dialog_message">The app is unusable without permissions for the microphone. Do you want to use this app?</string>
+    <string name="permission_dialog_title">Permission required</string>
 </resources>

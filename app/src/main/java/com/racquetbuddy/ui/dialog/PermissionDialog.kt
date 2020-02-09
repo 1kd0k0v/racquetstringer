@@ -1,0 +1,35 @@
+package com.racquetbuddy.ui.dialog
+
+import android.Manifest
+import android.app.Dialog
+import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.app.DialogFragment
+import android.support.v4.app.FragmentActivity
+import android.support.v7.app.AlertDialog
+import com.racquetbuddy.racquetstringer.R
+
+/**
+ * Created by musashiwarrior on 15-Oct-18.
+ */
+class PermissionDialog : DialogFragment() {
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
+        return AlertDialog.Builder(activity!!)
+            .setTitle(R.string.permission_dialog_title).setMessage(R.string.permission_dialog_message)
+                .setPositiveButton(R.string.yes
+                ) { _, _ ->
+                    ActivityCompat.requestPermissions(activity as FragmentActivity, arrayOf(Manifest.permission.RECORD_AUDIO), RECORD_AUDIO_CODE)
+                    dismiss()
+                }
+                .setNegativeButton(R.string.no) { _, _ ->
+                    activity?.finish()
+                }
+                .create()
+    }
+
+    companion object {
+        private const val RECORD_AUDIO_CODE = 0
+    }
+}

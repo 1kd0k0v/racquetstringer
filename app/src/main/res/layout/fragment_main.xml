@@ -119,7 +119,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/calibration"
+            android:text="@string/calibrated"
             app:layout_constraintBottom_toTopOf="@+id/tv_display_tension"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -150,15 +150,6 @@
             app:layout_constraintEnd_toEndOf="@+id/tv_display_tension"
             app:layout_constraintStart_toStartOf="@+id/tv_display_tension"
             app:layout_constraintTop_toBottomOf="@+id/tv_display_tension" />
-
-        <TextView
-            android:id="@+id/tv_calibration_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            app:layout_constraintEnd_toEndOf="@+id/tv_calibration"
-            app:layout_constraintStart_toStartOf="@+id/tv_calibration"
-            app:layout_constraintTop_toBottomOf="@+id/tv_calibration" />
 
     </android.support.constraint.ConstraintLayout>
 
