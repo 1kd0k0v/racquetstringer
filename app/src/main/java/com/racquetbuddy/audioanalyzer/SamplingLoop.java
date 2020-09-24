@@ -163,7 +163,7 @@ public class SamplingLoop extends Thread {
         if (AutomaticGainControl.isAvailable()) {
             AutomaticGainControl agc = AutomaticGainControl.create(
                     record.getAudioSessionId());
-            if (agc.getEnabled())
+            if (agc != null && agc.getEnabled())
                 Log.i(TAG, "SamplingLoop::Run(): AGC: enabled.");
             else
                 Log.i(TAG, "SamplingLoop::Run(): AGC: disabled.");
