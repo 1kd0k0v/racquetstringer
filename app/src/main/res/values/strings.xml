@@ -125,7 +125,7 @@ tension</string>
     <string name="light_synthetic_short">light synthetic</string>
     <string name="light_synthetic_long"><b>light synthetic</b>\nmore stretchable; lower density ingredients</string>
     <string name="natural_gut_short">natural gut</string>
-    <string name="stringing">Stringing</string>
+    <string name="stringing">Stringing machine</string>
     <string name="permission_dialog_message">The app is unusable without permissions for the microphone. Do you want to use this app?</string>
     <string name="permission_dialog_title">Permission required</string>
 </resources>
