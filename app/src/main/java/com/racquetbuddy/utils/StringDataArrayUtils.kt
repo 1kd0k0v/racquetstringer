@@ -54,11 +54,11 @@ object StringDataArrayUtils {
     const val STRINGING_TYPE_DEFAULT = 2
 
     val stringingTypeArrayList = arrayListOf(
-            StringersStyle("very tight", 0.94f),
-            StringersStyle("tight", 0.97f),
-            StringersStyle("normal", 1f),
-            StringersStyle("loose", 1.03f),
-            StringersStyle("very loose", 1.06f)
+            StringersStyle("very tight", 0.85f),
+            StringersStyle("tight", 0.90f),
+            StringersStyle("normal", 0.95f),
+            StringersStyle("loose", 1.0f),
+            StringersStyle("very loose", 1.08f)
     )
 
     const val STRING_OPENING_SIZE_DEFAULT = 2
