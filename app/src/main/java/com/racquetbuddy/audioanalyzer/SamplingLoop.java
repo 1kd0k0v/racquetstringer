@@ -40,21 +40,13 @@ import android.util.Log;
 
 public class SamplingLoop extends Thread {
 
-    private final int AUDIO_SOURCE_ID = MediaRecorder.AudioSource.VOICE_RECOGNITION;
-
     CalibrationLoad calibLoad = new CalibrationLoad();  // data for calibration of spectrum
 
-    private final String TAG = "SamplingLoop";
     private volatile boolean isRunning = true;
-    private volatile boolean isPaused1 = false;
-    private STFT stft;   // use with care
     private final AnalyzerParameters analyzerParam;
-    private SoundAnalyzerCallback callback;
+    private final SoundAnalyzerCallback callback;
 
     private double[] spectrumDBcopy;   // XXX, transfers data from SamplingLoop to AnalyzerGraphic
-
-    volatile double wavSecRemain;
-    volatile double wavSec = 0;
 
     private void SleepWithoutInterrupt(long millis) {
         try {
@@ -83,44 +75,15 @@ public class SamplingLoop extends Thread {
         }
         _analyzerParam.micGainDB = AnalyzerUtil.interpLinear(_calibLoad.freq, _calibLoad.gain, freqTick);
         _analyzerParam.calibName = _calibLoad.name;
-//        for (int i = 0; i < _analyzerParam.micGainDB.length; i++) {
-//            Log.i(TAG, "calib: " + freqTick[i] + "Hz : " + _analyzerParam.micGainDB[i]);
-//        }
     }
-
-    private double baseTimeMs = SystemClock.uptimeMillis();
-
-    private void LimitFrameRate(double updateMs) {
-        // Limit the frame rate by wait `delay' ms.
-        baseTimeMs += updateMs;
-        long delay = (int) (baseTimeMs - SystemClock.uptimeMillis());
-//      Log.i(TAG, "delay = " + delay);
-        if (delay > 0) {
-            try {
-                Thread.sleep(delay);
-            } catch (InterruptedException e) {
-                Log.i(TAG, "Sleep interrupted");  // seems never reached
-            }
-        } else {
-            baseTimeMs -= delay;  // get current time
-            // Log.i(TAG, "time: cmp t="+Long.toString(SystemClock.uptimeMillis())
-            //            + " v.s. t'=" + Long.toString(baseTimeMs));
-        }
-    }
-
-    private double[] mdata;
 
     @Override
     public void run() {
         AudioRecord record;
 
         long tStart = SystemClock.uptimeMillis();
-//        try {
-//            activity.graphInit.join();  // TODO: Seems not working as intended....
-//        } catch (InterruptedException e) {
-//            Log.w(TAG, "run(): activity.graphInit.join() failed.");
-//        }
         long tEnd = SystemClock.uptimeMillis();
+        String TAG = "SamplingLoop";
         if (tEnd - tStart < 500) {
             Log.i(TAG, "wait more.." + (500 - (tEnd - tStart)) + " ms");
             // Wait until previous instance of AudioRecord fully released.
@@ -150,12 +113,11 @@ public class SamplingLoop extends Thread {
         // The buffer size here seems not relate to the delay.
         // So choose a larger size (~1sec) so that overrun is unlikely.
         try {
-            record = new AudioRecord(AUDIO_SOURCE_ID, analyzerParam.sampleRate, AudioFormat.CHANNEL_IN_MONO,
+            record = new AudioRecord(MediaRecorder.AudioSource.VOICE_RECOGNITION, analyzerParam.sampleRate, AudioFormat.CHANNEL_IN_MONO,
                     AudioFormat.ENCODING_PCM_16BIT, analyzerParam.BYTE_OF_SAMPLE * bufferSampleSize);
 
         } catch (IllegalArgumentException e) {
             Log.e(TAG, "Fail to initialize recorder.");
-//            activity.analyzerViews.notifyToast("Illegal recorder argument. (change source)");
             return;
         }
 
@@ -171,7 +133,6 @@ public class SamplingLoop extends Thread {
             Log.i(TAG, "SamplingLoop::Run(): AGC: not available.");
         }
 
-
         Log.i(TAG, "SamplingLoop::Run(): Starting recorder... \n" +
                 "  source          : " + analyzerParam.audioSourceId + "\n" +
                 String.format("  sample rate     : %d Hz (request %d Hz)\n", record.getSampleRate(), analyzerParam.sampleRate) +
@@ -184,8 +145,6 @@ public class SamplingLoop extends Thread {
 
         if (record.getState() == AudioRecord.STATE_UNINITIALIZED) {
             Log.e(TAG, "SamplingLoop::run(): Fail to initialize AudioRecord()");
-//            activity.analyzerViews.notifyToast("Fail to initialize recorder.");
-            // If failed somehow, leave user a chance to change preference.
             return;
         }
 
@@ -193,7 +152,8 @@ public class SamplingLoop extends Thread {
         byte[] byteAudioSamples = new byte[readChunkSize];
         int numOfReadShort;
 
-        stft = new STFT(analyzerParam);
+        // use with care
+        STFT stft = new STFT(analyzerParam);
         stft.setAWeighting(analyzerParam.isAWeighting);
         if (spectrumDBcopy == null || spectrumDBcopy.length != analyzerParam.fftLen/2+1) {
             spectrumDBcopy = new double[analyzerParam.fftLen/2+1];
@@ -202,42 +162,24 @@ public class SamplingLoop extends Thread {
         RecorderMonitor recorderMonitor = new RecorderMonitor(analyzerParam.sampleRate, bufferSampleSize, "SamplingLoop::run()");
         recorderMonitor.start();
 
-//      FPSCounter fpsCounter = new FPSCounter("SamplingLoop::run()");
-
-        // Start recording
         try {
             record.startRecording();
         } catch (IllegalStateException e) {
             Log.e(TAG, "Fail to start recording.");
-//            activity.analyzerViews.notifyToast("Fail to start recording.");
             return;
         }
 
-        int counter = 0;
         // Main loop
         // When running in this loop (including when paused), you can not change properties
         // related to recorder: e.g. audioSourceId, sampleRate, bufferSampleSize
         // TODO: allow change of FFT length on the fly.
         while (isRunning) {
-            // Read data
             numOfReadShort = record.read(audioSamples, 0, readChunkSize);   // pulling
-
-//            if ( recorderMonitor.updateState(numOfReadShort) ) {  // performed a check
-//                if (recorderMonitor.getLastCheckOverrun())
-//                    activity.analyzerViews.notifyOverrun();
-//            }
-            if (isPaused1) {
-//          fpsCounter.inc();
-                // keep reading data, for overrun checker and for write wav data
-                continue;
-            }
 
             stft.feedData(audioSamples, numOfReadShort);
 
-            // If there is new spectrum data, do plot
             if (stft.nElemSpectrumAmp() >= analyzerParam.nFFTAverage) {
 
-//                Log.d("Time", "counter " + counter++ + " time: " + System.currentTimeMillis());
                 stft.calculatePeak();
 
                 record.read(byteAudioSamples, 0, readChunkSize);
@@ -252,20 +194,6 @@ public class SamplingLoop extends Thread {
 
     public interface SoundAnalyzerCallback {
         void onSoundDataReceived(double frequency, double db, byte [] spectrogram);
-    }
-
-    void setAWeighting(boolean isAWeighting) {
-        if (stft != null) {
-            stft.setAWeighting(isAWeighting);
-        }
-    }
-
-    void setPause(boolean pause) {
-        this.isPaused1 = pause;
-    }
-
-    boolean getPause() {
-        return this.isPaused1;
     }
 
     public void finish() {
