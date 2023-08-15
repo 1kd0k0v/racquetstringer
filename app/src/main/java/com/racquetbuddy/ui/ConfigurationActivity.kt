@@ -1,7 +1,7 @@
 package com.racquetbuddy.ui
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.racquetbuddy.racquetstringer.R
 
 class ConfigurationActivity : AppCompatActivity() {

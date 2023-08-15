@@ -2,8 +2,8 @@ package com.racquetbuddy.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v14.preference.SwitchPreference
-import android.support.v7.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
+import androidx.preference.PreferenceFragmentCompat
 import android.view.View
 import com.racquetbuddy.racquetstringer.BuildConfig
 import com.racquetbuddy.racquetstringer.R

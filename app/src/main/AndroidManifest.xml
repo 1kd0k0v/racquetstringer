@@ -12,8 +12,8 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.racquetbuddy.ui.ConfigurationActivity"/>
         <activity
+            android:exported="true"
             android:name="com.racquetbuddy.ui.MainActivity"
-            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
