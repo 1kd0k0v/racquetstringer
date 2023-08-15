@@ -84,8 +84,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        outState?.putInt("currentItem", viewPagerMain.currentItem)
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        outState.putInt("currentItem", viewPagerMain.currentItem)
         super.onSaveInstanceState(outState, outPersistentState)
     }
 }

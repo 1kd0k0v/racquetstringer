@@ -22,10 +22,10 @@ import com.racquetbuddy.utils.SharedPrefsUtils
  */
 class HeadSizeDialogFragment : DialogFragment() {
 
-    private val MIN_IMPERIAL = 80
-    private val MAX_IMPERIAL = 125
-    private val MIN_METRIC = 520
-    private val MAX_METRIC = 810
+    private val MIN_IMPERIAL = 80.0
+    private val MAX_IMPERIAL = 125.0
+    private val MIN_METRIC = 520.0
+    private val MAX_METRIC = 810.0
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
