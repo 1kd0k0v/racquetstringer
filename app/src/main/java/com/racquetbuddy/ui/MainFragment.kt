@@ -53,7 +53,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
                 currentHz = hz
             }
         })
-        samplingManager.startSampling(activity!!, wv_layout)
+        samplingManager.startSampling(requireActivity(), wv_layout)
     }
 
     val clearDisplayTensionRunnable = Runnable {
@@ -64,11 +64,11 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private fun displayTension(hz: Float) {
         if (activity == null) return
 
-        tv_personal_mode_units.text = UnitUtils.getUnits(activity!!)
+        tv_personal_mode_units.text = UnitUtils.getUnits(requireActivity())
 
-        val tension = RacquetTensionUtils.calculateStringTension(hz, context!!)
+        val tension = RacquetTensionUtils.calculateStringTension(hz, requireContext())
 
-        tv_display_tension.text = RacquetTensionUtils.getDisplayTension(tension, context!!)
+        tv_display_tension.text = RacquetTensionUtils.getDisplayTension(tension, requireContext())
     }
 
     override fun refreshViews() {
@@ -89,7 +89,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         refreshFrame()
         refreshStringersStyle()
 
-        if (SharedPrefsUtils.isStringHybrid(context!!)) {
+        if (SharedPrefsUtils.isStringHybrid(requireContext())) {
             cl_cross_string.visibility = View.VISIBLE
         } else {
             cl_cross_string.visibility = View.GONE
@@ -97,19 +97,19 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshStringersStyle() {
-        tv_value_stringers_style.text = StringDataArrayUtils.stringingTypeArrayList[SharedPrefsUtils.getStringersStyle(context!!)].name
+        tv_value_stringers_style.text = StringDataArrayUtils.stringingTypeArrayList[SharedPrefsUtils.getStringersStyle(requireContext())].name
     }
 
     private fun refreshFrame() {
-        tv_value_string_opening_size.text = StringDataArrayUtils.stringOpeningSizeArrayList[SharedPrefsUtils.getFrame(context!!)].shortName
+        tv_value_string_opening_size.text = StringDataArrayUtils.stringOpeningSizeArrayList[SharedPrefsUtils.getFrame(requireContext())].shortName
     }
 
     private fun refreshStringPattern() {
-        tv_value_string_pattern.text = StringDataArrayUtils.stringPatternArrayList[SharedPrefsUtils.getStringPattern(context!!)].name
+        tv_value_string_pattern.text = StringDataArrayUtils.stringPatternArrayList[SharedPrefsUtils.getStringPattern(requireContext())].name
     }
 
     private fun refreshLabels() {
-        if (SharedPrefsUtils.isStringHybrid(context!!)) {
+        if (SharedPrefsUtils.isStringHybrid(requireContext())) {
             tv_label_string_type.text = getString(R.string.main_type)
             tv_string_thickness_label.text = getString(R.string.main_thickness)
         } else {
@@ -119,142 +119,142 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     }
 
     private fun refreshStringType() {
-        tv_value_string_type?.text = getString(StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(activity!!)].shortName)
+        tv_value_string_type?.text = getString(StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(requireActivity())].shortName)
     }
 
     private fun refreshStringDiameterView() {
         tv_string_thickness_value?.text = getString(R.string.value_space_unit,
-                SharedPrefsUtils.getStringsThickness(activity!!).toString(),
+                SharedPrefsUtils.getStringsThickness(requireActivity()).toString(),
                 getString(R.string.mm))
     }
 
     private fun refreshCrossStringType() {
-        tv_value_cross_string_type?.text = getString(StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(activity!!)].shortName)
+        tv_value_cross_string_type?.text = getString(StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(requireActivity())].shortName)
     }
 
     private fun refreshCrossStringThicknessView() {
         tv_value_cross_string_thickness?.text = getString(R.string.value_space_unit,
-                SharedPrefsUtils.getCrossStringsThickness(activity!!).toString(),
+                SharedPrefsUtils.getCrossStringsThickness(requireActivity()).toString(),
                 getString(R.string.mm))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.RECORD_AUDIO)
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), RECORD_AUDIO_CODE)
         } else {
-            samplingManager.startSampling(activity!!, wv_layout)
+            samplingManager.startSampling(requireActivity(), wv_layout)
         }
 
         cl_head_size.setOnClickListener {
             val dialog = HeadSizeDialogFragment()
             dialog.setTargetFragment(this, 0)
-            dialog.show(fragmentManager, HEAD_SIZE_DIALOG_TAG)
+            fragmentManager?.let { it1 -> dialog.show(it1, HEAD_SIZE_DIALOG_TAG) }
         }
 
         cl_string_thickness.setOnClickListener {
             val dialog =
-                    StringThicknessDialogFragment.newInstance(SharedPrefsUtils.getStringsThickness(activity!!),
+                    StringThicknessDialogFragment.newInstance(SharedPrefsUtils.getStringsThickness(requireActivity()),
                             object : StringThicknessChangeListener{
                                 override fun setStringThickness(thickness: Float) {
-                                    SharedPrefsUtils.setStringsThickness(activity!!, thickness)
+                                    SharedPrefsUtils.setStringsThickness(requireActivity(), thickness)
                                     refreshViews()
                                 }
                             })
             dialog.setTargetFragment(this, 0)
-            dialog.show(fragmentManager, STRINGS_DIAMETER_DIALOG_TAG)
+            fragmentManager?.let { it1 -> dialog.show(it1, STRINGS_DIAMETER_DIALOG_TAG) }
         }
 
         cl_string_type.setOnClickListener {
             val dialog =
                     StringTypeDialogFragment.newInstance(
-                            SharedPrefsUtils.getStringType(activity!!),
+                            SharedPrefsUtils.getStringType(requireActivity()),
                             object : OnStringTypeChangeListener {
                                 override fun onStringTypeChange(stringType: Int) {
-                                    SharedPrefsUtils.setStringType(activity!!, stringType)
+                                    SharedPrefsUtils.setStringType(requireActivity(), stringType)
                                     refreshViews()
                                 }
                             })
             dialog.setTargetFragment(this, 0)
-            dialog.show(fragmentManager, STRING_TYPE_DIALOG_TAG)
+            fragmentManager?.let { it1 -> dialog.show(it1, STRING_TYPE_DIALOG_TAG) }
         }
 
         cl_cross_string_type.setOnClickListener {
             val dialog =
                     StringTypeDialogFragment.newInstance(
-                            SharedPrefsUtils.getCrossStringType(activity!!),
+                            SharedPrefsUtils.getCrossStringType(requireActivity()),
                             object : OnStringTypeChangeListener {
                                 override fun onStringTypeChange(stringType: Int) {
-                                    SharedPrefsUtils.setCrossStringType(activity!!, stringType)
+                                    SharedPrefsUtils.setCrossStringType(requireActivity(), stringType)
                                     refreshViews()
                                 }
                             })
             dialog.setTargetFragment(this, 0)
-            dialog.show(fragmentManager, STRING_TYPE_DIALOG_TAG)
+            fragmentManager?.let { it1 -> dialog.show(it1, STRING_TYPE_DIALOG_TAG) }
         }
 
         cl_cross_string_thickness.setOnClickListener {
             val dialog =
-                    StringThicknessDialogFragment.newInstance(SharedPrefsUtils.getCrossStringsThickness(activity!!),
+                    StringThicknessDialogFragment.newInstance(SharedPrefsUtils.getCrossStringsThickness(requireActivity()),
                             object : StringThicknessChangeListener{
                                 override fun setStringThickness(thickness: Float) {
-                                    SharedPrefsUtils.setCrossStringsThickness(activity!!, thickness)
+                                    SharedPrefsUtils.setCrossStringsThickness(requireActivity(), thickness)
                                     refreshViews()
                                 }
                             })
             dialog.setTargetFragment(this, 0)
-            dialog.show(fragmentManager, STRINGS_DIAMETER_DIALOG_TAG)
+            fragmentManager?.let { it1 -> dialog.show(it1, STRINGS_DIAMETER_DIALOG_TAG) }
         }
 
         cl_string_pattern.setOnClickListener {
             val dialog =
                     StringPatternDialogFragment.newInstance(
-                            SharedPrefsUtils.getStringPattern(activity!!),
+                            SharedPrefsUtils.getStringPattern(requireActivity()),
                             object : OnStringPatternChangeListener {
                                 override fun onChange(stringPattern: Int) {
-                                    SharedPrefsUtils.setStringPattern(activity!!, stringPattern)
+                                    SharedPrefsUtils.setStringPattern(requireActivity(), stringPattern)
                                     refreshViews()
                                 }
                             }
                     )
             dialog.setTargetFragment(this, 0)
-            dialog.show(fragmentManager, "STRING_PATTERN")
+            fragmentManager?.let { it1 -> dialog.show(it1, "STRING_PATTERN") }
         }
 
         cl_string_opening_size.setOnClickListener {
             val dialog =
                     StringOpeningSizeDialogFragment.newInstance(
-                            SharedPrefsUtils.getFrame(activity!!),
+                            SharedPrefsUtils.getFrame(requireActivity()),
                             object : OnChangeListener {
                                 override fun onChange(newValue: Int) {
-                                    SharedPrefsUtils.setStringOpeningSize(activity!!, newValue)
+                                    SharedPrefsUtils.setStringOpeningSize(requireActivity(), newValue)
                                     refreshViews()
                                 }
                             }
                     )
             dialog.setTargetFragment(this, 0)
-            dialog.show(fragmentManager, "STRING_OPENING_SIZE")
+            fragmentManager?.let { it1 -> dialog.show(it1, "STRING_OPENING_SIZE") }
         }
 
         cl_stringers_style.setOnClickListener {
             val dialog =
                     StringersStyleDialogFragment.newInstance(
-                            SharedPrefsUtils.getStringersStyle(activity!!),
+                            SharedPrefsUtils.getStringersStyle(requireActivity()),
                             object : OnStringersStyleChangeListener {
                                 override fun onChange(stringersStyle: Int) {
-                                    SharedPrefsUtils.setStringersStyle(activity!!, stringersStyle)
+                                    SharedPrefsUtils.setStringersStyle(requireActivity(), stringersStyle)
                                     refreshViews()
                                 }
                             }
                     )
             dialog.setTargetFragment(this, 0)
-            dialog.show(fragmentManager, "STRINGER_STYLE")
+            fragmentManager?.let { it1 -> dialog.show(it1, "STRINGER_STYLE") }
         }
 
         // if first time
-        if (SharedPrefsUtils.isFirstRun(activity!!)) {
+        if (SharedPrefsUtils.isFirstRun(requireActivity())) {
             showInstructionsDialog()
         }
 
@@ -264,13 +264,13 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private fun showInstructionsDialog() {
         val dialog = InstructionsDialogFragment()
         dialog.setTargetFragment(this, 0)
-        dialog.show(fragmentManager, INSTRUCTIONS_DIALOG_FRAGMENT_TAG)
+        fragmentManager?.let { dialog.show(it, INSTRUCTIONS_DIALOG_FRAGMENT_TAG) }
     }
 
     private fun refreshCalibrated() {
         tv_calibration?.setTypeface(null, Typeface.BOLD)
 
-        if (SharedPrefsUtils.isCalibrated(activity!!) && SharedPrefsUtils.getTensionAdjustment(activity!!) != 0f) {
+        if (SharedPrefsUtils.isCalibrated(requireActivity()) && SharedPrefsUtils.getTensionAdjustment(requireActivity()) != 0f) {
             tv_calibration.visibility = View.VISIBLE
         } else {
             tv_calibration.visibility = View.GONE
@@ -279,8 +279,8 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
 
     private fun refreshHeadSizeView() {
         if (activity != null) {
-            val headSize = SharedPrefsUtils.getRacquetHeadSize(activity!!)
-            if (SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
+            val headSize = SharedPrefsUtils.getRacquetHeadSize(requireActivity())
+            if (SharedPrefsUtils.isHeadImperialUnits(requireActivity())) {
                 tv_value_head_size.text = getString(R.string.value_space_unit,
                         NumberFormatUtils.round(headSize),
                         getString(R.string.square_inch))
@@ -296,9 +296,9 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         when (requestCode) {
             RECORD_AUDIO_CODE -> {
                 if (PackageManager.PERMISSION_GRANTED == grantResults.firstOrNull()) {
-                    samplingManager.startSampling(activity!!, wv_layout)
+                    samplingManager.startSampling(requireActivity(), wv_layout)
                 } else {
-                    PermissionDialog().show(fragmentManager, PERMISSIONS_DIALOG_FRAGMENT_TAG)
+                    fragmentManager?.let { PermissionDialog().show(it, PERMISSIONS_DIALOG_FRAGMENT_TAG) }
                 }
                 return
             }

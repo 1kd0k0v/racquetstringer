@@ -48,7 +48,7 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 
         setHasOptionsMenu(true)
 
-        currentCalibration = SharedPrefsUtils.getTensionAdjustment(activity!!)
+        currentCalibration = SharedPrefsUtils.getTensionAdjustment(requireActivity())
 
         samplingManager.addFrequencyListener(object : SamplingManager.FrequencyListener {
             override fun getFrequency(hz: Float) {
@@ -61,7 +61,7 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
         calibrationButton.setOnClickListener {
             val dialog = CalibrateDialogFragment.newInstance(getTension())
             dialog.setTargetFragment(this, 0)
-            dialog.show(fragmentManager, ADJUST_DIALOG_TAG)
+            fragmentManager?.let { it1 -> dialog.show(it1, ADJUST_DIALOG_TAG) }
         }
 
         initModeRadioGroup()
@@ -139,14 +139,14 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
                 R.id.personalRadioButton -> {
                     isPersonalModeSelected = true
                     enableCalibrationLayout()
-                    SharedPrefsUtils.setTensionAdjustment(activity!!, currentCalibration)
-                    SharedPrefsUtils.setCalibrated(activity!!, true)
+                    SharedPrefsUtils.setTensionAdjustment(requireActivity(), currentCalibration)
+                    SharedPrefsUtils.setCalibrated(requireActivity(), true)
                 }
 
                 R.id.factoryRadioButton -> {
                     isPersonalModeSelected = false
                     disableCalibrationLayout()
-                    SharedPrefsUtils.setCalibrated(activity!!, false)
+                    SharedPrefsUtils.setCalibrated(requireActivity(), false)
                 }
             }
         }
@@ -162,7 +162,7 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
 
     private fun refreshCalibrationViews() {
         val calibration = currentCalibration
-        val units = if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) getString(R.string.tension_lb) else getString(R.string.tension_kg)
+        val units = if (SharedPrefsUtils.isTensoinImperialUnits(requireActivity())) getString(R.string.tension_lb) else getString(R.string.tension_kg)
         when {
             calibration == 0f -> tv_calibration.text = ""
             calibration > 0f -> tv_calibration.text = getString(R.string.current_adjustment,"+", NumberFormatUtils.format(calibration), units)
@@ -179,23 +179,23 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
             if (resultCode == CalibrateDialogFragment.RESULT_CODE_OK) {
                 val adjustment = data?.getFloatExtra(CalibrateDialogFragment.ADJUSTMENT_EXTRA, 0f) ?: 0f
                 currentCalibration = adjustment
-                SharedPrefsUtils.setTensionAdjustment(activity!!, currentCalibration)
-                SharedPrefsUtils.setCalibrated(activity!!, true)
+                SharedPrefsUtils.setTensionAdjustment(requireActivity(), currentCalibration)
+                SharedPrefsUtils.setCalibrated(requireActivity(), true)
             }
         }
     }
 
     private fun isImperial(): Boolean {
-        return SharedPrefsUtils.isTensoinImperialUnits(activity!!)
+        return SharedPrefsUtils.isTensoinImperialUnits(requireActivity())
     }
 
     private fun isCalibrated(): Boolean {
-        return SharedPrefsUtils.isCalibrated(activity!!)
+        return SharedPrefsUtils.isCalibrated(requireActivity())
     }
 
     override fun onResume() {
         super.onResume()
-        samplingManager.startSampling(activity!!, visualizerFrameLayout2)
+        samplingManager.startSampling(requireActivity(), visualizerFrameLayout2)
     }
 
     override fun onPause() {
@@ -206,7 +206,7 @@ class CalibrationFragment : Fragment(), OnRefreshViewsListener {
     private fun showInstructionsDialog() {
         val dialog = CalibrationInstructionsDialogFragment()
         dialog.setTargetFragment(this, 0)
-        dialog.show(fragmentManager, INSTRUCTIONS_DIALOG_FRAGMENT_TAG)
+        fragmentManager?.let { dialog.show(it, INSTRUCTIONS_DIALOG_FRAGMENT_TAG) }
     }
 
 }
