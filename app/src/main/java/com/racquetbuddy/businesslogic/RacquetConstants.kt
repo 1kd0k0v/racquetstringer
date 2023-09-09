@@ -1,8 +1,5 @@
 package com.racquetbuddy.businesslogic
 
-/**
- * Created by musashiwarrior on 15-Oct-18.
- */
 object RacquetConstants {
     const val S = 100.0
     const val D = 1.25f

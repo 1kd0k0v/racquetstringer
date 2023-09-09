@@ -6,14 +6,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.appcompat.app.AlertDialog
 import com.racquetbuddy.racquetstringer.R
 
-/**
- * Created by musashiwarrior on 15-Oct-18.
- */
 class CalibrationInstructionsDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        return AlertDialog.Builder(activity!!)
+        return AlertDialog.Builder(requireActivity())
             .setMessage(R.string.calibration_instructions_body).setTitle(R.string.calibration_instructions_title)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->

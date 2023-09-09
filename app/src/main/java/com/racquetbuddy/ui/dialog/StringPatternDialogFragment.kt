@@ -12,9 +12,6 @@ import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.utils.StringDataArrayUtils
 
 
-/**
- * Created by musashiwarrior on 15-Oct-18.
- */
 class StringPatternDialogFragment : DialogFragment() {
 
     private var onStringTypeChangeListener: OnStringPatternChangeListener? = null

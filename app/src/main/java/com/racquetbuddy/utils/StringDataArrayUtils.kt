@@ -2,9 +2,6 @@ package com.racquetbuddy.utils
 
 import com.racquetbuddy.racquetstringer.R
 
-/**
- * Created by musashiwarrior on 31-Oct-18.
- */
 object StringDataArrayUtils {
 
     const val STRING_TYPE_DEFAULT = 1

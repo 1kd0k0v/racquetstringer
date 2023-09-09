@@ -11,10 +11,6 @@ import android.widget.RadioGroup
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.utils.StringDataArrayUtils
 
-
-/**
- * Created by musashiwarrior on 15-Oct-18.
- */
 class StringersStyleDialogFragment : DialogFragment() {
 
     private var onStringersStyleChangeListener: OnStringersStyleChangeListener? = null

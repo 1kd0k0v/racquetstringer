@@ -8,9 +8,6 @@ import com.racquetbuddy.utils.StringDataArrayUtils.STRING_OPENING_SIZE_DEFAULT
 import com.racquetbuddy.utils.StringDataArrayUtils.STRING_PATTERN_DEFAULT
 import com.racquetbuddy.utils.StringDataArrayUtils.STRING_TYPE_DEFAULT
 
-/**
- * Created by musashiwarrior on 14-Oct-18.
- */
 object SharedPrefsUtils {
 
     private const val SHARED_PREFS_UTILS = "SHARED_PREFS_UTILS"

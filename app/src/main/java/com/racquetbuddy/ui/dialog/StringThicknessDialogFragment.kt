@@ -10,9 +10,6 @@ import android.widget.EditText
 import android.widget.TextView
 import com.racquetbuddy.racquetstringer.R
 
-/**
- * Created by musashiwarrior on 15-Oct-18.
- */
 class StringThicknessDialogFragment : DialogFragment() {
 
     private var listener: StringThicknessChangeListener? = null

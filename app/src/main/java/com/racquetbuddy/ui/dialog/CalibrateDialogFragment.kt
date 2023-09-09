@@ -14,9 +14,6 @@ import com.racquetbuddy.ui.OnRefreshViewsListener
 import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.UnitUtils
 
-/**
- * Created by musashiwarrior on 15-Oct-18.
- */
 class CalibrateDialogFragment : DialogFragment() {
 
     private var defaultMeasurment: Float = 0f

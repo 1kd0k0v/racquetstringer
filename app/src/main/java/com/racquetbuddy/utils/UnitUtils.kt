@@ -4,9 +4,6 @@ import android.app.Activity
 import com.racquetbuddy.racquetstringer.R
 import java.math.BigDecimal
 
-/**
- * Created by musashiwarrior on 14-Oct-18.
- */
 object UnitUtils {
     fun kiloToPound(kilo: Double): Number {
         return BigDecimal(kilo).times(BigDecimal(2.20462262))

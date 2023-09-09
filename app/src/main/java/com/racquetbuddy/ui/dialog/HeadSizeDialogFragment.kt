@@ -17,9 +17,6 @@ import com.racquetbuddy.ui.OnRefreshViewsListener
 import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
 
-/**
- * Created by musashiwarrior on 15-Oct-18.
- */
 class HeadSizeDialogFragment : DialogFragment() {
 
     private val MIN_IMPERIAL = 80.0

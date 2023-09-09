@@ -4,8 +4,6 @@ import android.content.Context
 import com.racquetbuddy.businesslogic.RacquetConstants.CF
 
 /**
- * Created by musashiwarrior on 13-Oct-18.
- *
  * Use metric system for calculations
  *
  * Formulas to calculate tension of the string:

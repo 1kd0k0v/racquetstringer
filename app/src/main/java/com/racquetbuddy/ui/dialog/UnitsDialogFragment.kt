@@ -10,9 +10,6 @@ import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.OnRefreshViewsListener
 import com.racquetbuddy.utils.SharedPrefsUtils
 
-/**
- * Created by musashiwarrior on 15-Oct-18.
- */
 class UnitsDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

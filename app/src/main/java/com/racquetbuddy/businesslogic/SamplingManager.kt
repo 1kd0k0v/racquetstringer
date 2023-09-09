@@ -7,9 +7,6 @@ import com.racquetbuddy.audioanalyzer.SamplingLoop.SoundAnalyzerCallback
 import com.racquetbuddy.utils.SharedPrefsUtils
 import java.util.concurrent.ArrayBlockingQueue
 
-/**
- * Created by musashiwarrior on 24-Oct-18.
- */
 class SamplingManager private constructor(){
 
     private val samplingThreads = ArrayList<Thread>()

@@ -6,9 +6,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.appcompat.app.AlertDialog
 import com.racquetbuddy.racquetstringer.R
 
-/**
- * Created by musashiwarrior on 15-Oct-18.
- */
 class InstructionsDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
