@@ -7,11 +7,10 @@
     <color name="light_blue_bottom">#265194</color>
     <color name="light_green_circle">#2BBB67</color>
     <color name="pause_background_color">#3F2BBB67</color>
-    <color name="background_dark">#2a3652</color>
-    <color name="background_light">#3f4a6d</color>
-    <color name="tab_indicator">#c17ad3</color>
-    <color name="white">@android:color/white</color>
-    <color name="secondaryTextColor">#bbffffff</color>
-    <color name="headStartGradient">#947fee</color>
-    <color name="headEndGradient">#f74a8e</color>
+    <color name="background_dark">#FFFFFF</color>
+    <color name="background_light">#FFFFFF</color>
+    <color name="tab_indicator">#3F51B5</color>
+    <color name="secondaryTextColor">#BB000000</color>
+    <color name="headStartGradient">@color/colorAccent</color>
+    <color name="headEndGradient">@color/colorAccent</color>
 </resources>

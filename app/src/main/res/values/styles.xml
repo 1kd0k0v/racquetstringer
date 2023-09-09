@@ -7,55 +7,55 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@drawable/background_gradient</item>
-        <item name="android:textColor">@android:color/white</item>
+<!--        <item name="android:textColor">@android:color/white</item>-->
         <item name="android:textColorSecondary">@color/secondaryTextColor</item>
-        <item name="alertDialogTheme">@style/MyDialogTheme</item>
+<!--        <item name="alertDialogTheme">@style/MyDialogTheme</item>-->
 
-        <!-- Radio buttons -->
-        <item name="android:radioButtonStyle">@style/DarkRadioButtonCheckbox</item>
-        <item name="checkboxStyle">@style/DarkRadioButtonCheckbox</item>
-        <item name="android:checkboxStyle">@style/DarkRadioButtonCheckbox</item>
-        <item name="android:checkBoxPreferenceStyle">@style/DarkRadioButtonCheckbox</item>
+<!--        &lt;!&ndash; Radio buttons &ndash;&gt;-->
+<!--        <item name="android:radioButtonStyle">@style/DarkRadioButtonCheckbox</item>-->
+<!--        <item name="checkboxStyle">@style/DarkRadioButtonCheckbox</item>-->
+<!--        <item name="android:checkboxStyle">@style/DarkRadioButtonCheckbox</item>-->
+<!--        <item name="android:checkBoxPreferenceStyle">@style/DarkRadioButtonCheckbox</item>-->
 
-        <!-- drop down -->
-        <item name="spinnerDropDownItemStyle">@style/DropDown</item>
+<!--        &lt;!&ndash; drop down &ndash;&gt;-->
+<!--        <item name="spinnerDropDownItemStyle">@style/DropDown</item>-->
 
         <!-- action bar -->
         <item name="toolbarStyle">@style/ActionBar</item>
 
         <!-- edit text -->
-        <item name="editTextStyle">@style/EditTextDark</item>
+<!--        <item name="editTextStyle">@style/EditTextDark</item>-->
     </style>
 
     <style name="ActionBar" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">@color/background_light</item>
     </style>
 
-    <style name="DropDown" parent="Widget.AppCompat.DropDownItem.Spinner">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:background">@color/background_dark</item>
-    </style>
+<!--    <style name="DropDown" parent="Widget.AppCompat.DropDownItem.Spinner">-->
+<!--        <item name="android:textColor">@color/white</item>-->
+<!--        <item name="android:background">@color/background_dark</item>-->
+<!--    </style>-->
 
-    <style name="DarkRadioButtonCheckbox" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
-        <item name="android:buttonTint">@color/white</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:buttonTintMode">src_in</item>
-    </style>
+<!--    <style name="DarkRadioButtonCheckbox" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">-->
+<!--        <item name="android:buttonTint">@color/white</item>-->
+<!--        <item name="android:textColor">@color/white</item>-->
+<!--        <item name="android:buttonTintMode">src_in</item>-->
+<!--    </style>-->
 
-    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">@color/background_dark</item>
-        <item name="android:colorAccent">@android:color/white</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
-    </style>
+<!--    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">-->
+<!--        <item name="android:background">@color/background_dark</item>-->
+<!--        <item name="android:colorAccent">@android:color/white</item>-->
+<!--        <item name="android:textColor">@android:color/white</item>-->
+<!--        <item name="android:textColorPrimary">@android:color/white</item>-->
+<!--    </style>-->
 
-    <style name="EditTextDark" parent="Widget.AppCompat.EditText">
-        <item name="android:colorAccent">@android:color/white</item>
-        <item name="android:textColorHint">@color/secondaryTextColor</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:backgroundTint">@color/tab_indicator</item>
-    </style>
+<!--    <style name="EditTextDark" parent="Widget.AppCompat.EditText">-->
+<!--        <item name="android:colorAccent">@android:color/white</item>-->
+<!--        <item name="android:textColorHint">@color/secondaryTextColor</item>-->
+<!--        <item name="android:textColor">@android:color/white</item>-->
+<!--        <item name="android:textColorPrimary">@android:color/white</item>-->
+<!--        <item name="android:backgroundTint">@color/tab_indicator</item>-->
+<!--    </style>-->
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

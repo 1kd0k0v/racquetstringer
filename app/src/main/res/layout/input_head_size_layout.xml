@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent" >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiet_head_size"
-            style="@style/EditTextDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
