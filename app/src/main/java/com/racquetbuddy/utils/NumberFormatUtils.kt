@@ -11,12 +11,6 @@ object NumberFormatUtils {
         return decimalFormat.format(number)
     }
 
-    fun formatOneDigit(number: Number): String {
-        val decimalFormat = java.text.DecimalFormat("0.0")
-        decimalFormat.roundingMode = java.math.RoundingMode.CEILING
-        return decimalFormat.format(number)
-    }
-
     fun round(number: Number): String {
         val decimalFormat = java.text.DecimalFormat("#")
         decimalFormat.roundingMode = java.math.RoundingMode.CEILING

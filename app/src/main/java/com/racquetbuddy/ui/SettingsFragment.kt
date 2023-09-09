@@ -15,13 +15,10 @@ import com.racquetbuddy.utils.StringDataArrayUtils
 
 class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
 
-    private val CHOOSE_MODE_CODE = 0
-
     override fun refreshViews() {
         initHeadSizePreference()
         initStringTypeSwitchPreference()
         initUnits()
-        initMode()
         initStringsThicknessPreference()
         initStringTypePreference()
         initHybridStringPreferences()
@@ -124,14 +121,6 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         feedback?.setOnPreferenceClickListener {
             sendFeedback()
         }
-
-        val instructions = findPreference("pref_key_instructions") as Preference?
-        instructions?.setOnPreferenceClickListener {
-            val dialog = InstructionsDialogFragment()
-            dialog.setTargetFragment(this, 0)
-            fragmentManager?.let { it1 -> dialog.show(it1, "INSTRUCTIONS_TYPE") }
-            return@setOnPreferenceClickListener true
-        }
     }
 
     private fun initStringTypeSwitchPreference() {
@@ -154,23 +143,6 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         emailIntent.putExtra(Intent.EXTRA_TEXT, "")
         startActivity(Intent.createChooser(emailIntent, "Send Feedback:"))
         return true
-    }
-
-    private fun initMode() {
-        val calibration = findPreference("pref_key_own_calibration") as Preference?
-        if (calibration != null) {
-            if (SharedPrefsUtils.isCalibrated(requireActivity())) {
-                calibration.summary = getString(R.string.on)
-            } else {
-                calibration.summary = getString(R.string.off)
-            }
-
-            calibration.setOnPreferenceClickListener {
-                startActivityForResult(Intent(context, CalibrationActivity::class.java), CHOOSE_MODE_CODE)
-                return@setOnPreferenceClickListener true
-            }
-        }
-
     }
 
     private fun shareTheApp() {

@@ -2,7 +2,6 @@ package com.racquetbuddy.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
@@ -23,7 +22,6 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
     private val HEAD_SIZE_DIALOG_TAG = "HEAD_SIZE_DIALOG_TAG"
     private val STRINGS_DIAMETER_DIALOG_TAG = "STRINGS_DIAMETER_DIALOG_TAG"
     private val STRING_TYPE_DIALOG_TAG = "STRING_TYPE_DIALOG_TAG"
-    private val INSTRUCTIONS_DIALOG_FRAGMENT_TAG = "INSTRUCTIONS_DIALOG_FRAGMENT_TAG"
     private val PERMISSIONS_DIALOG_FRAGMENT_TAG = "PERMISSIONS_DIALOG_FRAGMENT_TAG"
 
     private var currentHz: Float = 0f
@@ -78,7 +76,6 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
         refreshHeadSizeView()
         refreshStringDiameterView()
         refreshStringType()
-        refreshCalibrated()
 
         refreshCrossStringType()
         refreshCrossStringThicknessView()
@@ -253,28 +250,7 @@ class MainFragment : Fragment(), OnRefreshViewsListener {
             fragmentManager?.let { it1 -> dialog.show(it1, "STRINGER_STYLE") }
         }
 
-        // if first time
-        if (SharedPrefsUtils.isFirstRun(requireActivity())) {
-            showInstructionsDialog()
-        }
-
         refreshViews()
-    }
-
-    private fun showInstructionsDialog() {
-        val dialog = InstructionsDialogFragment()
-        dialog.setTargetFragment(this, 0)
-        fragmentManager?.let { dialog.show(it, INSTRUCTIONS_DIALOG_FRAGMENT_TAG) }
-    }
-
-    private fun refreshCalibrated() {
-        tv_calibration?.setTypeface(null, Typeface.BOLD)
-
-        if (SharedPrefsUtils.isCalibrated(requireActivity()) && SharedPrefsUtils.getTensionAdjustment(requireActivity()) != 0f) {
-            tv_calibration.visibility = View.VISIBLE
-        } else {
-            tv_calibration.visibility = View.GONE
-        }
     }
 
     private fun refreshHeadSizeView() {

@@ -22,14 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.racquetbuddy.ui.CalibrationActivity"
-            android:label="@string/calibration"
-            android:parentActivityName="com.racquetbuddy.ui.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.racquetbuddy.ui.MainActivity" />
-        </activity>
     </application>
 
 </manifest>

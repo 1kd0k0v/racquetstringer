@@ -32,20 +32,20 @@ class MainActivity : AppCompatActivity() {
             viewPagerMain.currentItem = savedInstanceState.getInt("currentItem", 0)
         }
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        if (resultCode == Activity.RESULT_OK) {
-            val haveToReturnToSettings = data?.getIntExtra(CalibrationActivity.RETURN_TO_SETTINGS, 0) == CalibrationActivity.RETURN_TO_SETTINGS_RESULT
-
-            if (haveToReturnToSettings) {
-                viewPagerMain.currentItem = 1
-                ((adapter as FragmentStatePagerAdapter).getItem(1) as OnRefreshViewsListener).refreshViews()
-            }
-        }
-
-        super.onActivityResult(requestCode, resultCode, data)
-    }
+//
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//
+//        if (resultCode == Activity.RESULT_OK) {
+//            val haveToReturnToSettings = data?.getIntExtra(CalibrationActivity.RETURN_TO_SETTINGS, 0) == CalibrationActivity.RETURN_TO_SETTINGS_RESULT
+//
+//            if (haveToReturnToSettings) {
+//                viewPagerMain.currentItem = 1
+//                ((adapter as FragmentStatePagerAdapter).getItem(1) as OnRefreshViewsListener).refreshViews()
+//            }
+//        }
+//
+//        super.onActivityResult(requestCode, resultCode, data)
+//    }
 
     class MainPagerAdapter(val context: Context, fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
