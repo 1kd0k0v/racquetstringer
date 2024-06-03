@@ -59,7 +59,7 @@ class StringersStyleDialogFragment : DialogFragment() {
         radioGroup?.setOnCheckedChangeListener { _, id ->
             selected = id}
 
-        return AlertDialog.Builder(activity!!)
+        return AlertDialog.Builder(requireActivity())
                 .setView(root).setMessage(R.string.dialog_title_stringing_type)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->

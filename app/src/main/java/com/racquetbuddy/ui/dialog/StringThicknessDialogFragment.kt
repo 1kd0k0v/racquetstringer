@@ -45,7 +45,7 @@ class StringThicknessDialogFragment : DialogFragment() {
         stringsDiameterInputFieldDialog?.setSelection(stringsDiameterInputFieldDialog.text.length)
         unitsTextView?.text = getString(R.string.mm)
 
-        return AlertDialog.Builder(activity!!)
+        return AlertDialog.Builder(requireActivity())
                 .setView(root).setMessage(R.string.string_thickness_dialog_title)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->

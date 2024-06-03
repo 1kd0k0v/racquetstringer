@@ -60,7 +60,7 @@ class StringOpeningSizeDialogFragment : DialogFragment() {
         radioGroup?.setOnCheckedChangeListener { _, id ->
             selected = id}
 
-        return AlertDialog.Builder(activity!!)
+        return AlertDialog.Builder(requireActivity())
                 .setView(root).setMessage(R.string.dialog_title_string_opening_size)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->

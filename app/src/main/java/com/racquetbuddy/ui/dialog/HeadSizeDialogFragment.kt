@@ -33,22 +33,22 @@ class HeadSizeDialogFragment : DialogFragment() {
         val unitsSpinner = root.findViewById<Spinner>(R.id.headUnitsSpinner) as Spinner
         val headSizeInputEditText = root.findViewById<EditText>(R.id.tiet_head_size)
 
-        headSizeInputEditText?.setText(NumberFormatUtils.formatNoTrailingZeros(SharedPrefsUtils.getRacquetHeadSize(activity!!)))
+        headSizeInputEditText?.setText(NumberFormatUtils.formatNoTrailingZeros(SharedPrefsUtils.getRacquetHeadSize(requireActivity())))
         headSizeInputEditText?.setSelection(headSizeInputEditText.text.length)
 
-        if (SharedPrefsUtils.isHeadImperialUnits(activity!!)) {
+        if (SharedPrefsUtils.isHeadImperialUnits(requireActivity())) {
             unitsSpinner.setSelection(0)
         } else {
             unitsSpinner.setSelection(1)
         }
 
-        val alert = AlertDialog.Builder(activity!!)
+        val alert = AlertDialog.Builder(requireActivity())
                 .setView(root).setMessage(R.string.dialog_title_head_size)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->
                     val isImperial = isImperial(unitsSpinner)
-                    SharedPrefsUtils.setHeadImperialUnits(activity!!, isImperial)
-                    SharedPrefsUtils.setRacquetHeadSize(activity!!, headSizeInputEditText?.text.toString().toDouble())
+                    SharedPrefsUtils.setHeadImperialUnits(requireActivity(), isImperial)
+                    SharedPrefsUtils.setRacquetHeadSize(requireActivity(), headSizeInputEditText?.text.toString().toDouble())
 
                     if (targetFragment is OnRefreshViewsListener) {
                         (targetFragment as OnRefreshViewsListener).refreshViews()

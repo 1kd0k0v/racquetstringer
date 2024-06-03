@@ -1,17 +1,16 @@
 package com.racquetbuddy.ui
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.appcompat.app.AppCompatActivity
-import android.view.WindowManager
 import com.racquetbuddy.racquetstringer.R
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.tabLayout
+import kotlinx.android.synthetic.main.activity_main.viewPagerMain
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,22 +31,8 @@ class MainActivity : AppCompatActivity() {
             viewPagerMain.currentItem = savedInstanceState.getInt("currentItem", 0)
         }
     }
-//
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//
-//        if (resultCode == Activity.RESULT_OK) {
-//            val haveToReturnToSettings = data?.getIntExtra(CalibrationActivity.RETURN_TO_SETTINGS, 0) == CalibrationActivity.RETURN_TO_SETTINGS_RESULT
-//
-//            if (haveToReturnToSettings) {
-//                viewPagerMain.currentItem = 1
-//                ((adapter as FragmentStatePagerAdapter).getItem(1) as OnRefreshViewsListener).refreshViews()
-//            }
-//        }
-//
-//        super.onActivityResult(requestCode, resultCode, data)
-//    }
 
-    class MainPagerAdapter(val context: Context, fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+    class MainPagerAdapter(context: Context, fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
         private val fragmentHashMap = HashMap<Int, Fragment>()
 

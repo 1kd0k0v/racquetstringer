@@ -27,17 +27,17 @@ class UnitsDialogFragment : DialogFragment() {
             }
         }
 
-        if (SharedPrefsUtils.isTensoinImperialUnits(activity!!)) {
+        if (SharedPrefsUtils.isTensoinImperialUnits(requireActivity())) {
             unitsRadioGroup?.check(R.id.imperialRadioButton)
         } else {
             unitsRadioGroup?.check(R.id.metricRadioButton)
         }
 
-        return AlertDialog.Builder(activity!!)
+        return AlertDialog.Builder(requireActivity())
             .setView(root).setMessage(R.string.choose_units_of_measurement)
                 .setPositiveButton(R.string.ok
                 ) { _, _ ->
-                    SharedPrefsUtils.setTensionImperialUnits(activity!!, isImperialSelected)
+                    SharedPrefsUtils.setTensionImperialUnits(requireActivity(), isImperialSelected)
 
                     if (targetFragment is OnRefreshViewsListener) {
                         (targetFragment as OnRefreshViewsListener).refreshViews()

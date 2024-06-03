@@ -13,7 +13,7 @@ class PermissionDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        return AlertDialog.Builder(activity!!)
+        return AlertDialog.Builder(requireActivity())
             .setTitle(R.string.permission_dialog_title).setMessage(R.string.permission_dialog_message)
                 .setPositiveButton(R.string.yes
                 ) { _, _ ->
