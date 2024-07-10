@@ -2,12 +2,12 @@ package com.racquetbuddy.ui.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
-import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import com.racquetbuddy.racquetstringer.R
 
 class StringThicknessDialogFragment : DialogFragment() {
@@ -17,7 +17,10 @@ class StringThicknessDialogFragment : DialogFragment() {
     private var thickness: Float = 0f
 
     companion object {
-        fun newInstance(thickness: Float, listener: StringThicknessChangeListener) : StringThicknessDialogFragment {
+        fun newInstance(
+            thickness: Float,
+            listener: StringThicknessChangeListener
+        ): StringThicknessDialogFragment {
             val dialog = StringThicknessDialogFragment()
             dialog.setOnThicknessChangeListener(listener)
             dialog.setThickness(thickness)
@@ -46,15 +49,19 @@ class StringThicknessDialogFragment : DialogFragment() {
         unitsTextView?.text = getString(R.string.mm)
 
         return AlertDialog.Builder(requireActivity())
-                .setView(root).setMessage(R.string.string_thickness_dialog_title)
-                .setPositiveButton(R.string.ok
-                ) { _, _ ->
-                    listener?.setStringThickness(stringsDiameterInputFieldDialog?.text.toString().toFloat())
-                }
-                .setNegativeButton(R.string.cancel
-                ) { _, _ ->
-                    dismiss()
-                }.create()
+            .setView(root).setMessage(R.string.string_thickness_dialog_title)
+            .setPositiveButton(
+                R.string.ok
+            ) { _, _ ->
+                listener?.setStringThickness(
+                    stringsDiameterInputFieldDialog?.text.toString().toFloat()
+                )
+            }
+            .setNegativeButton(
+                R.string.cancel
+            ) { _, _ ->
+                dismiss()
+            }.create()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

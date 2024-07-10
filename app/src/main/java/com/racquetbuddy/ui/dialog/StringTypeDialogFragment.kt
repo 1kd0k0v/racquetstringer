@@ -2,12 +2,12 @@ package com.racquetbuddy.ui.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
-import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.utils.StringDataArrayUtils
 
@@ -19,7 +19,10 @@ class StringTypeDialogFragment : DialogFragment() {
     private var defaultSelection: Int = 0
 
     companion object {
-        fun newInstance(selection: Int, listener: OnStringTypeChangeListener): StringTypeDialogFragment {
+        fun newInstance(
+            selection: Int,
+            listener: OnStringTypeChangeListener
+        ): StringTypeDialogFragment {
             val dialog = StringTypeDialogFragment()
             dialog.setOnTypeChangeListener(listener)
             dialog.setDefaultSelection(selection)
@@ -58,18 +61,21 @@ class StringTypeDialogFragment : DialogFragment() {
         radioGroup?.check(selected)
 
         radioGroup?.setOnCheckedChangeListener { _, id ->
-            selected = id}
+            selected = id
+        }
 
         return AlertDialog.Builder(requireActivity())
-                .setView(root).setMessage(R.string.dialog_title_string_type)
-                .setPositiveButton(R.string.ok
-                ) { _, _ ->
-                    onStringTypeChangeListener?.onStringTypeChange(selected)
-                }
-                .setNegativeButton(R.string.cancel
-                ) { _, _ ->
-                    dismiss()
-                }.create()
+            .setView(root).setMessage(R.string.dialog_title_string_type)
+            .setPositiveButton(
+                R.string.ok
+            ) { _, _ ->
+                onStringTypeChangeListener?.onStringTypeChange(selected)
+            }
+            .setNegativeButton(
+                R.string.cancel
+            ) { _, _ ->
+                dismiss()
+            }.create()
     }
 }
 

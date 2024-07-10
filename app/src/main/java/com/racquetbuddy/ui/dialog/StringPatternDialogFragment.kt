@@ -2,12 +2,12 @@ package com.racquetbuddy.ui.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
-import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.utils.StringDataArrayUtils
 
@@ -19,7 +19,10 @@ class StringPatternDialogFragment : DialogFragment() {
     private var defaultSelection: Int = 0
 
     companion object {
-        fun newInstance(selection: Int, listener: OnStringPatternChangeListener): StringPatternDialogFragment {
+        fun newInstance(
+            selection: Int,
+            listener: OnStringPatternChangeListener
+        ): StringPatternDialogFragment {
             val dialog = StringPatternDialogFragment()
             dialog.setOnStringPatternChangeListener(listener)
             dialog.setDefaultSelection(selection)
@@ -58,18 +61,21 @@ class StringPatternDialogFragment : DialogFragment() {
         radioGroup?.check(selected)
 
         radioGroup?.setOnCheckedChangeListener { _, id ->
-            selected = id}
+            selected = id
+        }
 
         return AlertDialog.Builder(requireActivity())
-                .setView(root).setMessage(R.string.dialog_title_string_pattern)
-                .setPositiveButton(R.string.ok
-                ) { _, _ ->
-                    onStringTypeChangeListener?.onChange(selected)
-                }
-                .setNegativeButton(R.string.cancel
-                ) { _, _ ->
-                    dismiss()
-                }.create()
+            .setView(root).setMessage(R.string.dialog_title_string_pattern)
+            .setPositiveButton(
+                R.string.ok
+            ) { _, _ ->
+                onStringTypeChangeListener?.onChange(selected)
+            }
+            .setNegativeButton(
+                R.string.cancel
+            ) { _, _ ->
+                dismiss()
+            }.create()
     }
 }
 

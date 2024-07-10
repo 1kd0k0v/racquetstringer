@@ -2,8 +2,6 @@ package com.racquetbuddy.ui.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
-import androidx.appcompat.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -12,6 +10,8 @@ import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.ui.OnRefreshViewsListener
 import com.racquetbuddy.utils.NumberFormatUtils
@@ -33,7 +33,13 @@ class HeadSizeDialogFragment : DialogFragment() {
         val unitsSpinner = root.findViewById<Spinner>(R.id.headUnitsSpinner) as Spinner
         val headSizeInputEditText = root.findViewById<EditText>(R.id.tiet_head_size)
 
-        headSizeInputEditText?.setText(NumberFormatUtils.formatNoTrailingZeros(SharedPrefsUtils.getRacquetHeadSize(requireActivity())))
+        headSizeInputEditText?.setText(
+            NumberFormatUtils.formatNoTrailingZeros(
+                SharedPrefsUtils.getRacquetHeadSize(
+                    requireActivity()
+                )
+            )
+        )
         headSizeInputEditText?.setSelection(headSizeInputEditText.text.length)
 
         if (SharedPrefsUtils.isHeadImperialUnits(requireActivity())) {
@@ -43,21 +49,26 @@ class HeadSizeDialogFragment : DialogFragment() {
         }
 
         val alert = AlertDialog.Builder(requireActivity())
-                .setView(root).setMessage(R.string.dialog_title_head_size)
-                .setPositiveButton(R.string.ok
-                ) { _, _ ->
-                    val isImperial = isImperial(unitsSpinner)
-                    SharedPrefsUtils.setHeadImperialUnits(requireActivity(), isImperial)
-                    SharedPrefsUtils.setRacquetHeadSize(requireActivity(), headSizeInputEditText?.text.toString().toDouble())
+            .setView(root).setMessage(R.string.dialog_title_head_size)
+            .setPositiveButton(
+                R.string.ok
+            ) { _, _ ->
+                val isImperial = isImperial(unitsSpinner)
+                SharedPrefsUtils.setHeadImperialUnits(requireActivity(), isImperial)
+                SharedPrefsUtils.setRacquetHeadSize(
+                    requireActivity(),
+                    headSizeInputEditText?.text.toString().toDouble()
+                )
 
-                    if (targetFragment is OnRefreshViewsListener) {
-                        (targetFragment as OnRefreshViewsListener).refreshViews()
-                    }
+                if (targetFragment is OnRefreshViewsListener) {
+                    (targetFragment as OnRefreshViewsListener).refreshViews()
                 }
-                .setNegativeButton(R.string.cancel
-                ) { _, _ ->
-                    dismiss()
-                }.create()
+            }
+            .setNegativeButton(
+                R.string.cancel
+            ) { _, _ ->
+                dismiss()
+            }.create()
 
         headSizeInputEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -76,15 +87,30 @@ class HeadSizeDialogFragment : DialogFragment() {
 
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                validate(unitsSpinner, headSizeInputEditText.text.toString(), alert, headSizeInputEditText)
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                validate(
+                    unitsSpinner,
+                    headSizeInputEditText.text.toString(),
+                    alert,
+                    headSizeInputEditText
+                )
             }
         }
 
         return alert
     }
 
-    private fun validate(unitsSpinner: Spinner, s: CharSequence?, alert: AlertDialog, headSizeInputEditText: EditText) {
+    private fun validate(
+        unitsSpinner: Spinner,
+        s: CharSequence?,
+        alert: AlertDialog,
+        headSizeInputEditText: EditText
+    ) {
         val isImperial = isImperial(unitsSpinner)
         if (s == null || s.isEmpty() || !isValid(s.toString().toDouble(), isImperial)) {
             onInvalidInput(alert, isImperial, headSizeInputEditText)
@@ -97,9 +123,19 @@ class HeadSizeDialogFragment : DialogFragment() {
     private fun onInvalidInput(alert: AlertDialog, isImperial: Boolean, headSizeInput: EditText) {
         alert.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
         if (isImperial) {
-            headSizeInput.error = getString(R.string.head_size_error_range, MIN_IMPERIAL, MAX_IMPERIAL, getString(R.string.square_inch))
+            headSizeInput.error = getString(
+                R.string.head_size_error_range,
+                MIN_IMPERIAL,
+                MAX_IMPERIAL,
+                getString(R.string.square_inch)
+            )
         } else {
-            headSizeInput.error = getString(R.string.head_size_error_range, MIN_METRIC, MAX_METRIC, getString(R.string.square_cm))
+            headSizeInput.error = getString(
+                R.string.head_size_error_range,
+                MIN_METRIC,
+                MAX_METRIC,
+                getString(R.string.square_cm)
+            )
         }
     }
 
@@ -111,7 +147,7 @@ class HeadSizeDialogFragment : DialogFragment() {
         }
     }
 
-    private fun isImperial(spinner: Spinner) : Boolean = spinner.selectedItemId == 0L
+    private fun isImperial(spinner: Spinner): Boolean = spinner.selectedItemId == 0L
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
