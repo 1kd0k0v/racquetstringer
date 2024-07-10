@@ -7,7 +7,7 @@ import com.racquetbuddy.audioanalyzer.SamplingLoop.SoundAnalyzerCallback
 import com.racquetbuddy.utils.SharedPrefsUtils
 import java.util.concurrent.ArrayBlockingQueue
 
-class SamplingManager private constructor(){
+class SamplingManager private constructor() {
 
     private val samplingThreads = ArrayList<Thread>()
 
@@ -15,13 +15,18 @@ class SamplingManager private constructor(){
 
     private val emptyAudioSamples = ByteArray(1024)
 
-    private object Holder {val INSTANCE = SamplingManager()}
-
-    companion object {
-        val instance: SamplingManager by lazy {Holder.INSTANCE}
+    private object Holder {
+        val INSTANCE = SamplingManager()
     }
 
-    private fun getSamplingLoopInstance(activity: Activity, visualizerFrameLayout: WaveVisualizer?): SamplingLoop {
+    companion object {
+        val instance: SamplingManager by lazy { Holder.INSTANCE }
+    }
+
+    private fun getSamplingLoopInstance(
+        activity: Activity,
+        visualizerFrameLayout: WaveVisualizer?
+    ): SamplingLoop {
 
         val queueCapacity = SharedPrefsUtils.getQueueCapacity(activity)
 
@@ -33,32 +38,20 @@ class SamplingManager private constructor(){
         val configuredOccurrenceCount = SharedPrefsUtils.getOccurrenceCount(activity)
 
         return SamplingLoop(
-                SoundAnalyzerCallback { frequency, db, spectrogram ->
+            SoundAnalyzerCallback { frequency, db, spectrogram ->
 
-                    if (frequency > minFreq && frequency < maxFreq && db > dbThreshold) {
-                        val count = frequencyQueue.count { it > frequency - 2 && it < frequency + 2 }
-                        if (count >= configuredOccurrenceCount) {
-                            activity.runOnUiThread {
-                                for (listener in frequencyListeners) {
-                                    listener.getFrequency(frequency.toFloat())
-                                }
-
-                                if (spectrogram != null && visualizerFrameLayout != null) {
-                                    visualizerFrameLayout.setRawAudioBytes(spectrogram)
-                                }
+                if (frequency > minFreq && frequency < maxFreq && db > dbThreshold) {
+                    val count = frequencyQueue.count { it > frequency - 2 && it < frequency + 2 }
+                    if (count >= configuredOccurrenceCount) {
+                        activity.runOnUiThread {
+                            for (listener in frequencyListeners) {
+                                listener.getFrequency(frequency.toFloat())
                             }
-                        } else {
+
                             if (spectrogram != null && visualizerFrameLayout != null) {
-                                activity.runOnUiThread {
-                                    visualizerFrameLayout.setRawAudioBytes(emptyAudioSamples)
-                                }
+                                visualizerFrameLayout.setRawAudioBytes(spectrogram)
                             }
                         }
-
-                        if (frequencyQueue.size == queueCapacity) {
-                            frequencyQueue.remove()
-                        }
-                        frequencyQueue.add(frequency)
                     } else {
                         if (spectrogram != null && visualizerFrameLayout != null) {
                             activity.runOnUiThread {
@@ -66,7 +59,20 @@ class SamplingManager private constructor(){
                             }
                         }
                     }
-                }, activity.resources)
+
+                    if (frequencyQueue.size == queueCapacity) {
+                        frequencyQueue.remove()
+                    }
+                    frequencyQueue.add(frequency)
+                } else {
+                    if (spectrogram != null && visualizerFrameLayout != null) {
+                        activity.runOnUiThread {
+                            visualizerFrameLayout.setRawAudioBytes(emptyAudioSamples)
+                        }
+                    }
+                }
+            }, activity.resources
+        )
     }
 
     fun startSampling(activity: Activity, visualizerFrameLayout: WaveVisualizer?) {

@@ -2,13 +2,24 @@ package com.racquetbuddy.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.preference.SwitchPreference
-import androidx.preference.PreferenceFragmentCompat
 import android.view.View
 import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import com.racquetbuddy.racquetstringer.BuildConfig
 import com.racquetbuddy.racquetstringer.R
-import com.racquetbuddy.ui.dialog.*
+import com.racquetbuddy.ui.dialog.HeadSizeDialogFragment
+import com.racquetbuddy.ui.dialog.OnChangeListener
+import com.racquetbuddy.ui.dialog.OnStringPatternChangeListener
+import com.racquetbuddy.ui.dialog.OnStringTypeChangeListener
+import com.racquetbuddy.ui.dialog.OnStringersStyleChangeListener
+import com.racquetbuddy.ui.dialog.StringOpeningSizeDialogFragment
+import com.racquetbuddy.ui.dialog.StringPatternDialogFragment
+import com.racquetbuddy.ui.dialog.StringThicknessChangeListener
+import com.racquetbuddy.ui.dialog.StringThicknessDialogFragment
+import com.racquetbuddy.ui.dialog.StringTypeDialogFragment
+import com.racquetbuddy.ui.dialog.StringersStyleDialogFragment
+import com.racquetbuddy.ui.dialog.UnitsDialogFragment
 import com.racquetbuddy.utils.NumberFormatUtils
 import com.racquetbuddy.utils.SharedPrefsUtils
 import com.racquetbuddy.utils.StringDataArrayUtils
@@ -30,18 +41,21 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     private fun initStringPattern() {
         val stringPatternPreference = findPreference("pref_key_string_pattern") as Preference?
         if (stringPatternPreference != null) {
-            stringPatternPreference.summary = StringDataArrayUtils.stringPatternArrayList[SharedPrefsUtils.getStringPattern(requireActivity())].name
+            stringPatternPreference.summary =
+                StringDataArrayUtils.stringPatternArrayList[SharedPrefsUtils.getStringPattern(
+                    requireActivity()
+                )].name
             stringPatternPreference.setOnPreferenceClickListener {
                 val dialog =
-                        StringPatternDialogFragment.newInstance(
-                                SharedPrefsUtils.getStringPattern(requireActivity()),
-                                object : OnStringPatternChangeListener {
-                                    override fun onChange(stringPattern: Int) {
-                                        SharedPrefsUtils.setStringPattern(requireActivity(), stringPattern)
-                                        refreshViews()
-                                    }
-                                }
-                        )
+                    StringPatternDialogFragment.newInstance(
+                        SharedPrefsUtils.getStringPattern(requireActivity()),
+                        object : OnStringPatternChangeListener {
+                            override fun onChange(stringPattern: Int) {
+                                SharedPrefsUtils.setStringPattern(requireActivity(), stringPattern)
+                                refreshViews()
+                            }
+                        }
+                    )
                 dialog.setTargetFragment(this, 0)
                 fragmentManager?.let { dialog.show(it, "STRING_PATTERN") }
                 return@setOnPreferenceClickListener true
@@ -52,18 +66,24 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     private fun initStringersStyle() {
         val stringerStylePreference = findPreference("pref_key_stringer_style") as Preference?
         if (stringerStylePreference != null) {
-            stringerStylePreference.summary = StringDataArrayUtils.stringingTypeArrayList[SharedPrefsUtils.getStringersStyle(requireActivity())].name
+            stringerStylePreference.summary =
+                StringDataArrayUtils.stringingTypeArrayList[SharedPrefsUtils.getStringersStyle(
+                    requireActivity()
+                )].name
             stringerStylePreference.setOnPreferenceClickListener {
                 val dialog =
-                        StringersStyleDialogFragment.newInstance(
-                                SharedPrefsUtils.getStringersStyle(requireActivity()),
-                                object : OnStringersStyleChangeListener {
-                                    override fun onChange(stringersStyle: Int) {
-                                        SharedPrefsUtils.setStringersStyle(requireActivity(), stringersStyle)
-                                        refreshViews()
-                                    }
-                                }
-                        )
+                    StringersStyleDialogFragment.newInstance(
+                        SharedPrefsUtils.getStringersStyle(requireActivity()),
+                        object : OnStringersStyleChangeListener {
+                            override fun onChange(stringersStyle: Int) {
+                                SharedPrefsUtils.setStringersStyle(
+                                    requireActivity(),
+                                    stringersStyle
+                                )
+                                refreshViews()
+                            }
+                        }
+                    )
                 dialog.setTargetFragment(this, 0)
                 fragmentManager?.let { dialog.show(it, "STRINGER_STYLE") }
                 return@setOnPreferenceClickListener true
@@ -74,18 +94,21 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     private fun initFrameAndGrommets() {
         val framePreference = findPreference("pref_key_string_opening_size") as Preference?
         if (framePreference != null) {
-            framePreference.summary = StringDataArrayUtils.stringOpeningSizeArrayList[SharedPrefsUtils.getFrame(requireActivity())].shortName
+            framePreference.summary =
+                StringDataArrayUtils.stringOpeningSizeArrayList[SharedPrefsUtils.getFrame(
+                    requireActivity()
+                )].shortName
             framePreference.setOnPreferenceClickListener {
                 val dialog =
-                        StringOpeningSizeDialogFragment.newInstance(
-                                SharedPrefsUtils.getFrame(requireActivity()),
-                                object : OnChangeListener {
-                                    override fun onChange(newValue: Int) {
-                                        SharedPrefsUtils.setStringOpeningSize(requireActivity(), newValue)
-                                        refreshViews()
-                                    }
-                                }
-                        )
+                    StringOpeningSizeDialogFragment.newInstance(
+                        SharedPrefsUtils.getFrame(requireActivity()),
+                        object : OnChangeListener {
+                            override fun onChange(newValue: Int) {
+                                SharedPrefsUtils.setStringOpeningSize(requireActivity(), newValue)
+                                refreshViews()
+                            }
+                        }
+                    )
                 dialog.setTargetFragment(this, 0)
                 fragmentManager?.let { it1 -> dialog.show(it1, "STRING_OPENING_SIZE") }
                 return@setOnPreferenceClickListener true
@@ -115,7 +138,7 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         (findPreference("pref_key_share") as androidx.preference.Preference?)?.setOnPreferenceClickListener {
             shareTheApp()
             return@setOnPreferenceClickListener true
-        } 
+        }
 
         val feedback = findPreference("pref_key_feedback") as Preference?
         feedback?.setOnPreferenceClickListener {
@@ -148,8 +171,10 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     private fun shareTheApp() {
         val sendIntent = Intent()
         sendIntent.action = Intent.ACTION_SEND
-        sendIntent.putExtra(Intent.EXTRA_TEXT,
-                "Hey check out my app at: https://play.google.com/store/apps/details?id=" + requireActivity().packageName)
+        sendIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            "Hey check out my app at: https://play.google.com/store/apps/details?id=" + requireActivity().packageName
+        )
         sendIntent.type = "text/plain"
         startActivity(sendIntent)
     }
@@ -160,13 +185,17 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
 
             val size = SharedPrefsUtils.getRacquetHeadSize(requireActivity())
             if (SharedPrefsUtils.isHeadImperialUnits(requireActivity())) {
-                keyHeadSize.summary = getString(R.string.value_space_unit,
-                        NumberFormatUtils.round(size),
-                        getString(R.string.square_inch))
+                keyHeadSize.summary = getString(
+                    R.string.value_space_unit,
+                    NumberFormatUtils.round(size),
+                    getString(R.string.square_inch)
+                )
             } else {
-                keyHeadSize.summary = getString(R.string.value_space_unit,
-                        NumberFormatUtils.round(size),
-                        getString(R.string.square_cm))
+                keyHeadSize.summary = getString(
+                    R.string.value_space_unit,
+                    NumberFormatUtils.round(size),
+                    getString(R.string.square_cm)
+                )
             }
 
             keyHeadSize.setOnPreferenceClickListener {
@@ -188,18 +217,22 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
                 stringsThicknessPreference.setTitle(R.string.thickness)
             }
 
-            stringsThicknessPreference.summary = getString(R.string.value_space_unit,
-                    SharedPrefsUtils.getStringsThickness(requireActivity()).toString(),
-                    getString(R.string.mm))
+            stringsThicknessPreference.summary = getString(
+                R.string.value_space_unit,
+                SharedPrefsUtils.getStringsThickness(requireActivity()).toString(),
+                getString(R.string.mm)
+            )
             stringsThicknessPreference.setOnPreferenceClickListener {
                 val dialog =
-                        StringThicknessDialogFragment.newInstance(SharedPrefsUtils.getStringsThickness(requireActivity()),
-                        object : StringThicknessChangeListener{
-                    override fun setStringThickness(thickness: Float) {
-                        SharedPrefsUtils.setStringsThickness(requireActivity(), thickness)
-                        refreshViews()
-                    }
-                })
+                    StringThicknessDialogFragment.newInstance(SharedPrefsUtils.getStringsThickness(
+                        requireActivity()
+                    ),
+                        object : StringThicknessChangeListener {
+                            override fun setStringThickness(thickness: Float) {
+                                SharedPrefsUtils.setStringsThickness(requireActivity(), thickness)
+                                refreshViews()
+                            }
+                        })
                 dialog.setTargetFragment(this, 0)
                 fragmentManager?.let { it1 -> dialog.show(it1, "STRING_THICKNESS") }
                 return@setOnPreferenceClickListener true
@@ -217,18 +250,22 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
                 stringTypePreference.setTitle(R.string.string_type)
             }
 
-            stringTypePreference.summary = getString(StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(requireActivity())].shortName)
+            stringTypePreference.summary = getString(
+                StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getStringType(
+                    requireActivity()
+                )].shortName
+            )
             stringTypePreference.setOnPreferenceClickListener {
                 val dialog =
-                        StringTypeDialogFragment.newInstance(
-                                SharedPrefsUtils.getStringType(requireActivity()),
-                                object : OnStringTypeChangeListener {
-                                    override fun onStringTypeChange(stringType: Int) {
-                                        SharedPrefsUtils.setStringType(requireActivity(), stringType)
-                                        refreshViews()
-                                    }
-                                }
-                        )
+                    StringTypeDialogFragment.newInstance(
+                        SharedPrefsUtils.getStringType(requireActivity()),
+                        object : OnStringTypeChangeListener {
+                            override fun onStringTypeChange(stringType: Int) {
+                                SharedPrefsUtils.setStringType(requireActivity(), stringType)
+                                refreshViews()
+                            }
+                        }
+                    )
                 dialog.setTargetFragment(this, 0)
                 fragmentManager?.let { it1 -> dialog.show(it1, "STRING_TYPE") }
                 return@setOnPreferenceClickListener true
@@ -239,27 +276,34 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
     private fun initCrossStringsThicknessPreference() {
         val preference = findPreference("pref_key_cross_string_thickness") as Preference?
         if (preference != null) {
-           if (SharedPrefsUtils.isStringHybrid(requireContext())) {
-               preference.summary = getString(R.string.value_space_unit,
-                       SharedPrefsUtils.getCrossStringsThickness(requireActivity()).toString(),
-                       getString(R.string.mm))
-               preference.setOnPreferenceClickListener {
-                   val dialog =
-                           StringThicknessDialogFragment.newInstance(SharedPrefsUtils.getCrossStringsThickness(requireActivity()),
-                                   object : StringThicknessChangeListener {
-                       override fun setStringThickness(thickness: Float) {
-                           SharedPrefsUtils.setCrossStringsThickness(requireActivity(), thickness)
-                           refreshViews()
-                       }
-                   })
-                   dialog.setTargetFragment(this, 0)
-                   fragmentManager?.let { dialog.show(it, "STRING_THICKNESS") }
-                   return@setOnPreferenceClickListener true
-               }
-               preference.isVisible = true
-           } else {
-               preference.isVisible = false
-           }
+            if (SharedPrefsUtils.isStringHybrid(requireContext())) {
+                preference.summary = getString(
+                    R.string.value_space_unit,
+                    SharedPrefsUtils.getCrossStringsThickness(requireActivity()).toString(),
+                    getString(R.string.mm)
+                )
+                preference.setOnPreferenceClickListener {
+                    val dialog =
+                        StringThicknessDialogFragment.newInstance(SharedPrefsUtils.getCrossStringsThickness(
+                            requireActivity()
+                        ),
+                            object : StringThicknessChangeListener {
+                                override fun setStringThickness(thickness: Float) {
+                                    SharedPrefsUtils.setCrossStringsThickness(
+                                        requireActivity(),
+                                        thickness
+                                    )
+                                    refreshViews()
+                                }
+                            })
+                    dialog.setTargetFragment(this, 0)
+                    fragmentManager?.let { dialog.show(it, "STRING_THICKNESS") }
+                    return@setOnPreferenceClickListener true
+                }
+                preference.isVisible = true
+            } else {
+                preference.isVisible = false
+            }
         }
     }
 
@@ -267,16 +311,25 @@ class SettingsFragment : PreferenceFragmentCompat(), OnRefreshViewsListener {
         val stringTypePreference = findPreference("pref_key_cross_string_type") as Preference?
         if (stringTypePreference != null) {
             if (SharedPrefsUtils.isStringHybrid(requireContext())) {
-                stringTypePreference.summary = getString(StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(requireActivity())].shortName)
+                stringTypePreference.summary = getString(
+                    StringDataArrayUtils.stringTypesArrayList[SharedPrefsUtils.getCrossStringType(
+                        requireActivity()
+                    )].shortName
+                )
                 stringTypePreference.setOnPreferenceClickListener {
                     val dialog =
-                            StringTypeDialogFragment.newInstance(SharedPrefsUtils.getCrossStringType(requireActivity()),
+                        StringTypeDialogFragment.newInstance(SharedPrefsUtils.getCrossStringType(
+                            requireActivity()
+                        ),
                             object : OnStringTypeChangeListener {
-                        override fun onStringTypeChange(stringType: Int) {
-                            SharedPrefsUtils.setCrossStringType(requireActivity(), stringType)
-                            refreshViews()
-                        }
-                    })
+                                override fun onStringTypeChange(stringType: Int) {
+                                    SharedPrefsUtils.setCrossStringType(
+                                        requireActivity(),
+                                        stringType
+                                    )
+                                    refreshViews()
+                                }
+                            })
                     dialog.setTargetFragment(this, 0)
                     fragmentManager?.let { it1 -> dialog.show(it1, "STRING_TYPE") }
                     return@setOnPreferenceClickListener true

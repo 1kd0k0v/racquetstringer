@@ -14,6 +14,7 @@
  */
 
 package com.racquetbuddy.audioanalyzer;
+
 import android.content.res.Resources;
 import android.media.MediaRecorder;
 import android.util.Log;
@@ -47,8 +48,9 @@ class AnalyzerParameters {
 
     String[] audioSourceNames;
     int[] audioSourceIDs;
+
     private void getAudioSourceNameFromIdPrepare(Resources res) {
-        audioSourceNames   = res.getStringArray(R.array.audio_source);
+        audioSourceNames = res.getStringArray(R.array.audio_source);
         String[] sasid = res.getStringArray(R.array.audio_source_id);
         audioSourceIDs = new int[audioSourceNames.length];
         for (int i = 0; i < audioSourceNames.length; i++) {
@@ -65,7 +67,7 @@ class AnalyzerParameters {
             }
         }
         Log.i("AnalyzerParameters", "getAudioSourceName(): non-standard entry.");
-        return ((Integer)(id)).toString();
+        return ((Integer) (id)).toString();
     }
 
     String getAudioSourceName() {

@@ -32,12 +32,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    class MainPagerAdapter(context: Context, fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+    class MainPagerAdapter(context: Context, fragmentManager: FragmentManager) :
+        FragmentStatePagerAdapter(fragmentManager) {
 
         private val fragmentHashMap = HashMap<Int, Fragment>()
 
-        private val tabTitles = arrayOf(context.getString(R.string.measure),
-                context.getString(R.string.action_settings))
+        private val tabTitles = arrayOf(
+            context.getString(R.string.measure),
+            context.getString(R.string.action_settings)
+        )
 
         override fun getItem(position: Int): Fragment {
             when (position) {

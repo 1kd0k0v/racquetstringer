@@ -49,7 +49,7 @@ class CalibrationLoad {
             while (true) {
                 line = br.readLine();
                 if (line == null) break;
-                lineCount ++;
+                lineCount++;
                 line = line.trim();
                 if (line.length() == 0) {  // skip empty line
                     continue;
@@ -62,7 +62,7 @@ class CalibrationLoad {
                         Log.w(TAG, "Fail to parse line " + lineCount + " :" + line);
                         continue;
                     }
-                    freqList       .add(Double.valueOf(strs[0]));
+                    freqList.add(Double.valueOf(strs[0]));
                     amplitudeDBList.add(Double.valueOf(strs[1]));
                 } else if (line.charAt(0) == '*') {  // Dayton Audio txt/cal or miniDSP cal file
                     // parse Only the Dayton Audio header:
@@ -97,15 +97,15 @@ class CalibrationLoad {
 
             freq = new double[freqList.size()];
             gain = new double[freqList.size()];
-            Iterator itr  = freqList.iterator();
+            Iterator itr = freqList.iterator();
             Iterator itr2 = amplitudeDBList.iterator();
-            for (int j=0; itr.hasNext(); j++ ) {
-                freq[j] = (double)itr.next();
-                gain[j] = (double)itr2.next();
+            for (int j = 0; itr.hasNext(); j++) {
+                freq[j] = (double) itr.next();
+                gain[j] = (double) itr2.next();
             }
         } catch (IOException e) {
             Log.e(TAG, "Fail to read file: " + calibPath);
         }
-        name = calibPath.substring(calibPath.lastIndexOf("/")+1);
+        name = calibPath.substring(calibPath.lastIndexOf("/") + 1);
     }
 }

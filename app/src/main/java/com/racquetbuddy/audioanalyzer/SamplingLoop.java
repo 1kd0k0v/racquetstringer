@@ -26,12 +26,13 @@ import android.util.Log;
 
 /**
  * Read a snapshot of audio data at a regular interval, and compute the FFT
- * @author suhler@google.com
- *         bewantbe@gmail.com
- * Ref:
- *   https://developer.android.com/guide/topics/media/mediarecorder.html#example
- *   https://developer.android.com/reference/android/media/audiofx/AutomaticGainControl.html
  *
+ * @author suhler@google.com
+ * bewantbe@gmail.com
+ * Ref:
+ * https://developer.android.com/guide/topics/media/mediarecorder.html#example
+ * https://developer.android.com/reference/android/media/audiofx/AutomaticGainControl.html
+ * <p>
  * TODO:
  *   See also: High-Performance Audio
  *   https://developer.android.com/ndk/guides/audio/index.html
@@ -69,9 +70,9 @@ public class SamplingLoop extends Thread {
         if (_calibLoad.freq == null || _calibLoad.freq.length == 0 || _analyzerParam == null) {
             return;
         }
-        double[] freqTick = new double[_analyzerParam.fftLen/2 + 1];
+        double[] freqTick = new double[_analyzerParam.fftLen / 2 + 1];
         for (int i = 0; i < freqTick.length; i++) {
-            freqTick[i] = (double)i / _analyzerParam.fftLen * _analyzerParam.sampleRate;
+            freqTick[i] = (double) i / _analyzerParam.fftLen * _analyzerParam.sampleRate;
         }
         _analyzerParam.micGainDB = AnalyzerUtil.interpLinear(_calibLoad.freq, _calibLoad.gain, freqTick);
         _analyzerParam.calibName = _calibLoad.name;
@@ -103,11 +104,11 @@ public class SamplingLoop extends Thread {
              inferior to the total recording buffer size.
          */
         // Determine size of buffers for AudioRecord and AudioRecord::read()
-        int readChunkSize    = analyzerParam.hopLen;  // Every hopLen one fft result (overlapped analyze window)
-        readChunkSize        = Math.min(readChunkSize, 2048);  // read in a smaller chunk, hopefully smaller delay
-        int bufferSampleSize = Math.max(minBytes / analyzerParam.BYTE_OF_SAMPLE, analyzerParam.fftLen/2) * 2;
+        int readChunkSize = analyzerParam.hopLen;  // Every hopLen one fft result (overlapped analyze window)
+        readChunkSize = Math.min(readChunkSize, 2048);  // read in a smaller chunk, hopefully smaller delay
+        int bufferSampleSize = Math.max(minBytes / analyzerParam.BYTE_OF_SAMPLE, analyzerParam.fftLen / 2) * 2;
         // tolerate up to about 1 sec.
-        bufferSampleSize = (int)Math.ceil(1.0 * analyzerParam.sampleRate / bufferSampleSize) * bufferSampleSize;
+        bufferSampleSize = (int) Math.ceil(1.0 * analyzerParam.sampleRate / bufferSampleSize) * bufferSampleSize;
 
         // Use the mic with AGC turned off. e.g. VOICE_RECOGNITION for measurement
         // The buffer size here seems not relate to the delay.
@@ -137,8 +138,8 @@ public class SamplingLoop extends Thread {
                 "  source          : " + analyzerParam.audioSourceId + "\n" +
                 String.format("  sample rate     : %d Hz (request %d Hz)\n", record.getSampleRate(), analyzerParam.sampleRate) +
                 String.format("  min buffer size : %d samples, %d Bytes\n", minBytes / analyzerParam.BYTE_OF_SAMPLE, minBytes) +
-                String.format("  buffer size     : %d samples, %d Bytes\n", bufferSampleSize, analyzerParam.BYTE_OF_SAMPLE*bufferSampleSize) +
-                String.format("  read chunk size : %d samples, %d Bytes\n", readChunkSize, analyzerParam.BYTE_OF_SAMPLE*readChunkSize) +
+                String.format("  buffer size     : %d samples, %d Bytes\n", bufferSampleSize, analyzerParam.BYTE_OF_SAMPLE * bufferSampleSize) +
+                String.format("  read chunk size : %d samples, %d Bytes\n", readChunkSize, analyzerParam.BYTE_OF_SAMPLE * readChunkSize) +
                 String.format("  FFT length      : %d\n", analyzerParam.fftLen) +
                 String.format("  nFFTAverage     : %d\n", analyzerParam.nFFTAverage));
         analyzerParam.sampleRate = record.getSampleRate();
@@ -155,8 +156,8 @@ public class SamplingLoop extends Thread {
         // use with care
         STFT stft = new STFT(analyzerParam);
         stft.setAWeighting(analyzerParam.isAWeighting);
-        if (spectrumDBcopy == null || spectrumDBcopy.length != analyzerParam.fftLen/2+1) {
-            spectrumDBcopy = new double[analyzerParam.fftLen/2+1];
+        if (spectrumDBcopy == null || spectrumDBcopy.length != analyzerParam.fftLen / 2 + 1) {
+            spectrumDBcopy = new double[analyzerParam.fftLen / 2 + 1];
         }
 
         RecorderMonitor recorderMonitor = new RecorderMonitor(analyzerParam.sampleRate, bufferSampleSize, "SamplingLoop::run()");
@@ -193,7 +194,7 @@ public class SamplingLoop extends Thread {
     }
 
     public interface SoundAnalyzerCallback {
-        void onSoundDataReceived(double frequency, double db, byte [] spectrogram);
+        void onSoundDataReceived(double frequency, double db, byte[] spectrogram);
     }
 
     public void finish() {

@@ -1,14 +1,24 @@
 package com.racquetbuddy.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.fragment.app.Fragment
 import com.racquetbuddy.racquetstringer.R
 import com.racquetbuddy.utils.SharedPrefsUtils
-import kotlinx.android.synthetic.main.fragment_configuration.*
+import kotlinx.android.synthetic.main.fragment_configuration.applyButton
+import kotlinx.android.synthetic.main.fragment_configuration.dbSeekBar
+import kotlinx.android.synthetic.main.fragment_configuration.dbTextView
+import kotlinx.android.synthetic.main.fragment_configuration.maxFreqSeekBar
+import kotlinx.android.synthetic.main.fragment_configuration.maxFreqTextView
+import kotlinx.android.synthetic.main.fragment_configuration.minFreqSeekBar
+import kotlinx.android.synthetic.main.fragment_configuration.minFreqTextView
+import kotlinx.android.synthetic.main.fragment_configuration.occurenceCountSeekBar
+import kotlinx.android.synthetic.main.fragment_configuration.occurrenceCountTextView
+import kotlinx.android.synthetic.main.fragment_configuration.queueCapacitySeekBar
+import kotlinx.android.synthetic.main.fragment_configuration.queueCapacityTextView
 
 class ConfigurationFragment : Fragment() {
     var minFreq = 0
@@ -17,8 +27,10 @@ class ConfigurationFragment : Fragment() {
     var occurrences = 0
     var queueCapacity = 0
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_configuration, container, false)
     }
 
@@ -67,7 +79,7 @@ class ConfigurationFragment : Fragment() {
         dbThreshold = SharedPrefsUtils.getDbThreshold(context!!).toInt()
         dbSeekBar.progress = dbThreshold + 600
         dbTextView.text = dbThreshold.toString()
-        dbSeekBar.setOnSeekBarChangeListener(object  : SeekBar.OnSeekBarChangeListener {
+        dbSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 dbTextView.text = (progress - 600).toString()
                 dbThreshold = progress - 600

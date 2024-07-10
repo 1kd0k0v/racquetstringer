@@ -35,8 +35,7 @@ object SharedPrefsUtils {
     private const val KEY_IS_HYBRID_STRING = "KEY_IS_HYBRID_STRING"
 
 
-
-    private fun getEditor(context: Context) : SharedPreferences.Editor{
+    private fun getEditor(context: Context): SharedPreferences.Editor {
         return getSharedPreferences(context).edit()
     }
 
@@ -121,7 +120,10 @@ object SharedPrefsUtils {
     }
 
     fun getCrossStringsThickness(context: Context): Float {
-        return getSharedPreferences(context).getFloat(KEY_CROSS_STRING_THICKNESS, RacquetConstants.D)
+        return getSharedPreferences(context).getFloat(
+            KEY_CROSS_STRING_THICKNESS,
+            RacquetConstants.D
+        )
     }
 
     fun setCrossStringsThickness(context: Context, stringsDiameter: Float) {
@@ -173,7 +175,10 @@ object SharedPrefsUtils {
     }
 
     fun getDbThreshold(context: Context): Float {
-        return getSharedPreferences(context).getFloat(KEY_DB_THRESHOLD, RacquetConstants.DB_THRESHOLD)
+        return getSharedPreferences(context).getFloat(
+            KEY_DB_THRESHOLD,
+            RacquetConstants.DB_THRESHOLD
+        )
     }
 
     fun setOccurrenceCount(context: Context, count: Int) {
@@ -181,7 +186,10 @@ object SharedPrefsUtils {
     }
 
     fun getOccurrenceCount(context: Context): Int {
-        return getSharedPreferences(context).getInt(KEY_OCCURENCE_COUNT, RacquetConstants.OCCURRENCE_COUNT)
+        return getSharedPreferences(context).getInt(
+            KEY_OCCURENCE_COUNT,
+            RacquetConstants.OCCURRENCE_COUNT
+        )
     }
 
     fun setQueueCapacity(context: Context, capacity: Int) {
@@ -189,7 +197,10 @@ object SharedPrefsUtils {
     }
 
     fun getQueueCapacity(context: Context): Int {
-        return getSharedPreferences(context).getInt(KEY_QUEUE_CAPACITY, RacquetConstants.QUEUE_CAPACITY)
+        return getSharedPreferences(context).getInt(
+            KEY_QUEUE_CAPACITY,
+            RacquetConstants.QUEUE_CAPACITY
+        )
     }
 
     fun setStringHybrid(context: Context, hybrid: Boolean) {
