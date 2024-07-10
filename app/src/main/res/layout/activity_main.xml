@@ -13,7 +13,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
-            android:background="@color/background_light"
+            android:background="@color/colorAccent"
             app:tabTextColor="@android:color/black"
             app:tabIndicatorColor="@color/tab_indicator"
             android:layout_width="match_parent"

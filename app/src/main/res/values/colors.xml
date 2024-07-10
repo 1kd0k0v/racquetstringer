@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/background_light</color>
-    <color name="colorPrimaryDark">@color/background_dark</color>
+    <color name="colorPrimary">@color/av_light_blue</color>
+    <color name="colorPrimaryDark">@color/av_dark_blue</color>
     <color name="colorAccent">@color/tab_indicator</color>
     <color name="dark_blue_top">#0B1F4E</color>
     <color name="light_blue_bottom">#265194</color>
     <color name="light_green_circle">#2BBB67</color>
     <color name="pause_background_color">#3F2BBB67</color>
-    <color name="background_dark">#FFFFFF</color>
-    <color name="background_light">#FFFFFF</color>
     <color name="tab_indicator">#3F51B5</color>
     <color name="secondaryTextColor">#BB000000</color>
     <color name="headStartGradient">@color/colorAccent</color>
